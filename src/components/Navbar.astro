@@ -1,0 +1,249 @@
+---
+const navLinks = [
+  { label: 'Experience', href: '#experience' },
+  { label: 'Stack',      href: '#stack' },
+  { label: 'Projects',   href: '#projects' },
+  { label: 'Contact',    href: '#contact' },
+];
+---
+
+<header id="navbar" class="navbar">
+  <div class="navbar__inner">
+    <!-- Logo -->
+    <a href="/" class="navbar__logo" aria-label="AGLN.SEC — home">
+      <span class="navbar__logo-text">AGLN<span class="navbar__logo-dot">.</span>SEC</span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="navbar__links" aria-label="Main navigation">
+      {navLinks.map(link => (
+        <a href={link.href} class="navbar__link">{link.label}</a>
+      ))}
+    </nav>
+
+    <!-- CTA -->
+    <a
+      href="/resume.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn-magnetic btn-primary navbar__cta"
+      aria-label="Open resume PDF"
+    >
+      Resume
+    </a>
+
+    <!-- Mobile menu button -->
+    <button class="navbar__hamburger" aria-label="Open menu" aria-expanded="false" id="menu-btn">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile dropdown -->
+  <nav class="navbar__mobile" id="mobile-menu" aria-hidden="true">
+    {navLinks.map(link => (
+      <a href={link.href} class="navbar__mobile-link">{link.label}</a>
+    ))}
+    <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" class="btn-magnetic btn-primary" style="margin-top:0.5rem;">
+      Resume
+    </a>
+  </nav>
+</header>
+
+<style>
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: var(--navbar-h);
+    transition: background 0.35s ease, backdrop-filter 0.35s ease, border-bottom 0.35s ease;
+    border-bottom: 1px solid transparent;
+  }
+
+  .navbar.scrolled {
+    background: rgba(13, 21, 38, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom-color: var(--color-border);
+  }
+
+  .navbar__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  .navbar__logo {
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .navbar__logo-text {
+    font-family: var(--font-mono);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text);
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+  .navbar__logo-text:hover { color: var(--color-accent); }
+  .navbar__logo-dot { color: var(--color-accent); }
+
+  .navbar__links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-left: auto;
+  }
+
+  .navbar__link {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.2s;
+  }
+  .navbar__link::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-accent);
+    transition: width 0.25s ease;
+    border-radius: 2px;
+  }
+  .navbar__link:hover { color: var(--color-text); }
+  .navbar__link:hover::after { width: 100%; }
+  .navbar__link.active { color: var(--color-text); }
+  .navbar__link.active::after { width: 100%; }
+
+  .navbar__cta {
+    font-size: 0.875rem;
+    padding: 0.55rem 1.25rem;
+    flex-shrink: 0;
+  }
+
+  /* Hamburger */
+  .navbar__hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    margin-left: auto;
+  }
+  .navbar__hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--color-text);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .navbar__hamburger[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .navbar__hamburger[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+  .navbar__hamburger[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Mobile menu */
+  .navbar__mobile {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    padding: 1rem 1.5rem 1.5rem;
+    background: rgba(13, 21, 38, 0.97);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid var(--color-border);
+  }
+  .navbar__mobile.open { display: flex; }
+
+  .navbar__mobile-link {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    text-decoration: none;
+    padding: 0.6rem 0;
+    width: 100%;
+    transition: color 0.2s;
+  }
+  .navbar__mobile-link:hover { color: var(--color-text); }
+
+  @media (max-width: 768px) {
+    .navbar__links,
+    .navbar__cta { display: none; }
+    .navbar__hamburger { display: flex; }
+    .navbar { height: auto; }
+    .navbar__inner { height: var(--navbar-h); }
+  }
+</style>
+
+<script>
+  const navbar = document.getElementById('navbar')!;
+  const menuBtn = document.getElementById('menu-btn')!;
+  const mobileMenu = document.getElementById('mobile-menu')!;
+
+  // Scroll: transparent → frosted
+  const handleScroll = () => {
+    if (window.scrollY > 30) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  };
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
+
+  // Active link tracking
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.navbar__link');
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.classList.toggle(
+              'active',
+              link.getAttribute('href') === `#${entry.target.id}`
+            );
+          });
+        }
+      });
+    },
+    { threshold: 0.4 }
+  );
+  sections.forEach(s => observer.observe(s));
+
+  // Mobile menu toggle
+  menuBtn.addEventListener('click', () => {
+    const isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
+    menuBtn.setAttribute('aria-expanded', String(!isOpen));
+    mobileMenu.classList.toggle('open', !isOpen);
+    mobileMenu.setAttribute('aria-hidden', String(isOpen));
+  });
+
+  // Close mobile menu on link click
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      menuBtn.setAttribute('aria-expanded', 'false');
+      mobileMenu.classList.remove('open');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+    });
+  });
+</script>

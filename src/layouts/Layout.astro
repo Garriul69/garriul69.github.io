@@ -1,0 +1,120 @@
+---
+import Navbar from '@/components/Navbar.astro';
+import '@/styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = 'Andy Gibran López Nambo — IT Infrastructure & Security Engineer',
+  description = 'Securing and modernizing enterprise infrastructure from the endpoint up. Microsoft Intune, CrowdStrike, Entra ID, Autopilot, PowerShell.',
+  ogImage = '/og.png',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://agln.sec');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Andy Gibran López Nambo" />
+
+    <!-- Open Graph -->
+    <meta property="og:title"       content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image"       content={ogImage} />
+    <meta property="og:url"         content={canonicalURL} />
+    <meta property="og:type"        content="website" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image"       content={ogImage} />
+
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Preconnect for Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <title>{title}</title>
+  </head>
+  <body>
+    <Navbar />
+    <main>
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="footer__inner">
+        <span class="footer__copy">
+          © 2026 Andy Gibran López Nambo. Secured by Design.
+        </span>
+        <div class="footer__links">
+          <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+          <a href="https://github.com/"      target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+          <a href="#" class="footer__link">SecurityBlog</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<!-- Lenis smooth scroll init -->
+<script>
+  import Lenis from 'lenis';
+
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+  });
+
+  function raf(time: number) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+
+  // Expose for GSAP ScrollTrigger integration later
+  (window as any).__lenis = lenis;
+</script>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--color-border);
+    padding: 1.5rem 1.5rem;
+  }
+  .footer__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer__copy {
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+  .footer__links {
+    display: flex;
+    gap: 1.5rem;
+  }
+  .footer__link {
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer__link:hover { color: var(--color-accent); }
+</style>
