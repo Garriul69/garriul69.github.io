@@ -27,6 +27,9 @@ jobs:
 
       - name: Build Astro site
         uses: withastro/action@v3
+        with:
+          # pnpm 11.x requires Node.js >= 22.13 (uses node:sqlite)
+          node-version: 22
         # The action auto-detects pnpm from pnpm-lock.yaml, installs,
         # runs `astro build`, and uploads ./dist as the Pages artifact.
 
