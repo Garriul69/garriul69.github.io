@@ -1,0 +1,981 @@
+---
+const impact = [
+  'Zero-touch deployment',
+  'Identity & MFA hardening',
+  'Next-gen EDR',
+  'Cloud-first collaboration',
+  'Documentation culture',
+];
+---
+
+<section id="experience" class="tl" aria-labelledby="tl-heading">
+  <!-- Intro (scrolls normally, then the viewport pins) -->
+  <div class="tl__intro">
+    <p class="tl__kicker">// EXPERIENCE</p>
+    <h2 id="tl-heading" class="tl__heading">The Transformation</h2>
+    <p class="tl__subtitle">
+      I find weaknesses in infrastructure and the way teams work — and turn them
+      into modern, secure, automated systems. Here's the trail.
+    </p>
+    <ul class="tl__impact" aria-label="Highlights">
+      {impact.map((item) => (
+        <li class="tl__impact-pill">{item}</li>
+      ))}
+    </ul>
+  </div>
+
+  <!-- Pinned viewport: horizontal rail on desktop, vertical on mobile -->
+  <div class="tl__viewport">
+    <div class="tl__bg" aria-hidden="true"></div>
+
+    <div class="tl__head" aria-hidden="true">
+      <div class="tl__head-left">
+        <span class="tl__head-label">EXPERIENCE</span>
+        <div class="tl__progress"><span class="tl__progress-fill"></span></div>
+      </div>
+      <nav class="tl__dots" aria-label="Jump to chapter"></nav>
+      <span class="tl__hint">SCROLL <span class="tl__hint-arrow">&rarr;</span></span>
+    </div>
+
+    <!-- Horizontal rail: vulnerable (red) network, secured (green) up to the scanner -->
+    <div class="tl__hrail" aria-hidden="true">
+      <span class="tl__hrail-secured"></span>
+      <span class="tl__hrail-scan"></span>
+    </div>
+
+    <div class="tl__track">
+      <div class="tl__rail" aria-hidden="true"></div>
+
+      <!-- Panel 1 · Foundations -->
+      <article class="tl__panel tl__panel--wide" style="--c: var(--color-muted)" data-label="Foundations">
+        <span class="tl__bignum-wrap" aria-hidden="true"><span class="tl__bignum">00</span></span>
+        <span class="tl__node"></span>
+        <div class="tl__panel-inner">
+          <header class="tl__panel-head">
+            <span class="tl__date">2018 — 2025</span>
+            <span class="tl__cluster">Foundations</span>
+          </header>
+          <h3 class="tl__title">From the classroom to the field</h3>
+          <ul class="tl__list">
+            <li><b>2018–2024</b> · B.Sc. Computer Systems Engineering · ITM <em>(Specialty: Information Security)</em></li>
+            <li><b>2022</b> · Project Analyst · TotalPlay — VBA automation for fiber-optic rollout</li>
+            <li><b>2023</b> · 1st place · internal CTF / OWASP challenge (with KPMG)</li>
+            <li><b>2023–2024</b> · Network &amp; Cybersecurity Specialist — AWS controls, ACLs, hardening</li>
+            <li><b>2025</b> · Cisco — Intro to Cybersecurity (Mar) · Ethical Hacker (Jun)</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Panel 2 · Starting point -->
+      <article class="tl__panel" style="--c: var(--color-danger)" data-label="The start">
+        <span class="tl__bignum-wrap" aria-hidden="true"><span class="tl__bignum">01</span></span>
+        <span class="tl__node"></span>
+        <div class="tl__panel-inner">
+          <header class="tl__panel-head">
+            <span class="tl__date">AUG 2025</span>
+            <span class="tl__cluster">The Transformation begins</span>
+          </header>
+          <h3 class="tl__title">What I walked into</h3>
+          <p class="tl__desc">A manufacturing company running almost entirely on manual processes.</p>
+          <ul class="tl__list tl__list--problems">
+            <li>Machines configured by hand</li>
+            <li>Traditional Active Directory, no central device management</li>
+            <li>Manual backups · licenses tracked in spreadsheets</li>
+            <li>No standardization · limited mailboxes</li>
+            <li>Legacy website · zero technical documentation</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Panel 3 · Chapter 1 · Endpoints -->
+      <article class="tl__panel" style="--c: var(--color-accent)" data-label="Endpoints">
+        <span class="tl__bignum-wrap" aria-hidden="true"><span class="tl__bignum">02</span></span>
+        <span class="tl__node"></span>
+        <div class="tl__panel-inner">
+          <header class="tl__panel-head">
+            <span class="tl__date">2025</span>
+            <span class="tl__cluster">Modern Workplace &amp; Endpoints</span>
+          </header>
+          <h3 class="tl__title">Zero-touch the entire fleet</h3>
+          <p class="tl__desc">
+            Centralized and standardized the whole device fleet, then layered modern
+            management on top: Entra ID, Intune and Windows Autopilot.
+          </p>
+          <div class="tl__ba">
+            <div class="tl__ba-col tl__ba-col--before"><span>Before</span>Manual setup, no control</div>
+            <div class="tl__ba-arrow" aria-hidden="true">&rarr;</div>
+            <div class="tl__ba-col tl__ba-col--after"><span>After</span>Managed, compliant, automated</div>
+          </div>
+          <p class="tl__metric"><b>~2 days</b> per PC&nbsp;&rarr;&nbsp;<b>10 PCs</b> ready in <b>1 hour</b></p>
+          <ul class="tl__chips">
+            <li>Entra ID</li><li>Intune</li><li>Autopilot</li><li>Action1</li><li>PowerShell</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Panel 4 · Chapter 2 · Collaboration -->
+      <article class="tl__panel" style="--c: var(--color-secondary)" data-label="Collaboration">
+        <span class="tl__bignum-wrap" aria-hidden="true"><span class="tl__bignum">03</span></span>
+        <span class="tl__node"></span>
+        <div class="tl__panel-inner">
+          <header class="tl__panel-head">
+            <span class="tl__date">2025</span>
+            <span class="tl__cluster">Cloud-First Collaboration</span>
+          </header>
+          <h3 class="tl__title">Email, reborn — twice</h3>
+          <p class="tl__desc">
+            Consolidated corporate mail in two strategic phases: stabilize first,
+            then standardize on a single secure ecosystem.
+          </p>
+          <div class="tl__ba">
+            <div class="tl__ba-col tl__ba-col--before"><span>Path</span>Telmex &rarr; Google Workspace</div>
+            <div class="tl__ba-arrow" aria-hidden="true">&rarr;</div>
+            <div class="tl__ba-col tl__ba-col--after"><span>Now</span>Microsoft 365</div>
+          </div>
+          <ul class="tl__chips">
+            <li>Microsoft 365</li><li>Outlook</li><li>OneDrive</li><li>SharePoint</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Panel 5 · Chapter 3 · Security -->
+      <article class="tl__panel" style="--c: var(--color-highlight)" data-label="Security">
+        <span class="tl__bignum-wrap" aria-hidden="true"><span class="tl__bignum">04</span></span>
+        <span class="tl__node"></span>
+        <div class="tl__panel-inner">
+          <header class="tl__panel-head">
+            <span class="tl__date">2025–26</span>
+            <span class="tl__cluster">Security &amp; Compliance</span>
+          </header>
+          <h3 class="tl__title">Raising the security bar</h3>
+          <ul class="tl__list">
+            <li>Migrated to a <b>next-gen EDR (CrowdStrike Falcon)</b> from legacy AV</li>
+            <li><b>Microsoft Purview</b> — data labeling &amp; classification</li>
+            <li><b>IoT hardening</b> — remediated vulnerable cameras via firmware</li>
+            <li><b>Web hardening</b> — fixed SQL injection &amp; more; server hardening</li>
+          </ul>
+          <ul class="tl__chips">
+            <li>CrowdStrike Falcon</li><li>Purview</li><li>Hardening</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Panel 6 · Chapter 4 · Web & DevOps -->
+      <article class="tl__panel" style="--c: var(--color-dev)" data-label="Web &amp; DevOps">
+        <span class="tl__bignum-wrap" aria-hidden="true"><span class="tl__bignum">05</span></span>
+        <span class="tl__node"></span>
+        <div class="tl__panel-inner">
+          <header class="tl__panel-head">
+            <span class="tl__date">2026</span>
+            <span class="tl__cluster">Web &amp; DevOps</span>
+          </header>
+          <h3 class="tl__title">A corporate site that never sleeps</h3>
+          <div class="tl__ba">
+            <div class="tl__ba-col tl__ba-col--before"><span>Before</span>HTML/CSS/JS on Telmex hosting</div>
+            <div class="tl__ba-arrow" aria-hidden="true">&rarr;</div>
+            <div class="tl__ba-col tl__ba-col--after"><span>After</span>Astro + Vercel CI/CD + Cloudflare</div>
+          </div>
+          <p class="tl__desc">Lower cost, higher availability, better performance &amp; SEO.</p>
+          <ul class="tl__chips">
+            <li>Astro</li><li>Tailwind</li><li>GSAP</li><li>GitHub</li><li>Vercel</li><li>Cloudflare</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Panel 7 · Chapter 5 · Automation & Docs -->
+      <article class="tl__panel" style="--c: var(--color-accent)" data-label="Automation">
+        <span class="tl__bignum-wrap" aria-hidden="true"><span class="tl__bignum">06</span></span>
+        <span class="tl__node"></span>
+        <div class="tl__panel-inner">
+          <header class="tl__panel-head">
+            <span class="tl__date">2026</span>
+            <span class="tl__cluster">Automation &amp; Documentation</span>
+          </header>
+          <h3 class="tl__title">Make it repeatable. Write it down.</h3>
+          <ul class="tl__list">
+            <li><b>PowerShell</b> — deployments, patching, configuration</li>
+            <li><b>Python</b> — repetitive tasks &amp; data processing</li>
+            <li><b>n8n</b> — business-process automation &amp; integrations</li>
+            <li><b>Docs in GitHub</b> — runbooks &amp; onboarding as Markdown</li>
+          </ul>
+          <ul class="tl__chips">
+            <li>PowerShell</li><li>Python</li><li>n8n</li><li>GitHub</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Panel 8 · Today -->
+      <article class="tl__panel tl__panel--today" style="--c: var(--color-accent)" data-label="Today">
+        <span class="tl__bignum-wrap" aria-hidden="true"><span class="tl__bignum">07</span></span>
+        <span class="tl__node tl__node--pulse"></span>
+        <div class="tl__panel-inner">
+          <header class="tl__panel-head">
+            <span class="tl__date">TODAY</span>
+            <span class="tl__cluster">Where I'm at</span>
+          </header>
+          <h3 class="tl__title tl__title--accent">Modern Workplace, Cloud &amp; Security Engineer</h3>
+          <p class="tl__desc">
+            I modernize infrastructure and the way teams work — with security by
+            design, from the endpoint to the cloud.
+          </p>
+          <div class="tl__ctas">
+            <a href="#projects" class="btn-magnetic btn-primary">View Projects <span aria-hidden="true">&rarr;</span></a>
+            <a href="/vault" class="btn-magnetic btn-outline">Explore my Vault</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tl {
+    position: relative;
+    background: var(--color-bg);
+  }
+
+  /* ── Intro ── */
+  .tl__intro {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 1.5rem 2.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .tl__kicker {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.16em;
+    color: var(--color-accent);
+    margin-bottom: 0.75rem;
+  }
+  .tl__heading {
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 6vw, 4rem);
+    color: var(--color-text);
+    margin-bottom: 1rem;
+  }
+  .tl__subtitle {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: #94a3b8;
+    max-width: 620px;
+    line-height: 1.6;
+  }
+  .tl__impact {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.75rem;
+  }
+  .tl__impact-pill {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--color-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    padding: 0.35rem 0.85rem;
+    background: rgba(14, 165, 233, 0.06);
+  }
+
+  /* ── Viewport (vertical by default) ── */
+  .tl__viewport {
+    position: relative;
+  }
+  .tl__head { display: none; }
+  .tl__hrail { display: none; }
+
+  /* Brand-continuity background (grid + soft glow) */
+  .tl__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(59, 130, 246, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59, 130, 246, 0.045) 1px, transparent 1px);
+    background-size: 46px 46px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, #000 40%, transparent 100%);
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, #000 40%, transparent 100%);
+    opacity: 0.6;
+  }
+
+  .tl__track {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem 5rem 3.5rem;
+  }
+
+  /* Vertical rail */
+  .tl__rail {
+    position: absolute;
+    left: 2.05rem;
+    top: 1.5rem;
+    bottom: 5rem;
+    width: 2px;
+    background: linear-gradient(
+      180deg,
+      var(--color-muted),
+      var(--color-accent) 22%,
+      var(--color-secondary) 42%,
+      var(--color-highlight) 62%,
+      var(--color-dev) 80%,
+      var(--color-accent)
+    );
+    opacity: 0.5;
+  }
+
+  .tl__bignum-wrap,
+  .tl__bignum { display: none; }
+
+  .tl__panel {
+    position: relative;
+    padding: 1rem 0 2.25rem 2.5rem;
+  }
+  .tl__node {
+    position: absolute;
+    left: calc(2.05rem - 1.25rem + 0.5px);
+    top: 2rem;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--c);
+    box-shadow: 0 0 0 4px var(--color-bg), 0 0 16px var(--c);
+    z-index: 2;
+  }
+  .tl__node--pulse { animation: tl-pulse 2.2s ease-in-out infinite; }
+  @keyframes tl-pulse {
+    0%, 100% { box-shadow: 0 0 0 4px var(--color-bg), 0 0 10px var(--c); }
+    50%      { box-shadow: 0 0 0 4px var(--color-bg), 0 0 22px var(--c); }
+  }
+
+  .tl__panel-inner {
+    position: relative;
+    z-index: 1;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-top: 3px solid var(--c);
+    border-radius: var(--radius-card);
+    padding: 1.2rem 1.3rem;
+  }
+
+  .tl__panel-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4rem 0.9rem;
+    margin-bottom: 0.8rem;
+  }
+  .tl__date {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--c);
+    letter-spacing: 0.05em;
+  }
+  .tl__cluster {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .tl__title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--color-text);
+    margin-bottom: 0.55rem;
+  }
+  .tl__title--accent { color: var(--color-accent); }
+  .tl__desc {
+    color: #94a3b8;
+    font-size: 0.85rem;
+    line-height: 1.55;
+    margin-bottom: 0.75rem;
+  }
+
+  .tl__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .tl__list li {
+    position: relative;
+    padding-left: 1.1rem;
+    font-size: 0.82rem;
+    color: var(--color-text);
+    line-height: 1.4;
+  }
+  .tl__list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--c);
+  }
+  .tl__list li b { color: var(--color-text); font-weight: 600; }
+  .tl__list li em { color: var(--color-muted); font-style: normal; }
+  .tl__list--problems li::before { background: var(--color-danger); }
+  .tl__list--problems li { color: #94a3b8; }
+
+  /* Before → After */
+  .tl__ba {
+    display: flex;
+    align-items: stretch;
+    gap: 0.6rem;
+    margin-bottom: 0.9rem;
+  }
+  .tl__ba-col {
+    flex: 1;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 0.5rem 0.65rem;
+    font-size: 0.78rem;
+    line-height: 1.35;
+    color: var(--color-text);
+  }
+  .tl__ba-col span {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+  .tl__ba-col--before { border-color: rgba(239, 68, 68, 0.35); }
+  .tl__ba-col--before span { color: var(--color-danger); }
+  .tl__ba-col--after { border-color: rgba(34, 197, 94, 0.4); }
+  .tl__ba-col--after span { color: var(--color-success); }
+  .tl__ba-arrow {
+    display: flex;
+    align-items: center;
+    color: var(--color-muted);
+    font-size: 1.1rem;
+  }
+
+  .tl__metric {
+    font-size: 0.85rem;
+    color: var(--color-text);
+    background: color-mix(in srgb, var(--c) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--c) 35%, transparent);
+    border-radius: 10px;
+    padding: 0.45rem 0.7rem;
+    margin-bottom: 0.75rem;
+  }
+  .tl__metric b { color: var(--c); }
+
+  .tl__chips {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .tl__chips li {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 0.25rem 0.6rem;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .tl__chips li:hover {
+    border-color: var(--color-secondary);
+    color: var(--color-text);
+    background: rgba(14, 165, 233, 0.08);
+  }
+
+  .tl__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 0.5rem;
+  }
+
+  /* ════════════════════════════════════════════
+     HORIZONTAL MODE (enabled by JS on desktop)
+     ════════════════════════════════════════════ */
+  .tl--horizontal .tl__viewport {
+    height: 100svh;
+    overflow: hidden;
+  }
+  .tl--horizontal .tl__head {
+    position: absolute;
+    top: calc(var(--navbar-h) + 1.5rem);
+    left: 0;
+    right: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0 max(6vw, 2rem);
+    pointer-events: none;
+  }
+  .tl--horizontal .tl__head-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+  }
+  .tl--horizontal .tl__head-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--color-muted);
+  }
+  .tl--horizontal .tl__progress {
+    position: relative;
+    height: 2px;
+    flex: 1;
+    max-width: 280px;
+    background: var(--color-border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .tl--horizontal .tl__progress-fill {
+    position: absolute;
+    inset: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-secondary));
+  }
+  .tl--horizontal .tl__dots {
+    display: flex;
+    gap: 0.55rem;
+    pointer-events: auto;
+  }
+  .tl--horizontal .tl__dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    background: var(--color-border);
+    cursor: pointer;
+    transition: transform 0.25s ease, background 0.25s ease;
+  }
+  .tl--horizontal .tl__dot:hover { transform: scale(1.3); }
+  .tl--horizontal .tl__dot:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+  .tl--horizontal .tl__dot.is-active {
+    background: var(--dot-c, var(--color-accent));
+    transform: scale(1.35);
+    box-shadow: 0 0 10px var(--dot-c, var(--color-accent));
+  }
+  .tl--horizontal .tl__hint {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    color: var(--color-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .tl--horizontal .tl__hint-arrow {
+    display: inline-block;
+    animation: tl-nudge 1.6s ease-in-out infinite;
+  }
+  @keyframes tl-nudge {
+    0%, 100% { transform: translateX(0); }
+    50%      { transform: translateX(5px); }
+  }
+
+  /* Horizontal security rail (sits on the centre line, behind the cards) */
+  .tl--horizontal .tl__hrail {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 2px;
+    transform: translateY(-50%);
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-danger) 38%, transparent),
+      color-mix(in srgb, var(--color-danger) 22%, transparent)
+    );
+  }
+  .tl--horizontal .tl__hrail-secured {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-success) 25%, transparent),
+      var(--color-success)
+    );
+    box-shadow: 0 0 12px color-mix(in srgb, var(--color-success) 45%, transparent);
+  }
+  .tl--horizontal .tl__hrail-scan {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 11px;
+    height: 11px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: var(--color-success);
+    animation: tl-scan 2.4s ease-in-out infinite;
+  }
+  @keyframes tl-scan {
+    0%, 100% { box-shadow: 0 0 12px var(--color-success), 0 0 0 4px color-mix(in srgb, var(--color-success) 16%, transparent); }
+    50%      { box-shadow: 0 0 22px var(--color-success), 0 0 0 8px color-mix(in srgb, var(--color-success) 8%, transparent); }
+  }
+
+  .tl--horizontal .tl__track {
+    position: relative;
+    z-index: 2;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    width: max-content;
+    max-width: none;
+    margin: 0;
+    gap: 3rem;
+    padding: 0 max(8vw, 3rem);
+    will-change: transform;
+  }
+  .tl--horizontal .tl__rail { display: none; }
+
+  /* Giant background numerals — wrapper anchors to panel centre; inner numeral parallax */
+  .tl--horizontal .tl__bignum-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    width: 100%;
+    height: 50%;
+    transform: translateX(-50%);
+    z-index: 0;
+    pointer-events: none;
+  }
+  /* Card on top → numeral centred in the bottom half */
+  .tl--horizontal .tl__panel:nth-child(odd) .tl__bignum-wrap {
+    bottom: 0;
+  }
+  /* Card on bottom → numeral centred in the top half */
+  .tl--horizontal .tl__panel:nth-child(even) .tl__bignum-wrap {
+    top: 0;
+  }
+  .tl--horizontal .tl__bignum {
+    display: block;
+    position: relative;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(5.5rem, 11vw, 9rem);
+    line-height: 1;
+    text-align: center;
+    color: color-mix(in srgb, var(--c) 7%, transparent);
+    -webkit-text-stroke: 2px color-mix(in srgb, var(--c) 42%, transparent);
+    letter-spacing: -0.04em;
+    user-select: none;
+    will-change: transform;
+  }
+
+  .tl--horizontal .tl__panel {
+    flex: 0 0 auto;
+    width: min(82vw, 460px);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+  /* Push each card fully into the top or bottom half, leaving the centre axis clear */
+  .tl--horizontal .tl__panel:nth-child(odd) {
+    justify-content: flex-end;
+    padding-bottom: calc(50svh + 3rem);
+  }
+  .tl--horizontal .tl__panel:nth-child(even) {
+    justify-content: flex-start;
+    padding-top: calc(50svh + 3rem);
+  }
+  .tl--horizontal .tl__panel--wide { width: min(86vw, 540px); }
+  .tl--horizontal .tl__node {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--color-danger);
+    box-shadow: 0 0 0 4px var(--color-bg), 0 0 14px color-mix(in srgb, var(--color-danger) 70%, transparent);
+    transition: background 0.5s ease, box-shadow 0.5s ease;
+  }
+  /* Remediated: red (vulnerable) → green (secured) once the scanner passes */
+  .tl--horizontal .tl__panel.is-secured .tl__node {
+    background: var(--color-success);
+    box-shadow: 0 0 0 4px var(--color-bg), 0 0 20px color-mix(in srgb, var(--color-success) 75%, transparent);
+  }
+  .tl--horizontal .tl__panel.is-active .tl__node {
+    box-shadow: 0 0 0 4px var(--color-bg), 0 0 28px var(--color-success);
+  }
+
+  /* Cards alternate above / below the rail for a metro feel */
+  .tl--horizontal .tl__panel-inner {
+    width: 100%;
+    transition: box-shadow 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
+  }
+  /* connector from node to card */
+  .tl--horizontal .tl__panel-inner::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 2px;
+    height: 3rem;
+    background: linear-gradient(var(--c), transparent);
+    transform: translateX(-50%);
+  }
+  .tl--horizontal .tl__panel:nth-child(odd) .tl__panel-inner::after { top: 100%; background: linear-gradient(var(--c), transparent); }
+  .tl--horizontal .tl__panel:nth-child(even) .tl__panel-inner::after { bottom: 100%; background: linear-gradient(transparent, var(--c)); }
+
+  /* Active card: lift + cluster-coloured glow */
+  .tl--horizontal .tl__panel.is-active .tl__panel-inner {
+    border-color: color-mix(in srgb, var(--c) 55%, var(--color-border));
+    box-shadow:
+      0 24px 60px -24px rgba(0, 0, 0, 0.85),
+      0 0 34px -10px color-mix(in srgb, var(--c) 70%, transparent);
+  }
+  .tl--horizontal .tl__panel:nth-child(odd).is-active .tl__panel-inner { transform: translateY(-6px); }
+  .tl--horizontal .tl__panel:nth-child(even).is-active .tl__panel-inner { transform: translateY(6px); }
+
+  /* ── Responsive intro ── */
+  @media (max-width: 640px) {
+    .tl__intro { padding: 4rem 1.25rem 1.5rem; }
+    .tl__track { padding-left: 3rem; }
+    .tl__rail { left: 1.55rem; }
+    .tl__node { left: calc(1.55rem - 1.25rem + 0.5px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tl__node--pulse,
+    .tl__hint-arrow,
+    .tl--horizontal .tl__hrail-scan { animation: none; }
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initTimeline() {
+    const section = document.getElementById('experience');
+    if (!section || section.dataset.tlInit === 'true') return;
+    section.dataset.tlInit = 'true';
+
+    const viewport = section.querySelector('.tl__viewport') as HTMLElement;
+    const track = section.querySelector('.tl__track') as HTMLElement;
+    const panels = gsap.utils.toArray<HTMLElement>(section.querySelectorAll('.tl__panel'));
+    const dotsNav = section.querySelector('.tl__dots') as HTMLElement;
+    const progressFill = section.querySelector('.tl__progress-fill') as HTMLElement;
+    if (!viewport || !track || panels.length === 0) return;
+
+    // Keep ScrollTrigger in sync with Lenis smooth scroll (if present)
+    const lenis = (window as any).__lenis;
+    if (lenis && typeof lenis.on === 'function' && !lenis.__stHooked) {
+      lenis.on('scroll', ScrollTrigger.update);
+      lenis.__stHooked = true;
+    }
+
+    const mm = gsap.matchMedia();
+
+    /* ── Desktop: horizontal pinned rail ── */
+    mm.add('(min-width: 901px) and (prefers-reduced-motion: no-preference)', () => {
+      section.classList.add('tl--horizontal');
+
+      const centerX = (panel: HTMLElement) =>
+        viewport.clientWidth / 2 - (panel.offsetLeft + panel.offsetWidth / 2);
+
+      const startX = () => centerX(panels[0]);
+      const endX = () => centerX(panels[panels.length - 1]);
+      const scrollDistance = () => Math.max(1, Math.abs(endX() - startX()));
+
+      const tween = gsap.fromTo(
+        track,
+        { x: startX },
+        { x: endX, ease: 'none' }
+      );
+
+      // Build chapter dots
+      dotsNav.innerHTML = '';
+      const dots = panels.map((panel, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'tl__dot';
+        dot.type = 'button';
+        dot.setAttribute('aria-label', panel.dataset.label || `Chapter ${i + 1}`);
+        dot.style.setProperty('--dot-c', getComputedStyle(panel).getPropertyValue('--c'));
+        dotsNav.appendChild(dot);
+        return dot;
+      });
+
+      let panelProgress: number[] = [];
+      const computeProgress = () => {
+        const start = startX();
+        const end = endX();
+        const range = end - start;
+        panelProgress = panels.map((panel) => {
+          const target = centerX(panel);
+          if (Math.abs(range) < 1) return 0;
+          return Math.min(1, Math.max(0, (target - start) / range));
+        });
+      };
+
+      const st = ScrollTrigger.create({
+        trigger: viewport,
+        start: 'top top',
+        end: () => `+=${scrollDistance()}`,
+        pin: true,
+        scrub: 1,
+        animation: tween,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onRefresh: computeProgress,
+        onUpdate: (self) => {
+          if (progressFill) progressFill.style.transform = `scaleX(${self.progress})`;
+        },
+      });
+
+      // Parallax: giant numerals drift relative to their cards
+      const numTweens = panels
+        .map((panel) => panel.querySelector('.tl__bignum'))
+        .filter((n): n is Element => !!n)
+        .map((num) =>
+          gsap.fromTo(
+            num,
+            { x: 28 },
+            {
+              x: -28,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: num.closest('.tl__panel'),
+                containerAnimation: tween,
+                start: 'left right',
+                end: 'right left',
+                scrub: true,
+              },
+            }
+          )
+        );
+
+      // Staggered reveal of each card's content as it enters
+      const reveals = panels.map((panel) =>
+        gsap.from(panel.querySelectorAll('.tl__panel-inner > *'), {
+          opacity: 0,
+          yPercent: 24,
+          duration: 0.5,
+          ease: 'power3.out',
+          stagger: 0.07,
+          scrollTrigger: {
+            trigger: panel,
+            containerAnimation: tween,
+            start: 'left 80%',
+            toggleActions: 'play none none reverse',
+          },
+        })
+      );
+
+      // Active state (card lift + glow + dot) while a panel straddles the centre
+      const actTriggers = panels.map((panel, i) =>
+        ScrollTrigger.create({
+          trigger: panel,
+          containerAnimation: tween,
+          start: 'left center',
+          end: 'right center',
+          onToggle: (self) => {
+            panel.classList.toggle('is-active', self.isActive);
+            if (self.isActive) {
+              dots.forEach((d, j) => d.classList.toggle('is-active', j === i));
+            }
+          },
+        })
+      );
+
+      // "Remediation": node flips red → green when the scanner (centre) passes it
+      const secTriggers = panels.map((panel) =>
+        ScrollTrigger.create({
+          trigger: panel,
+          containerAnimation: tween,
+          start: 'center center',
+          onEnter: () => panel.classList.add('is-secured'),
+          onLeaveBack: () => panel.classList.remove('is-secured'),
+        })
+      );
+
+      // Click a dot → smooth-scroll so that panel lands in view
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+          const target = st.start + panelProgress[i] * (st.end - st.start);
+          if (lenis && typeof lenis.scrollTo === 'function') {
+            lenis.scrollTo(target, { duration: 1.1 });
+          } else {
+            window.scrollTo({ top: target, behavior: 'smooth' });
+          }
+        });
+      });
+
+      computeProgress();
+      ScrollTrigger.refresh();
+
+      return () => {
+        section.classList.remove('tl--horizontal');
+        panels.forEach((p) => p.classList.remove('is-active', 'is-secured'));
+        st.kill();
+        numTweens.forEach((t) => t.scrollTrigger?.kill());
+        reveals.forEach((r) => r.scrollTrigger?.kill());
+        actTriggers.forEach((t) => t.kill());
+        secTriggers.forEach((t) => t.kill());
+        tween.kill();
+        gsap.set(track, { clearProps: 'transform' });
+        gsap.set(section.querySelectorAll('.tl__bignum, .tl__panel-inner > *'), { clearProps: 'all' });
+        dotsNav.innerHTML = '';
+      };
+    });
+
+    /* ── Mobile / reduced data: simple vertical reveal ── */
+    mm.add('(max-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
+      const reveals = panels.map((panel) =>
+        gsap.from(panel.querySelector('.tl__panel-inner'), {
+          opacity: 0,
+          y: 28,
+          duration: 0.6,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: panel,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
+          },
+        })
+      );
+      return () => reveals.forEach((r) => r.scrollTrigger?.kill());
+    });
+
+    // Re-measure once fonts/images settle
+    window.addEventListener('load', () => ScrollTrigger.refresh());
+  }
+
+  const boot = () => requestAnimationFrame(() => requestAnimationFrame(initTimeline));
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot, { once: true });
+  } else {
+    boot();
+  }
+  document.addEventListener('astro:page-load', boot);
+</script>
