@@ -12,6 +12,24 @@ const techPills = [
   <!-- Particle canvas -->
   <canvas id="particle-canvas" class="hero__canvas" aria-hidden="true"></canvas>
 
+  <!-- Drifting presence cursor (Figma-style) — lives only inside the hero -->
+  <div class="hero__cursors" aria-hidden="true">
+    <div class="hero__cursor hero__cursor--ghost" id="cursor-ghost">
+      <svg class="hero__cursor-arrow" width="19" height="26" viewBox="-1 -1 14 19" fill="none">
+        <path d="M5.65376 12.3673H5.46026L5.31717 12.4976L0.5 16.8829V1.19841L11.7841 12.3673H5.65376Z" fill="currentColor" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/>
+      </svg>
+      <span class="hero__cursor-label">Gibran López</span>
+    </div>
+  </div>
+
+  <!-- "me" cursor — follows the visitor across the whole page (label only in hero) -->
+  <div class="hero__cursor hero__cursor--me" id="cursor-me" aria-hidden="true">
+    <svg class="hero__cursor-arrow" width="19" height="26" viewBox="-1 -1 14 19" fill="none">
+      <path d="M5.65376 12.3673H5.46026L5.31717 12.4976L0.5 16.8829V1.19841L11.7841 12.3673H5.65376Z" fill="currentColor" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/>
+    </svg>
+    <span class="hero__cursor-label">me</span>
+  </div>
+
   <!-- Content -->
   <div class="hero__content">
     <!-- Live badge -->
@@ -213,6 +231,67 @@ const techPills = [
     50%       { transform: translateY(5px); opacity: 1; }
   }
 
+  /* Presence cursors */
+  .hero__cursors {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+  }
+  .hero__cursor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform;
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.45));
+  }
+  .hero__cursor-arrow {
+    display: block;
+    transform: rotate(-22deg); /* tip points up-left at a clean 45° diagonal (↖) */
+    transform-origin: 2px 3px; /* pivot on the cursor tip */
+  }
+  .hero__cursor-label {
+    position: absolute;
+    top: 17px;
+    left: 14px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.3;
+    white-space: nowrap;
+    color: #fff;
+    transition: opacity 0.2s ease;
+  }
+  /* Drifting cursor → gray */
+  .hero__cursor--ghost { color: #9ca3af; }
+  .hero__cursor--ghost .hero__cursor-label { background: #9ca3af; }
+  /* "me" cursor → accent blue (same as View Projects button) */
+  .hero__cursor--me {
+    position: fixed; /* follows the visitor across the whole page */
+    z-index: 10000;  /* above the navbar (z-index: 100) */
+    color: var(--color-accent);
+  }
+  .hero__cursor--me .hero__cursor-label { background: var(--color-accent); }
+  /* Outside the hero the "me" cursor keeps the arrow but drops the label */
+  .hero__cursor--me.hero__cursor--bare .hero__cursor-label { opacity: 0; }
+
+  /* When the custom cursor is active, hide the native one across the page */
+  :global(html.custom-cursor-active),
+  :global(html.custom-cursor-active *) { cursor: none !important; }
+
+  @media (max-width: 900px) {
+    .hero__cursors,
+    .hero__cursor--me { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__cursor--me { display: none; }
+  }
+
   @media (max-width: 640px) {
     .hero__content { padding: 2rem 0 5rem; gap: 1.5rem; }
     .hero__cta-btn { padding: 0.7rem 1.5rem; font-size: 0.9375rem; }
@@ -378,6 +457,84 @@ const techPills = [
     });
   }
 
+  function initCursors(hero: HTMLElement) {
+    const ghost = hero.querySelector('#cursor-ghost') as HTMLElement | null;
+    const me = hero.querySelector('#cursor-me') as HTMLElement | null;
+    if (!ghost || !me) return;
+    if (window.matchMedia('(max-width: 900px)').matches) return;
+
+    const rand = (a: number, b: number) => a + Math.random() * (b - a);
+    const region = () => {
+      const w = hero.clientWidth;
+      const h = hero.clientHeight;
+      return { minX: w * 0.58, maxX: w * 0.9, minY: h * 0.24, maxY: h * 0.76 };
+    };
+
+    // "Gibran López" — autonomous drift in the right area
+    const r0 = region();
+    gsap.set(ghost, { x: rand(r0.minX, r0.maxX), y: rand(r0.minY, r0.maxY) });
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.to(ghost, { opacity: 1, duration: 0.6, delay: 0.8 });
+      return;
+    }
+
+    const moveGhost = () => {
+      const r = region();
+      gsap.to(ghost, {
+        x: rand(r.minX, r.maxX),
+        y: rand(r.minY, r.maxY),
+        duration: rand(2.6, 4.2),
+        ease: 'sine.inOut',
+        onComplete: moveGhost,
+      });
+    };
+    gsap.to(ghost, { opacity: 1, duration: 0.8, delay: 1.3 });
+    gsap.delayedCall(1.3, moveGhost);
+
+    // "me" — follows the visitor's real cursor across the whole page.
+    // It's position:fixed, so we feed it raw viewport coordinates.
+    document.documentElement.classList.add('custom-cursor-active');
+    const setX = gsap.quickTo(me, 'x', { duration: 0.35, ease: 'power3' });
+    const setY = gsap.quickTo(me, 'y', { duration: 0.45, ease: 'power3' });
+    let started = false;
+    let visible = false;
+
+    document.addEventListener('mousemove', (e) => {
+      const x = e.clientX;
+      const y = e.clientY;
+      if (!started) {
+        started = true;
+        gsap.set(me, { x, y });
+      }
+      setX(x);
+      setY(y);
+      if (!visible) {
+        visible = true;
+        gsap.to(me, { opacity: 1, duration: 0.25 });
+      }
+      // Show the "me" label only while the pointer is over the hero
+      const r = hero.getBoundingClientRect();
+      const overHero = y >= r.top && y <= r.bottom;
+      me.classList.toggle('hero__cursor--bare', !overHero);
+    }, { passive: true });
+
+    // Hide the custom cursor when the pointer leaves the browser window
+    document.addEventListener('mouseout', (e) => {
+      if (e.relatedTarget === null && visible) {
+        visible = false;
+        gsap.to(me, { opacity: 0, duration: 0.25 });
+      }
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+      if (window.matchMedia('(max-width: 900px)').matches) {
+        document.documentElement.classList.remove('custom-cursor-active');
+        gsap.set([ghost, me], { opacity: 0 });
+      }
+    }, { passive: true });
+  }
+
   function initHero() {
     const hero = document.getElementById('hero');
     if (!hero || hero.dataset.initialized === 'true') return;
@@ -386,6 +543,7 @@ const techPills = [
     try {
       initParticles(hero);
       initAnimations(hero);
+      initCursors(hero);
     } catch {
       revealHeroStatic(hero);
     }
