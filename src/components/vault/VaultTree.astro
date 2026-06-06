@@ -1,0 +1,57 @@
+---
+import type { VaultTreeNode } from '@/lib/vault';
+
+interface Props {
+  tree: VaultTreeNode[];
+  activeSlug?: string;
+}
+
+const { tree, activeSlug } = Astro.props;
+---
+
+<ul class="vault-tree" role="tree">
+  {tree.map((node) =>
+    node.type === 'folder' ? (
+      <li class="vault-tree__folder is-open" role="treeitem">
+        <button type="button" class="vault-tree__folder-toggle" aria-expanded="true">
+          <svg class="vault-tree__chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M2 4.5A1.5 1.5 0 013.5 3h3.17a1.5 1.5 0 011.06.44L9.5 5.5H12.5A1.5 1.5 0 0114 7v5.5a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 12.5v-8z" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+          {node.name}
+        </button>
+        <div class="vault-tree__children">
+          <Astro.self tree={node.children} activeSlug={activeSlug} />
+        </div>
+      </li>
+    ) : (
+      <li role="treeitem">
+        <a
+          href={`/vault/${node.slug}`}
+          class:list={['vault-tree__link', { 'is-active': activeSlug === node.slug }]}
+          data-note-title={node.note.data.title.toLowerCase()}
+          data-note-tags={node.note.data.tags.join(' ').toLowerCase()}
+        >
+          <svg class="vault-tree__note-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M4 2.5h5.5L12 5v8.5a1 1 0 01-1 1H4a1 1 0 01-1-1v-10a1 1 0 011-1z" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M9.5 2.5V5H12" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+          <span>{node.note.data.title}</span>
+        </a>
+      </li>
+    )
+  )}
+</ul>
+
+<script>
+  document.querySelectorAll('.vault-tree__folder-toggle').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const folder = btn.closest('.vault-tree__folder');
+      if (!folder) return;
+      const isOpen = folder.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', String(isOpen));
+    });
+  });
+</script>

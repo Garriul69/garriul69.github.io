@@ -83,6 +83,7 @@ const techPills = [
     width: 100%;
     height: 100%;
     pointer-events: none;
+    z-index: 0;
   }
 
   .hero__content {
@@ -98,7 +99,6 @@ const techPills = [
     gap: 2rem;
   }
 
-  /* Badge */
   .hero__badge {
     display: inline-flex;
     align-items: center;
@@ -106,8 +106,6 @@ const techPills = [
     border: 1px solid var(--color-border);
     border-radius: 999px;
     padding: 0.35rem 0.9rem;
-    opacity: 0;
-    transform: translateY(12px);
   }
   .hero__badge-dot {
     width: 7px;
@@ -128,9 +126,7 @@ const techPills = [
     color: var(--color-muted);
   }
 
-  /* Name */
   .hero__name {
-    /* DM Sans: normal-width bold — avoids the stretched look of the wide Syne display face */
     font-family: var(--font-body);
     font-size: clamp(2.75rem, 8vw, 6.5rem);
     font-weight: 700;
@@ -140,7 +136,6 @@ const techPills = [
     margin: 0;
   }
   .hero__name-line { display: block; }
-  /* Per-word mask: padding buffer prevents clipping of descenders/accents */
   .hero__name .word {
     overflow: hidden;
     padding-block: 0.1em;
@@ -152,23 +147,17 @@ const techPills = [
   }
   .hero__name--accent { color: var(--color-accent); }
 
-  /* Sub */
   .hero__sub {
     font-size: clamp(1rem, 2vw, 1.25rem);
     color: var(--color-muted);
     max-width: 520px;
     line-height: 1.6;
-    opacity: 0;
-    transform: translateY(12px);
   }
 
-  /* Pills */
   .hero__pills {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    opacity: 0;
-    transform: translateY(12px);
   }
   .hero__pill {
     font-family: var(--font-mono);
@@ -185,20 +174,16 @@ const techPills = [
     background: rgba(14, 165, 233, 0.1);
   }
 
-  /* CTAs */
   .hero__ctas {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    opacity: 0;
-    transform: translateY(12px);
   }
   .hero__cta-btn {
     font-size: 1rem;
     padding: 0.8rem 2rem;
   }
 
-  /* Scroll indicator */
   .hero__scroll {
     position: absolute;
     bottom: 2.5rem;
@@ -208,7 +193,6 @@ const techPills = [
     flex-direction: column;
     align-items: center;
     gap: 0.4rem;
-    opacity: 0;
   }
   .hero__scroll-text {
     font-family: var(--font-mono);
@@ -236,144 +220,184 @@ const techPills = [
 </style>
 
 <script>
-  import { gsap } from 'gsap';
-
-  // ── Particle system ─────────────────────────────────────────
-  const canvas = document.getElementById('particle-canvas') as HTMLCanvasElement;
-  const ctx = canvas.getContext('2d')!;
-
-  type Particle = {
-    x: number; y: number;
-    vx: number; vy: number;
-    r: number; alpha: number;
-    color: string;
-  };
+  import gsap from 'gsap';
 
   const COLORS = ['#3B82F6', '#0EA5E9', '#1d4ed8'];
-  let W = 0, H = 0;
-  let particles: Particle[] = [];
-  let mouse = { x: -9999, y: -9999 };
-  let animFrame: number;
+  const FADE_TARGETS = '.hero__badge, .hero__sub, .hero__pills, .hero__ctas, .hero__scroll';
 
-  const resize = () => {
-    W = canvas.width  = canvas.offsetWidth;
-    H = canvas.height = canvas.offsetHeight;
-  };
+  function revealHeroStatic(hero: HTMLElement) {
+    hero.querySelectorAll(`${FADE_TARGETS}, .name-word`).forEach((el) => {
+      const node = el as HTMLElement;
+      node.style.opacity = '1';
+      node.style.transform = 'none';
+    });
+  }
 
-  const spawn = (): Particle => ({
-    x: Math.random() * W,
-    y: Math.random() * H,
-    vx: (Math.random() - 0.5) * 0.35,
-    vy: (Math.random() - 0.5) * 0.35,
-    r: Math.random() * 1.6 + 0.4,
-    alpha: Math.random() * 0.6 + 0.1,
-    color: COLORS[Math.floor(Math.random() * COLORS.length)],
-  });
+  function initParticles(hero: HTMLElement) {
+    const canvas = hero.querySelector('#particle-canvas') as HTMLCanvasElement | null;
+    const ctx = canvas?.getContext('2d');
+    if (!canvas || !ctx) return;
 
-  const init = () => {
-    const count = Math.min(Math.floor((W * H) / 14000), 120);
-    particles = Array.from({ length: count }, spawn);
-  };
+    let W = 0;
+    let H = 0;
+    let particles: Array<{
+      x: number; y: number; vx: number; vy: number;
+      r: number; alpha: number; color: string;
+    }> = [];
+    let mouse = { x: -9999, y: -9999 };
+    let rafId = 0;
 
-  const LINK_DIST = 140;
+    const resize = () => {
+      const w = hero.clientWidth || window.innerWidth;
+      const h = hero.clientHeight || window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = Math.max(Math.floor(w), 1);
+      H = Math.max(Math.floor(h), 1);
+      canvas.width = Math.floor(W * dpr);
+      canvas.height = Math.floor(H * dpr);
+      canvas.style.width = `${W}px`;
+      canvas.style.height = `${H}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
 
-  const draw = () => {
-    ctx.clearRect(0, 0, W, H);
-
-    // Update + draw dots
-    particles.forEach(p => {
-      p.x += p.vx;
-      p.y += p.vy;
-      if (p.x < 0) p.x = W;
-      if (p.x > W) p.x = 0;
-      if (p.y < 0) p.y = H;
-      if (p.y > H) p.y = 0;
-
-      // Mouse repulsion
-      const dx = p.x - mouse.x;
-      const dy = p.y - mouse.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 90) {
-        p.x += (dx / dist) * 1.2;
-        p.y += (dy / dist) * 1.2;
-      }
-
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = p.color + Math.floor(p.alpha * 255).toString(16).padStart(2, '0');
-      ctx.fill();
+    const spawn = () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      r: Math.random() * 1.6 + 0.4,
+      alpha: Math.random() * 0.6 + 0.1,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
     });
 
-    // Draw connecting lines
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const d = Math.sqrt(dx * dx + dy * dy);
-        if (d < LINK_DIST) {
-          const alpha = (1 - d / LINK_DIST) * 0.18;
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(59,130,246,${alpha})`;
-          ctx.lineWidth = 0.7;
-          ctx.stroke();
+    const init = () => {
+      const count = Math.min(Math.floor((W * H) / 14000), 120);
+      particles = Array.from({ length: count }, spawn);
+    };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, W, H);
+
+      particles.forEach((p) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0) p.x = W;
+        if (p.x > W) p.x = 0;
+        if (p.y < 0) p.y = H;
+        if (p.y > H) p.y = 0;
+
+        const dx = p.x - mouse.x;
+        const dy = p.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 90) {
+          p.x += (dx / dist) * 1.2;
+          p.y += (dy / dist) * 1.2;
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color + Math.floor(p.alpha * 255).toString(16).padStart(2, '0');
+        ctx.fill();
+      });
+
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const d = Math.sqrt(dx * dx + dy * dy);
+          if (d < 140) {
+            const alpha = (1 - d / 140) * 0.18;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(59,130,246,${alpha})`;
+            ctx.lineWidth = 0.7;
+            ctx.stroke();
+          }
         }
       }
+
+      rafId = requestAnimationFrame(draw);
+    };
+
+    const start = () => {
+      resize();
+      if (W <= 1 || H <= 1) return false;
+      init();
+      cancelAnimationFrame(rafId);
+      draw();
+      return true;
+    };
+
+    if (!start()) {
+      const ro = new ResizeObserver(() => {
+        if (start()) ro.disconnect();
+      });
+      ro.observe(hero);
     }
 
-    animFrame = requestAnimationFrame(draw);
-  };
+    window.addEventListener('resize', () => { resize(); init(); }, { passive: true });
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    }, { passive: true });
+  }
 
-  resize();
-  init();
-  draw();
+  function initAnimations(hero: HTMLElement) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      revealHeroStatic(hero);
+      return;
+    }
 
-  window.addEventListener('resize', () => { resize(); init(); }, { passive: true });
-  window.addEventListener('mousemove', e => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  }, { passive: true });
+    gsap.set(hero.querySelectorAll(FADE_TARGETS), { opacity: 0, y: 12 });
+    gsap.set(hero.querySelectorAll('.name-word'), { yPercent: 120, opacity: 0 });
 
-  // ── GSAP entrance animations ────────────────────────────────
-  // Set hidden state via JS so text stays visible if JS ever fails to run.
-  gsap.set('.name-word', { yPercent: 120, opacity: 0 });
+    gsap.timeline({ defaults: { ease: 'power3.out' } })
+      .to(hero.querySelectorAll('.hero__badge'), { opacity: 1, y: 0, duration: 0.6 }, 0.15)
+      .to(hero.querySelectorAll('.name-word'), {
+        yPercent: 0,
+        opacity: 1,
+        duration: 0.75,
+        stagger: 0.12,
+      }, 0.35)
+      .to(hero.querySelectorAll('.hero__sub'), { opacity: 1, y: 0, duration: 0.6 }, 0.65)
+      .to(hero.querySelectorAll('.hero__pills'), { opacity: 1, y: 0, duration: 0.5 }, 0.78)
+      .to(hero.querySelectorAll('.hero__ctas'), { opacity: 1, y: 0, duration: 0.5 }, 0.9)
+      .to(hero.querySelectorAll('.hero__scroll'), { opacity: 1, duration: 0.6 }, 1.1);
 
-  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-  // Badge fade-up
-  tl.to('.hero__badge', { opacity: 1, y: 0, duration: 0.6 }, 0.15)
-
-  // Name: words slide up from clip
-  .to('.name-word', {
-    yPercent: 0,
-    opacity: 1,
-    duration: 0.75,
-    stagger: 0.12,
-  }, 0.35)
-
-  // Subheadline
-  .to('.hero__sub', { opacity: 1, y: 0, duration: 0.6 }, 0.65)
-
-  // Pills
-  .to('.hero__pills', { opacity: 1, y: 0, duration: 0.5 }, 0.78)
-
-  // CTAs
-  .to('.hero__ctas', { opacity: 1, y: 0, duration: 0.5 }, 0.9)
-
-  // Scroll indicator
-  .to('.hero__scroll', { opacity: 1, duration: 0.6 }, 1.1);
-
-  // ── Magnetic button effect ──────────────────────────────────
-  document.querySelectorAll<HTMLElement>('.btn-magnetic').forEach(btn => {
-    btn.addEventListener('mousemove', (e) => {
-      const rect = btn.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width  / 2;
-      const y = e.clientY - rect.top  - rect.height / 2;
-      gsap.to(btn, { x: x * 0.28, y: y * 0.28, duration: 0.3, ease: 'power2.out' });
+    hero.querySelectorAll<HTMLElement>('.btn-magnetic').forEach((btn) => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        gsap.to(btn, { x: x * 0.28, y: y * 0.28, duration: 0.3, ease: 'power2.out' });
+      });
+      btn.addEventListener('mouseleave', () => {
+        gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.5)' });
+      });
     });
-    btn.addEventListener('mouseleave', () => {
-      gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1,0.5)' });
-    });
-  });
+  }
+
+  function initHero() {
+    const hero = document.getElementById('hero');
+    if (!hero || hero.dataset.initialized === 'true') return;
+    hero.dataset.initialized = 'true';
+
+    try {
+      initParticles(hero);
+      initAnimations(hero);
+    } catch {
+      revealHeroStatic(hero);
+    }
+  }
+
+  const boot = () => requestAnimationFrame(() => requestAnimationFrame(initHero));
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot, { once: true });
+  } else {
+    boot();
+  }
+
+  document.addEventListener('astro:page-load', boot);
 </script>

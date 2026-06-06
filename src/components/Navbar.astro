@@ -4,6 +4,7 @@ const navLinks = [
   { label: 'Stack',      href: '#stack' },
   { label: 'Projects',   href: '#projects' },
   { label: 'Contact',    href: '#contact' },
+  { label: 'Vault',      href: '/vault', external: true },
 ];
 ---
 
@@ -17,7 +18,11 @@ const navLinks = [
     <!-- Desktop nav -->
     <nav class="navbar__links" aria-label="Main navigation">
       {navLinks.map(link => (
-        <a href={link.href} class="navbar__link">{link.label}</a>
+        <a
+          href={link.href}
+          class:list={['navbar__link', { 'navbar__link--vault': link.external }]}
+          data-external={link.external ? '' : undefined}
+        >{link.label}</a>
       ))}
     </nav>
 
@@ -41,7 +46,10 @@ const navLinks = [
   <!-- Mobile dropdown -->
   <nav class="navbar__mobile" id="mobile-menu" aria-hidden="true">
     {navLinks.map(link => (
-      <a href={link.href} class="navbar__mobile-link">{link.label}</a>
+      <a
+        href={link.href}
+        class:list={['navbar__mobile-link', { 'navbar__link--vault': link.external }]}
+      >{link.label}</a>
     ))}
     <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" class="btn-magnetic btn-primary" style="margin-top:0.5rem;">
       Resume
@@ -124,6 +132,20 @@ const navLinks = [
   .navbar__link:hover::after { width: 100%; }
   .navbar__link.active { color: var(--color-text); }
   .navbar__link.active::after { width: 100%; }
+
+  .navbar__link--vault {
+    color: var(--color-secondary);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    border-radius: 6px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.875rem;
+  }
+  .navbar__link--vault::after { display: none; }
+  .navbar__link--vault:hover {
+    color: var(--color-text);
+    border-color: rgba(14, 165, 233, 0.5);
+    background: rgba(59, 130, 246, 0.08);
+  }
 
   .navbar__cta {
     font-size: 0.875rem;
@@ -209,9 +231,9 @@ const navLinks = [
   window.addEventListener('scroll', handleScroll, { passive: true });
   handleScroll();
 
-  // Active link tracking
+  // Active link tracking (anchor sections only)
   const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.navbar__link');
+  const navLinks = document.querySelectorAll('.navbar__link:not([data-external])');
 
   const observer = new IntersectionObserver(
     (entries) => {

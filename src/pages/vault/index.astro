@@ -1,0 +1,79 @@
+---
+import VaultLayout from '@/layouts/VaultLayout.astro';
+import { getCollection } from 'astro:content';
+import { getPublishedNotes, getAllTags, formatVaultDate } from '@/lib/vault';
+
+const allNotes = await getCollection('vault');
+const notes = getPublishedNotes(allNotes);
+const tags = getAllTags(notes);
+---
+
+<VaultLayout
+  title="Vault — Knowledge Base | AGLN.SEC"
+  description="Apuntes técnicos de infraestructura, seguridad y herramientas. Knowledge base pública de Andy Gibran López Nambo."
+>
+  <section class="vault-index">
+    <header class="vault-index__hero">
+      <div class="vault-index__eyebrow">
+        <span class="vault-index__eyebrow-dot" aria-hidden="true"></span>
+        Knowledge Base
+      </div>
+      <h1 class="vault-index__title">Vault</h1>
+      <p class="vault-index__desc">
+        Apuntes técnicos que compilo para mí y para quien les sirvan —
+        infraestructura, seguridad, scripting y herramientas del día a día.
+      </p>
+
+      <div class="vault-index__stats">
+        <div class="vault-stat">
+          <div class="vault-stat__value">{notes.length}</div>
+          <div class="vault-stat__label">Apuntes</div>
+        </div>
+        <div class="vault-stat">
+          <div class="vault-stat__value">{tags.length}</div>
+          <div class="vault-stat__label">Tags</div>
+        </div>
+      </div>
+    </header>
+
+    {tags.length > 0 && (
+      <div class="vault-tags" aria-label="Filtrar por tag">
+        {tags.map((tag) => (
+          <span class="vault-tag">#{tag}</span>
+        ))}
+      </div>
+    )}
+
+    {notes.length > 0 ? (
+      <div class="vault-cards">
+        {notes.map((note) => (
+          <a href={`/vault/${note.slug}`} class="vault-card">
+            <div class="vault-card__top">
+              <h2 class="vault-card__title">{note.data.title}</h2>
+              {note.data.date && (
+                <time class="vault-card__date" datetime={note.data.date.toISOString()}>
+                  {formatVaultDate(note.data.date)}
+                </time>
+              )}
+            </div>
+            {note.data.description && (
+              <p class="vault-card__desc">{note.data.description}</p>
+            )}
+            {note.data.tags.length > 0 && (
+              <div class="vault-card__tags">
+                {note.data.tags.map((tag) => (
+                  <span class="vault-card__tag">#{tag}</span>
+                ))}
+              </div>
+            )}
+          </a>
+        ))}
+      </div>
+    ) : (
+      <p style="color: var(--color-muted); font-size: 0.9375rem;">
+        No hay apuntes publicados todavía. Agrega un archivo <code>.md</code> en
+        <code style="color: var(--color-secondary);"> src/content/vault/</code>
+      </p>
+    )}
+  </section>
+</VaultLayout>

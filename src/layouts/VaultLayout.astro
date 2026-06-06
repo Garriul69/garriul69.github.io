@@ -1,0 +1,76 @@
+---
+import '@/styles/global.css';
+import '@/styles/vault.css';
+import VaultSidebar from '@/components/vault/VaultSidebar.astro';
+import VaultCodeEnhance from '@/components/vault/VaultCodeEnhance.astro';
+import { getCollection } from 'astro:content';
+import { buildVaultTree, getPublishedNotes } from '@/lib/vault';
+
+interface Props {
+  title?: string;
+  description?: string;
+  activeSlug?: string;
+}
+
+const {
+  title = 'Vault — AGLN.SEC',
+  description = 'Apuntes técnicos de infraestructura, seguridad y herramientas. Knowledge base pública.',
+  activeSlug,
+} = Astro.props;
+
+const allNotes = await getCollection('vault');
+const notes = getPublishedNotes(allNotes);
+const tree = buildVaultTree(notes);
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://garriul69.github.io');
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Andy Gibran López Nambo" />
+    <meta name="robots" content="index, follow" />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content="article" />
+
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <title>{title}</title>
+  </head>
+  <body class="vault-body">
+    <div class="vault-progress" id="vault-progress" aria-hidden="true"></div>
+    <div class="vault-shell">
+      <VaultSidebar tree={tree} activeSlug={activeSlug} />
+      <main class="vault-main">
+        <div class="vault-main__inner">
+          <slot />
+        </div>
+      </main>
+    </div>
+    <VaultCodeEnhance />
+  </body>
+</html>
+
+<script>
+  const progress = document.getElementById('vault-progress');
+  if (progress) {
+    const update = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? Math.min(100, (scrollTop / docHeight) * 100) : 0;
+      progress.style.width = `${pct}%`;
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  }
+</script>

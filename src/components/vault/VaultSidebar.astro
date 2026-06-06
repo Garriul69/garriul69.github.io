@@ -1,0 +1,105 @@
+---
+import VaultTree from '@/components/vault/VaultTree.astro';
+import type { VaultTreeNode } from '@/lib/vault';
+
+interface Props {
+  tree: VaultTreeNode[];
+  activeSlug?: string;
+}
+
+const { tree, activeSlug } = Astro.props;
+---
+
+<aside class="vault-sidebar" id="vault-sidebar" data-lenis-prevent>
+  <div class="vault-sidebar__header">
+    <a href="/vault" class="vault-sidebar__brand">
+      <div class="vault-sidebar__icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M4 7.5A2.5 2.5 0 016.5 5H10l2 2h5.5A2.5 2.5 0 0120 9.5v9A2.5 2.5 0 0117.5 21h-11A2.5 2.5 0 014 18.5v-11z" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M12 11v6M9 14h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <div class="vault-sidebar__title">Vault</div>
+        <div class="vault-sidebar__subtitle">Knowledge Base</div>
+      </div>
+    </a>
+    <a href="/" class="vault-sidebar__back">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Portfolio
+    </a>
+  </div>
+
+  <div class="vault-sidebar__search-wrap">
+    <div class="vault-sidebar__search-box">
+      <svg class="vault-sidebar__search-icon" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.3"/>
+        <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+      </svg>
+      <input
+        type="search"
+        class="vault-sidebar__search"
+        id="vault-search"
+        placeholder="Buscar apuntes..."
+        autocomplete="off"
+        aria-label="Buscar apuntes"
+      />
+    </div>
+  </div>
+
+  <nav class="vault-sidebar__tree" aria-label="Notas del vault">
+    <div class="vault-sidebar__section-label">Explorador</div>
+    {tree.length > 0 ? (
+      <VaultTree tree={tree} activeSlug={activeSlug} />
+    ) : (
+      <p style="padding: 0.75rem; font-size: 0.875rem; color: var(--color-muted);">
+        Aún no hay apuntes. Agrega un .md en <code style="font-family: var(--font-mono); color: var(--color-secondary);">src/content/vault/</code>
+      </p>
+    )}
+  </nav>
+</aside>
+
+<div class="vault-sidebar-overlay" id="vault-overlay" aria-hidden="true"></div>
+
+<button type="button" class="vault-mobile-toggle" id="vault-menu-btn" aria-label="Abrir explorador">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+  </svg>
+</button>
+
+<script>
+  const searchInput = document.getElementById('vault-search') as HTMLInputElement | null;
+  const sidebar = document.getElementById('vault-sidebar');
+  const overlay = document.getElementById('vault-overlay');
+  const menuBtn = document.getElementById('vault-menu-btn');
+
+  const closeMobile = () => {
+    sidebar?.classList.remove('is-open');
+    overlay?.classList.remove('is-visible');
+  };
+
+  menuBtn?.addEventListener('click', () => {
+    sidebar?.classList.toggle('is-open');
+    overlay?.classList.toggle('is-visible');
+  });
+
+  overlay?.addEventListener('click', closeMobile);
+
+  sidebar?.querySelectorAll('.vault-tree__link').forEach((link) => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 900) closeMobile();
+    });
+  });
+
+  searchInput?.addEventListener('input', () => {
+    const query = searchInput.value.trim().toLowerCase();
+    document.querySelectorAll<HTMLElement>('.vault-tree__link').forEach((link) => {
+      const title = link.dataset.noteTitle ?? '';
+      const tags = link.dataset.noteTags ?? '';
+      const match = !query || title.includes(query) || tags.includes(query);
+      link.classList.toggle('is-hidden', !match);
+    });
+  });
+</script>

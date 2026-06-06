@@ -1,0 +1,59 @@
+---
+import VaultLayout from '@/layouts/VaultLayout.astro';
+import { getCollection } from 'astro:content';
+import { getPublishedNotes, formatVaultDate } from '@/lib/vault';
+
+export async function getStaticPaths() {
+  const notes = getPublishedNotes(await getCollection('vault'));
+  return notes.map((note) => ({
+    params: { slug: note.slug },
+    props: { note },
+  }));
+}
+
+const { note } = Astro.props;
+const { Content } = await note.render();
+const formattedDate = formatVaultDate(note.data.date);
+const folderPath = note.slug.includes('/')
+  ? note.slug.split('/').slice(0, -1).join(' / ')
+  : null;
+---
+
+<VaultLayout
+  title={`${note.data.title} — Vault | AGLN.SEC`}
+  description={note.data.description ?? note.data.title}
+  activeSlug={note.slug}
+>
+  <article class="vault-note">
+    <header class="vault-note__header">
+      <div class="vault-note__meta">
+        {folderPath && (
+          <span class="vault-note__breadcrumb">{folderPath}</span>
+        )}
+        {formattedDate && (
+          <time datetime={note.data.date!.toISOString()} class="vault-note__breadcrumb">
+            {formattedDate}
+          </time>
+        )}
+      </div>
+
+      <h1 class="vault-note__title">{note.data.title}</h1>
+
+      {note.data.description && (
+        <p class="vault-note__desc">{note.data.description}</p>
+      )}
+
+      {note.data.tags.length > 0 && (
+        <div class="vault-note__tags">
+          {note.data.tags.map((tag) => (
+            <span class="vault-card__tag">#{tag}</span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <div class="vault-prose">
+      <Content />
+    </div>
+  </article>
+</VaultLayout>
