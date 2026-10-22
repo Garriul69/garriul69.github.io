@@ -103,7 +103,13 @@ const toolsStrip = [
     overflow: hidden;
     padding-bottom: 0.08em;
   }
-  .hero__word { display: inline-block; }
+  .hero__word {
+    display: inline-block;
+    text-wrap: balance;
+  }
+  @media (max-width: 520px) {
+    .hero__title { font-size: 2.4rem; }
+  }
 
   .hero__sub {
     margin: 1.75rem auto 0;
