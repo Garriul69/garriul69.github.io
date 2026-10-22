@@ -4,8 +4,8 @@ import { rehypeCodeBlockWrapper } from './src/integrations/rehype-code-block.ts'
 
 // https://astro.build/config
 export default defineConfig({
-  // User site (username.github.io) → served at the root, no base path needed
-  site: 'https://garriul69.github.io',
+  // Production domain served by Cloudflare Workers (static assets)
+  site: 'https://gibranlopez.com',
   output: 'static',
   markdown: {
     syntaxHighlight: 'shiki',
