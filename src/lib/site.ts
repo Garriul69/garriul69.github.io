@@ -1,8 +1,8 @@
 // Contact details used across the site.
-// TODO: replace the placeholders with the real values before publishing.
+// An empty email or linkedin hides its button.
 export const site = {
   name: 'Andy Gibran López Nambo',
-  email: '',        // e.g. 'you@yourdomain.com' — hides the email button while empty
-  linkedin: '',     // e.g. 'https://www.linkedin.com/in/your-handle'
+  email: 'andy_gibran_2000@hotmail.com',
+  linkedin: 'https://www.linkedin.com/in/agibranlopez/',
   github: 'https://github.com/garriul69',
 };
