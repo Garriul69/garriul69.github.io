@@ -1,59 +1,41 @@
 ---
 const navLinks = [
+  { label: 'Services',   href: '#services' },
   { label: 'Experience', href: '#experience' },
-  { label: 'Stack',      href: '#stack' },
   { label: 'Projects',   href: '#projects' },
-  { label: 'Contact',    href: '#contact' },
   { label: 'Vault',      href: '/vault', external: true },
 ];
 ---
 
 <header id="navbar" class="navbar">
   <div class="navbar__inner">
-    <!-- Logo -->
     <a href="/" class="navbar__logo" aria-label="AGLN.SEC — home">
+      <span class="navbar__logo-mark" aria-hidden="true"></span>
       <span class="navbar__logo-text">AGLN<span class="navbar__logo-dot">.</span>SEC</span>
     </a>
 
-    <!-- Desktop nav -->
     <nav class="navbar__links" aria-label="Main navigation">
       {navLinks.map(link => (
         <a
           href={link.href}
-          class:list={['navbar__link', { 'navbar__link--vault': link.external }]}
+          class="navbar__link"
           data-external={link.external ? '' : undefined}
         >{link.label}</a>
       ))}
     </nav>
 
-    <!-- CTA -->
-    <a
-      href="/resume.pdf"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="btn-magnetic btn-primary navbar__cta"
-      aria-label="Open resume PDF"
-    >
-      Resume
-    </a>
+    <a href="#contact" class="btn-magnetic btn-primary navbar__cta">Contact</a>
 
-    <!-- Mobile menu button -->
     <button class="navbar__hamburger" aria-label="Open menu" aria-expanded="false" id="menu-btn">
-      <span></span><span></span><span></span>
+      <span></span><span></span>
     </button>
   </div>
 
-  <!-- Mobile dropdown -->
   <nav class="navbar__mobile" id="mobile-menu" aria-hidden="true">
     {navLinks.map(link => (
-      <a
-        href={link.href}
-        class:list={['navbar__mobile-link', { 'navbar__link--vault': link.external }]}
-      >{link.label}</a>
+      <a href={link.href} class="navbar__mobile-link">{link.label}</a>
     ))}
-    <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" class="btn-magnetic btn-primary" style="margin-top:0.5rem;">
-      Resume
-    </a>
+    <a href="#contact" class="btn-magnetic btn-primary navbar__mobile-cta">Contact</a>
   </nav>
 </header>
 
@@ -65,19 +47,19 @@ const navLinks = [
     right: 0;
     z-index: 100;
     height: var(--navbar-h);
-    transition: background 0.35s ease, backdrop-filter 0.35s ease, border-bottom 0.35s ease;
+    transition: background 0.3s ease, border-color 0.3s ease;
     border-bottom: 1px solid transparent;
   }
 
   .navbar.scrolled {
-    background: rgba(13, 21, 38, 0.88);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: saturate(180%) blur(18px);
+    -webkit-backdrop-filter: saturate(180%) blur(18px);
     border-bottom-color: var(--color-border);
   }
 
   .navbar__inner {
-    max-width: 1200px;
+    max-width: var(--container);
     margin: 0 auto;
     height: 100%;
     padding: 0 1.5rem;
@@ -87,18 +69,26 @@ const navLinks = [
   }
 
   .navbar__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
     text-decoration: none;
     flex-shrink: 0;
   }
-  .navbar__logo-text {
-    font-family: var(--font-mono);
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--color-text);
-    letter-spacing: 0.04em;
-    transition: color 0.2s;
+  .navbar__logo-mark {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    background: var(--color-accent);
+    /* inner notch reads as a shield / keyhole without clip-art */
+    box-shadow: inset 0 -6px 0 -2px rgba(255, 255, 255, 0.28);
   }
-  .navbar__logo-text:hover { color: var(--color-accent); }
+  .navbar__logo-text {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--color-text);
+  }
   .navbar__logo-dot { color: var(--color-accent); }
 
   .navbar__links {
@@ -109,47 +99,18 @@ const navLinks = [
   }
 
   .navbar__link {
-    font-family: var(--font-body);
     font-size: 0.9375rem;
-    font-weight: 500;
+    font-weight: 450;
     color: var(--color-muted);
     text-decoration: none;
-    position: relative;
     transition: color 0.2s;
   }
-  .navbar__link::after {
-    content: '';
-    position: absolute;
-    bottom: -3px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--color-accent);
-    transition: width 0.25s ease;
-    border-radius: 2px;
-  }
-  .navbar__link:hover { color: var(--color-text); }
-  .navbar__link:hover::after { width: 100%; }
+  .navbar__link:hover,
   .navbar__link.active { color: var(--color-text); }
-  .navbar__link.active::after { width: 100%; }
-
-  .navbar__link--vault {
-    color: var(--color-secondary);
-    border: 1px solid rgba(59, 130, 246, 0.25);
-    border-radius: 6px;
-    padding: 0.35rem 0.75rem;
-    font-size: 0.875rem;
-  }
-  .navbar__link--vault::after { display: none; }
-  .navbar__link--vault:hover {
-    color: var(--color-text);
-    border-color: rgba(14, 165, 233, 0.5);
-    background: rgba(59, 130, 246, 0.08);
-  }
 
   .navbar__cta {
     font-size: 0.875rem;
-    padding: 0.55rem 1.25rem;
+    padding: 0.6rem 1.15rem;
     flex-shrink: 0;
   }
 
@@ -157,54 +118,46 @@ const navLinks = [
   .navbar__hamburger {
     display: none;
     flex-direction: column;
-    gap: 5px;
+    justify-content: center;
+    gap: 6px;
+    width: 40px;
+    height: 40px;
     background: none;
     border: none;
     cursor: pointer;
-    padding: 4px;
+    padding: 8px;
     margin-left: auto;
   }
   .navbar__hamburger span {
     display: block;
-    width: 24px;
-    height: 2px;
+    width: 100%;
+    height: 1.5px;
     background: var(--color-text);
-    border-radius: 2px;
-    transition: transform 0.3s, opacity 0.3s;
+    transition: transform 0.25s ease;
   }
-  .navbar__hamburger[aria-expanded="true"] span:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-  }
-  .navbar__hamburger[aria-expanded="true"] span:nth-child(2) {
-    opacity: 0;
-  }
-  .navbar__hamburger[aria-expanded="true"] span:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-  }
+  .navbar__hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(3.75px) rotate(45deg); }
+  .navbar__hamburger[aria-expanded="true"] span:nth-child(2) { transform: translateY(-3.75px) rotate(-45deg); }
 
   /* Mobile menu */
   .navbar__mobile {
     display: none;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.25rem;
-    padding: 1rem 1.5rem 1.5rem;
-    background: rgba(13, 21, 38, 0.97);
-    backdrop-filter: blur(16px);
-    border-top: 1px solid var(--color-border);
+    align-items: stretch;
+    padding: 0.5rem 1.5rem 1.5rem;
+    background: rgba(255, 255, 255, 0.98);
+    border-bottom: 1px solid var(--color-border);
   }
   .navbar__mobile.open { display: flex; }
 
   .navbar__mobile-link {
-    font-size: 1rem;
+    font-size: 1.0625rem;
     font-weight: 500;
-    color: var(--color-muted);
+    color: var(--color-text);
     text-decoration: none;
-    padding: 0.6rem 0;
-    width: 100%;
-    transition: color 0.2s;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--color-border);
   }
-  .navbar__mobile-link:hover { color: var(--color-text); }
+  .navbar__mobile-cta { margin-top: 1.1rem; }
 
   @media (max-width: 768px) {
     .navbar__links,
@@ -212,6 +165,9 @@ const navLinks = [
     .navbar__hamburger { display: flex; }
     .navbar { height: auto; }
     .navbar__inner { height: var(--navbar-h); }
+    .navbar.menu-open {
+      background: rgba(255, 255, 255, 0.98);
+    }
   }
 </style>
 
@@ -220,13 +176,9 @@ const navLinks = [
   const menuBtn = document.getElementById('menu-btn')!;
   const mobileMenu = document.getElementById('mobile-menu')!;
 
-  // Scroll: transparent → frosted
+  // Scroll: transparent → frosted white
   const handleScroll = () => {
-    if (window.scrollY > 30) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
+    navbar.classList.toggle('scrolled', window.scrollY > 24);
   };
   window.addEventListener('scroll', handleScroll, { passive: true });
   handleScroll();
@@ -252,20 +204,17 @@ const navLinks = [
   );
   sections.forEach(s => observer.observe(s));
 
-  // Mobile menu toggle
-  menuBtn.addEventListener('click', () => {
-    const isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
-    menuBtn.setAttribute('aria-expanded', String(!isOpen));
-    mobileMenu.classList.toggle('open', !isOpen);
-    mobileMenu.setAttribute('aria-hidden', String(isOpen));
-  });
+  const setMenu = (open: boolean) => {
+    menuBtn.setAttribute('aria-expanded', String(open));
+    mobileMenu.classList.toggle('open', open);
+    mobileMenu.setAttribute('aria-hidden', String(!open));
+    navbar.classList.toggle('menu-open', open);
+  };
 
-  // Close mobile menu on link click
+  menuBtn.addEventListener('click', () => {
+    setMenu(menuBtn.getAttribute('aria-expanded') !== 'true');
+  });
   mobileMenu.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      menuBtn.setAttribute('aria-expanded', 'false');
-      mobileMenu.classList.remove('open');
-      mobileMenu.setAttribute('aria-hidden', 'true');
-    });
+    a.addEventListener('click', () => setMenu(false));
   });
 </script>

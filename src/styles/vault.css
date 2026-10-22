@@ -4,18 +4,11 @@
 
 .vault-body {
   min-height: 100vh;
-  background: #06050C;
+  background: var(--color-bg);
   overflow-x: hidden;
 
-  /* Tema morado — solo dentro del vault */
-  --color-bg:        #06050C;
-  --color-surface:   #0E0A18;
-  --color-border:    #1E1630;
-  --color-accent:    #A855F7;
-  --color-secondary: #C084FC;
-  --color-text:      #F5F3FF;
-  --color-muted:     #6B6280;
-  --color-glow:      rgba(168, 85, 247, 0.45);
+  /* Same light system as the portfolio; petrol accent for links and active state */
+  --color-secondary: #0B5F6B;
 }
 
 .vault-shell {
@@ -23,28 +16,6 @@
   min-height: 100vh;
   display: grid;
   grid-template-columns: minmax(280px, 320px) minmax(0, 1fr);
-}
-
-.vault-shell::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 80% 50% at 15% 0%, rgba(168, 85, 247, 0.18), transparent 55%),
-    radial-gradient(ellipse 60% 40% at 85% 100%, rgba(124, 58, 237, 0.12), transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(192, 132, 252, 0.03), transparent 70%);
-  z-index: 0;
-}
-
-.vault-shell::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.35;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  z-index: 0;
 }
 
 /* ── Sidebar ── */
@@ -55,15 +26,15 @@
   z-index: 10;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid rgba(168, 85, 247, 0.12);
-  background: rgba(10, 7, 18, 0.72);
+  border-right: 1px solid rgba(11, 95, 107, 0.12);
+  background: rgba(245, 245, 247, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
 
 .vault-sidebar__header {
   padding: 1.25rem 1.25rem 1rem;
-  border-bottom: 1px solid rgba(168, 85, 247, 0.1);
+  border-bottom: 1px solid rgba(11, 95, 107, 0.1);
 }
 
 .vault-sidebar__brand {
@@ -80,10 +51,9 @@
   border-radius: 10px;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(124, 58, 237, 0.15));
-  border: 1px solid rgba(192, 132, 252, 0.25);
-  box-shadow: 0 0 24px rgba(168, 85, 247, 0.15);
-  color: var(--color-secondary);
+  background: rgba(11, 95, 107, 0.08);
+  border: 1px solid rgba(11, 95, 107, 0.2);
+  color: var(--color-accent);
   flex-shrink: 0;
 }
 
@@ -99,8 +69,6 @@
 .vault-sidebar__subtitle {
   font-family: var(--font-mono);
   font-size: 0.65rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
   color: var(--color-muted);
 }
 
@@ -120,21 +88,21 @@
 
 .vault-sidebar__back:hover {
   color: var(--color-secondary);
-  border-color: rgba(168, 85, 247, 0.2);
-  background: rgba(168, 85, 247, 0.06);
+  border-color: rgba(11, 95, 107, 0.2);
+  background: rgba(11, 95, 107, 0.06);
 }
 
 .vault-sidebar__search-wrap {
   padding: 0.85rem 1.25rem;
-  border-bottom: 1px solid rgba(168, 85, 247, 0.08);
+  border-bottom: 1px solid rgba(11, 95, 107, 0.08);
 }
 
 .vault-sidebar__search {
   width: 100%;
   padding: 0.65rem 0.85rem 0.65rem 2.25rem;
   border-radius: 10px;
-  border: 1px solid rgba(168, 85, 247, 0.15);
-  background: rgba(6, 5, 12, 0.6);
+  border: 1px solid rgba(11, 95, 107, 0.15);
+  background: #fff;
   color: var(--color-text);
   font-family: var(--font-body);
   font-size: 0.875rem;
@@ -147,8 +115,8 @@
 }
 
 .vault-sidebar__search:focus {
-  border-color: rgba(168, 85, 247, 0.45);
-  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.12);
+  border-color: rgba(11, 95, 107, 0.45);
+  box-shadow: 0 0 0 3px rgba(11, 95, 107, 0.12);
 }
 
 .vault-sidebar__search-box {
@@ -174,8 +142,6 @@
 .vault-sidebar__section-label {
   font-family: var(--font-mono);
   font-size: 0.625rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
   color: var(--color-muted);
   padding: 0.5rem 0.75rem 0.35rem;
 }
@@ -195,8 +161,6 @@
   color: var(--color-muted);
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
   cursor: pointer;
   border-radius: 6px;
   transition: color 0.2s, background 0.2s;
@@ -204,7 +168,7 @@
 
 .vault-tree__folder-toggle:hover {
   color: var(--color-secondary);
-  background: rgba(168, 85, 247, 0.06);
+  background: rgba(11, 95, 107, 0.06);
 }
 
 .vault-tree__chevron {
@@ -222,7 +186,7 @@
   display: none;
   padding-left: 0.65rem;
   margin-left: 0.5rem;
-  border-left: 1px solid rgba(168, 85, 247, 0.1);
+  border-left: 1px solid rgba(11, 95, 107, 0.1);
 }
 
 .vault-tree__folder.is-open .vault-tree__children {
@@ -246,14 +210,14 @@
 
 .vault-tree__link:hover {
   color: var(--color-text);
-  background: rgba(168, 85, 247, 0.08);
-  border-color: rgba(168, 85, 247, 0.12);
+  background: rgba(11, 95, 107, 0.08);
+  border-color: rgba(11, 95, 107, 0.12);
 }
 
 .vault-tree__link.is-active {
   color: var(--color-text);
-  background: linear-gradient(90deg, rgba(168, 85, 247, 0.18), rgba(168, 85, 247, 0.06));
-  border-color: rgba(192, 132, 252, 0.25);
+  background: rgba(11, 95, 107, 0.09);
+  border-color: rgba(11, 95, 107, 0.2);
   box-shadow: inset 3px 0 0 var(--color-accent);
 }
 
@@ -290,8 +254,7 @@
   height: 2px;
   width: 0%;
   z-index: 100;
-  background: linear-gradient(90deg, #7C3AED, #A855F7, #C084FC);
-  box-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
+  background: var(--color-accent);
   transition: width 0.1s linear;
   pointer-events: none;
 }
@@ -315,8 +278,8 @@
   gap: 0.5rem;
   font-family: var(--font-mono);
   font-size: 0.7rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-size: 0.8125rem;
+  letter-spacing: 0;
   color: var(--color-secondary);
   margin-bottom: 1rem;
 }
@@ -326,8 +289,6 @@
   height: 6px;
   border-radius: 50%;
   background: var(--color-accent);
-  box-shadow: 0 0 10px var(--color-accent);
-  animation: vault-pulse 2.5s ease-in-out infinite;
 }
 
 @keyframes vault-pulse {
@@ -338,14 +299,11 @@
 .vault-index__title {
   font-family: var(--font-body);
   font-size: clamp(2.25rem, 5vw, 3.25rem);
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.025em;
   line-height: 1.08;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #F5F3FF 20%, #C084FC 60%, #A855F7 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--color-text);
 }
 
 .vault-index__desc {
@@ -365,9 +323,8 @@
 .vault-stat {
   padding: 0.85rem 1.15rem;
   border-radius: 12px;
-  border: 1px solid rgba(168, 85, 247, 0.15);
-  background: rgba(14, 10, 24, 0.5);
-  backdrop-filter: blur(8px);
+  border: 1px solid rgba(11, 95, 107, 0.15);
+  background: var(--color-surface);
 }
 
 .vault-stat__value {
@@ -381,8 +338,6 @@
 .vault-stat__label {
   font-family: var(--font-mono);
   font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: var(--color-muted);
   margin-top: 0.25rem;
 }
@@ -400,17 +355,16 @@
   font-size: 0.75rem;
   padding: 0.35rem 0.75rem;
   border-radius: 999px;
-  border: 1px solid rgba(168, 85, 247, 0.2);
-  background: rgba(168, 85, 247, 0.06);
+  border: 1px solid rgba(11, 95, 107, 0.2);
+  background: rgba(11, 95, 107, 0.06);
   color: var(--color-secondary);
   text-decoration: none;
   transition: border-color 0.2s, background 0.2s, transform 0.15s;
 }
 
 .vault-tag:hover {
-  border-color: rgba(192, 132, 252, 0.45);
-  background: rgba(168, 85, 247, 0.14);
-  transform: translateY(-1px);
+  border-color: rgba(11, 95, 107, 0.45);
+  background: rgba(11, 95, 107, 0.14);
 }
 
 .vault-cards {
@@ -424,9 +378,8 @@
   text-decoration: none;
   padding: 1.35rem 1.5rem;
   border-radius: var(--radius-card);
-  border: 1px solid rgba(168, 85, 247, 0.12);
-  background: linear-gradient(145deg, rgba(14, 10, 24, 0.85), rgba(10, 7, 18, 0.6));
-  backdrop-filter: blur(12px);
+  border: 1px solid rgba(11, 95, 107, 0.12);
+  background: #fff;
   transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
   position: relative;
   overflow: hidden;
@@ -436,15 +389,14 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.08), transparent 50%);
+  background: rgba(11, 95, 107, 0.03);
   opacity: 0;
   transition: opacity 0.25s;
 }
 
 .vault-card:hover {
-  border-color: rgba(192, 132, 252, 0.35);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(168, 85, 247, 0.12);
+  border-color: rgba(11, 95, 107, 0.35);
+  box-shadow: 0 12px 32px -16px rgba(18, 32, 43, 0.25);
 }
 
 .vault-card:hover::before {
@@ -496,7 +448,7 @@
   font-size: 0.65rem;
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
-  background: rgba(168, 85, 247, 0.1);
+  background: rgba(11, 95, 107, 0.1);
   color: var(--color-secondary);
 }
 
@@ -508,7 +460,7 @@
 .vault-note__header {
   margin-bottom: 2.5rem;
   padding-bottom: 2rem;
-  border-bottom: 1px solid rgba(168, 85, 247, 0.12);
+  border-bottom: 1px solid rgba(11, 95, 107, 0.12);
 }
 
 .vault-note__meta {
@@ -522,8 +474,6 @@
 .vault-note__breadcrumb {
   font-family: var(--font-mono);
   font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: var(--color-muted);
 }
 
@@ -558,18 +508,18 @@
   line-height: 1.75;
 }
 
-.vault-prose :global(h2) {
+.vault-prose h2 {
   font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   margin: 2.5rem 0 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(168, 85, 247, 0.12);
+  border-bottom: 1px solid rgba(11, 95, 107, 0.12);
   color: var(--color-text);
 }
 
-.vault-prose :global(h3) {
+.vault-prose h3 {
   font-family: var(--font-display);
   font-size: 1.2rem;
   font-weight: 600;
@@ -577,81 +527,81 @@
   color: var(--color-secondary);
 }
 
-.vault-prose :global(p) {
+.vault-prose p {
   margin-bottom: 1.15rem;
-  color: rgba(245, 243, 255, 0.88);
+  color: rgba(18, 32, 43, 0.88);
 }
 
-.vault-prose :global(a) {
+.vault-prose a {
   color: var(--color-secondary);
   text-decoration: underline;
   text-underline-offset: 3px;
-  text-decoration-color: rgba(192, 132, 252, 0.4);
+  text-decoration-color: rgba(11, 95, 107, 0.4);
   transition: color 0.2s, text-decoration-color 0.2s;
 }
 
-.vault-prose :global(a:hover) {
+.vault-prose a:hover {
   color: var(--color-accent);
   text-decoration-color: var(--color-accent);
 }
 
-.vault-prose :global(strong) {
+.vault-prose strong {
   color: var(--color-text);
   font-weight: 600;
 }
 
-.vault-prose :global(ul),
-.vault-prose :global(ol) {
+.vault-prose ul,
+.vault-prose ol {
   margin: 0 0 1.15rem 1.25rem;
 }
 
-.vault-prose :global(li) {
+.vault-prose li {
   margin-bottom: 0.4rem;
-  color: rgba(245, 243, 255, 0.85);
+  color: rgba(18, 32, 43, 0.85);
 }
 
-.vault-prose :global(li::marker) {
+.vault-prose li::marker {
   color: var(--color-accent);
 }
 
-.vault-prose :global(blockquote) {
+.vault-prose blockquote {
   margin: 1.5rem 0;
   padding: 1rem 1.25rem;
   border-left: 3px solid var(--color-accent);
   border-radius: 0 10px 10px 0;
-  background: rgba(168, 85, 247, 0.06);
+  background: rgba(11, 95, 107, 0.06);
   color: var(--color-muted);
   font-style: italic;
 }
 
-.vault-prose :global(code:not(pre code)) {
+.vault-prose code:not(pre code) {
   font-family: var(--font-mono);
   font-size: 0.875em;
   padding: 0.15em 0.45em;
   border-radius: 5px;
-  background: rgba(168, 85, 247, 0.12);
+  background: rgba(11, 95, 107, 0.12);
   color: var(--color-secondary);
-  border: 1px solid rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(11, 95, 107, 0.15);
 }
 
-.vault-prose :global(hr) {
+.vault-prose hr {
   border: none;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.3), transparent);
+  background: var(--color-border);
   margin: 2.5rem 0;
 }
 
-.vault-prose :global(mark) {
-  background: rgba(168, 85, 247, 0.2);
+.vault-prose mark {
+  background: rgba(11, 95, 107, 0.2);
   color: var(--color-text);
   padding: 0.1em 0.35em;
   border-radius: 4px;
 }
 
-.vault-prose :global(img) {
+.vault-prose img {
   max-width: 100%;
   border-radius: 10px;
-  border: 1px solid rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(11, 95, 107, 0.15);
 }
 
 /* ── Mobile toggle ── */
@@ -664,12 +614,11 @@
   width: 52px;
   height: 52px;
   border-radius: 14px;
-  border: 1px solid rgba(192, 132, 252, 0.35);
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.35), rgba(124, 58, 237, 0.25));
-  backdrop-filter: blur(12px);
+  border: 1px solid rgba(11, 95, 107, 0.35);
+  background: var(--color-accent);
   color: #fff;
   cursor: pointer;
-  box-shadow: 0 8px 32px rgba(168, 85, 247, 0.25);
+  box-shadow: 0 8px 24px -8px rgba(18, 32, 43, 0.4);
   align-items: center;
   justify-content: center;
 }
@@ -701,7 +650,7 @@
     width: min(320px, 88vw);
     transform: translateX(-105%);
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 8px 0 40px rgba(0, 0, 0, 0.4);
+    box-shadow: 8px 0 40px rgba(18, 32, 43, 0.18);
   }
 
   .vault-sidebar.is-open {
@@ -712,7 +661,7 @@
     display: block;
     position: fixed;
     inset: 0;
-    background: rgba(6, 5, 12, 0.65);
+    background: rgba(18, 32, 43, 0.45);
     backdrop-filter: blur(4px);
     z-index: 9;
     opacity: 0;
@@ -755,7 +704,7 @@
   margin: 1.75rem 0;
   border-radius: 12px;
   overflow: hidden;
-  background: #16141f;
+  background: #0E1A22;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow:
     0 2px 8px rgba(0, 0, 0, 0.35),
@@ -797,7 +746,7 @@
   padding: 1.15rem 1.2rem;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  background: #16141f;
+  background: #0E1A22;
   overflow-x: auto;
   font-family: var(--font-mono);
   font-size: 0.875rem;
@@ -812,13 +761,13 @@
   font-size: 0.9375rem;
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid rgba(168, 85, 247, 0.18);
+  border: 1px solid rgba(11, 95, 107, 0.18);
 }
 
 .vault-prose th,
 .vault-prose td {
   padding: 0.7rem 1rem;
-  border-bottom: 1px solid rgba(168, 85, 247, 0.12);
+  border-bottom: 1px solid rgba(11, 95, 107, 0.12);
   text-align: left;
   vertical-align: top;
 }
@@ -828,11 +777,9 @@
 }
 
 .vault-prose th {
-  background: rgba(168, 85, 247, 0.12);
+  background: rgba(11, 95, 107, 0.12);
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
   color: var(--color-secondary);
 }
 

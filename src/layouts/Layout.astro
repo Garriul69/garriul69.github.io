@@ -1,6 +1,7 @@
 ---
 import Navbar from '@/components/Navbar.astro';
 import '@/styles/global.css';
+import { site } from '@/lib/site';
 
 interface Props {
   title?: string;
@@ -42,6 +43,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://agln.sec
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!-- Preconnect for Google Fonts -->
+    <meta name="theme-color" content="#ffffff" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
@@ -56,12 +58,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://agln.sec
     <footer class="footer">
       <div class="footer__inner">
         <span class="footer__copy">
-          © 2026 Andy Gibran López Nambo. Secured by Design.
+          © 2026 {site.name}. All rights reserved.
         </span>
         <div class="footer__links">
-          <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
-          <a href="https://github.com/"      target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
-          <a href="#" class="footer__link">SecurityBlog</a>
+          <a href="/vault" class="footer__link">Vault</a>
+          {site.linkedin && <a href={site.linkedin} target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>}
+          {site.github && <a href={site.github} target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>}
         </div>
       </div>
     </footer>
@@ -93,11 +95,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://agln.sec
 
 <style>
   .footer {
-    border-top: 1px solid var(--color-border);
-    padding: 1.5rem 1.5rem;
+    background: var(--color-ink);
+    border-top: 1px solid var(--color-ink-line);
+    padding: 1.75rem 1.5rem;
   }
   .footer__inner {
-    max-width: 1200px;
+    max-width: var(--container);
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -107,7 +110,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://agln.sec
   }
   .footer__copy {
     font-size: 0.8125rem;
-    color: var(--color-muted);
+    color: var(--color-ink-muted);
   }
   .footer__links {
     display: flex;
@@ -115,9 +118,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://agln.sec
   }
   .footer__link {
     font-size: 0.8125rem;
-    color: var(--color-muted);
+    color: var(--color-ink-muted);
     text-decoration: none;
     transition: color 0.2s;
   }
-  .footer__link:hover { color: var(--color-accent); }
+  .footer__link:hover { color: #fff; }
 </style>

@@ -1,8 +1,10 @@
 /* ============================================================
-   Global CSS — AGLN.SEC Portfolio
+   Global CSS — AGLN.SEC
+   Light, product-style system: white / soft grey sections,
+   one petrol accent, one dark band at the end of the page.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -10,29 +12,39 @@
 
 /* ── Design Tokens ── */
 :root {
-  --color-bg:        #070B14;
-  --color-surface:   #0D1526;
-  --color-border:    #162035;
-  --color-accent:    #3B82F6;
-  --color-secondary: #0EA5E9;
-  --color-highlight: #F59E0B;
-  --color-dev:       #8B5CF6;
-  --color-text:      #F1F5F9;
-  --color-muted:     #475569;
-  --color-glow:      rgba(59, 130, 246, 0.45);
+  --color-bg:        #FFFFFF;
+  --color-surface:   #F5F5F7;
+  --color-border:    #DCE2E8;
+  --color-accent:    #0B5F6B;
+  --color-accent-hover: #084A54;
+  --color-secondary: #2B6CB0;
+  --color-highlight: #B7791F;
+  --color-dev:       #5B54C6;
+  --color-text:      #12202B;
+  --color-muted:     #5B6773;
+  --color-soft:      #8794A1;
+
+  /* Dark band (contact + footer) */
+  --color-ink:       #0E1A22;
+  --color-ink-line:  #22333F;
+  --color-ink-text:  #E8EEF2;
+  --color-ink-muted: #93A3B0;
 
   /* Semantic states (before → after) */
-  --color-danger:    #EF4444;
-  --color-success:   #22C55E;
+  --color-danger:    #C93B3B;
+  --color-success:   #13805D;
 
-  --font-display: 'Syne', system-ui, sans-serif;
-  --font-body:    'DM Sans', system-ui, sans-serif;
-  --font-mono:    'JetBrains Mono', monospace;
+  --font-display: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body:    'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
 
-  --radius-btn:  8px;
-  --radius-card: 14px;
+  --radius-btn:  980px;
+  --radius-card: 18px;
 
-  --navbar-h: 68px;
+  --shadow-card: 0 1px 2px rgba(18, 32, 43, 0.04), 0 8px 24px -12px rgba(18, 32, 43, 0.12);
+
+  --navbar-h: 64px;
+  --container: 1120px;
 }
 
 /* ── Base reset ── */
@@ -56,19 +68,47 @@ html {
 body {
   min-height: 100vh;
   overflow-x: hidden;
-  /* Subtle noise texture */
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background: var(--color-bg);
 }
 
 /* ── Typography scale ── */
 h1, h2, h3, h4, h5 {
   font-family: var(--font-display);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  font-weight: 600;
 }
 
 code, kbd, pre {
   font-family: var(--font-mono);
+}
+
+/* ── Shared section scaffolding ── */
+.section {
+  padding: clamp(4.5rem, 10vw, 8rem) 1.5rem;
+}
+.section--soft { background: var(--color-surface); }
+.section__inner {
+  max-width: var(--container);
+  margin: 0 auto;
+}
+.section__head {
+  max-width: 760px;
+  margin: 0 auto clamp(2.5rem, 6vw, 4.5rem);
+  text-align: center;
+}
+.section__title {
+  font-size: clamp(2.25rem, 5.5vw, 4rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  color: var(--color-text);
+}
+.section__lead {
+  margin: 1.1rem auto 0;
+  max-width: 600px;
+  font-size: clamp(1.0625rem, 2vw, 1.3rem);
+  line-height: 1.5;
+  color: var(--color-muted);
 }
 
 /* ── Lenis fix ── */
@@ -86,18 +126,24 @@ html.lenis {
 }
 
 /* ── Scrollbar ── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--color-surface); }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 3px;
+  background: #C3CBD3;
+  border-radius: 4px;
 }
-::-webkit-scrollbar-thumb:hover { background: var(--color-muted); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-soft); }
 
 /* ── Selection ── */
 ::selection {
   background: var(--color-accent);
   color: #fff;
+}
+
+/* ── Keyboard focus ── */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
 }
 
 /* ── Utility: visually hidden ── */
@@ -113,7 +159,7 @@ html.lenis {
   border-width: 0;
 }
 
-/* ── Magnetic button base ── */
+/* ── Buttons ── */
 .btn-magnetic {
   position: relative;
   display: inline-flex;
@@ -121,10 +167,12 @@ html.lenis {
   justify-content: center;
   gap: 0.5rem;
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1;
   border-radius: var(--radius-btn);
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
   text-decoration: none;
   white-space: nowrap;
   user-select: none;
@@ -133,23 +181,31 @@ html.lenis {
 .btn-primary {
   background: var(--color-accent);
   color: #fff;
-  padding: 0.75rem 1.75rem;
-  box-shadow: 0 0 0 0 var(--color-glow);
+  padding: 0.85rem 1.6rem;
 }
-.btn-primary:hover {
-  box-shadow: 0 0 28px var(--color-glow);
-}
+.btn-primary:hover { background: var(--color-accent-hover); }
 
 .btn-outline {
   background: transparent;
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
-  padding: 0.75rem 1.75rem;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  padding: calc(0.85rem - 1px) calc(1.6rem - 1px);
 }
 .btn-outline:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+  background: var(--color-accent);
+  color: #fff;
 }
+
+/* Text link with chevron, product-page style */
+.link-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--color-accent);
+  font-weight: 500;
+  text-decoration: none;
+}
+.link-more:hover { text-decoration: underline; text-underline-offset: 4px; }
 
 /* ── Split text spans (GSAP target) ── */
 .char {

@@ -1,0 +1,157 @@
+---
+const projects = [
+  {
+    title: 'Zero-touch device fleet',
+    problem: 'Machines were configured by hand, taking about two days per PC with no central device management.',
+    solution: 'Standardized the whole fleet and layered Entra ID, Intune and Windows Autopilot on top.',
+    result: '10 PCs ready in 1 hour',
+    tools: ['Entra ID', 'Intune', 'Autopilot', 'PowerShell'],
+  },
+  {
+    title: 'Endpoint protection upgrade',
+    problem: 'Legacy antivirus, vulnerable IoT cameras, a web app with SQL injection and no data classification.',
+    solution: 'Migrated to CrowdStrike Falcon, labeled data with Purview, patched firmware and hardened the web servers.',
+    result: 'Next-gen EDR in place and vulnerabilities closed',
+    tools: ['CrowdStrike Falcon', 'Purview', 'Hardening'],
+  },
+  {
+    title: 'Email consolidation',
+    problem: 'Corporate mail ran on Telmex with limited mailboxes and no standard across the company.',
+    solution: 'Moved mail in two phases: Telmex to Google Workspace to stabilize, then to Microsoft 365 to standardize.',
+    result: 'One secure ecosystem for mail and files',
+    tools: ['Microsoft 365', 'Outlook', 'OneDrive', 'SharePoint'],
+  },
+  {
+    title: 'Corporate website',
+    problem: 'A legacy HTML/CSS/JS site on Telmex hosting.',
+    solution: 'Rebuilt it with Astro, Tailwind and GSAP, with CI/CD from GitHub and Cloudflare in front.',
+    result: 'Lower cost, higher availability, better SEO',
+    tools: ['Astro', 'Tailwind', 'GitHub', 'Cloudflare'],
+  },
+];
+---
+
+<section id="projects" class="section section--soft" aria-labelledby="projects-title">
+  <div class="section__inner">
+    <header class="section__head">
+      <h2 id="projects-title" class="section__title">Work that shipped.</h2>
+      <p class="section__lead">
+        Four projects from one manufacturing company, each from problem to result.
+      </p>
+    </header>
+
+    <div class="pj">
+      {projects.map((p) => (
+        <article class="pj__card">
+          <h3 class="pj__title">{p.title}</h3>
+
+          <dl class="pj__defs">
+            <div>
+              <dt>Problem</dt>
+              <dd>{p.problem}</dd>
+            </div>
+            <div>
+              <dt>Solution</dt>
+              <dd>{p.solution}</dd>
+            </div>
+          </dl>
+
+          <div class="pj__result">
+            <span class="pj__result-label">Result</span>
+            <p class="pj__result-text">{p.result}</p>
+          </div>
+
+          <ul class="pj__tools" aria-label={`${p.title} tools`}>
+            {p.tools.map((t) => <li>{t}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pj {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .pj__card {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    padding: 2rem 2rem 1.75rem;
+    box-shadow: var(--shadow-card);
+  }
+
+  .pj__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--color-text);
+    margin-bottom: 1.25rem;
+  }
+
+  .pj__defs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .pj__defs dt {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-muted);
+    margin-bottom: 0.15rem;
+  }
+  .pj__defs dd {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--color-text);
+  }
+
+  .pj__result {
+    margin-top: 1.5rem;
+    padding: 1rem 1.15rem;
+    border-radius: 12px;
+    background: rgba(11, 95, 107, 0.07);
+  }
+  .pj__result-label {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+  .pj__result-text {
+    margin-top: 0.15rem;
+    font-size: 1.1875rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.3;
+    color: var(--color-text);
+  }
+
+  .pj__tools {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: auto;
+    padding-top: 1.5rem;
+  }
+  .pj__tools li {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    background: var(--color-surface);
+    border-radius: 999px;
+    padding: 0.3rem 0.75rem;
+  }
+
+  @media (max-width: 860px) {
+    .pj { grid-template-columns: 1fr; }
+    .pj__card { padding: 1.5rem 1.35rem; }
+  }
+</style>
