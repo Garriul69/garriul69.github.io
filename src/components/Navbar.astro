@@ -1,4 +1,6 @@
 ---
+import { site } from '@/lib/site';
+
 const navLinks = [
   { label: 'Services',   href: '#services' },
   { label: 'Experience', href: '#experience' },
@@ -9,9 +11,8 @@ const navLinks = [
 
 <header id="navbar" class="navbar">
   <div class="navbar__inner">
-    <a href="/" class="navbar__logo" aria-label="AGLN.SEC — home">
-      <span class="navbar__logo-mark" aria-hidden="true"></span>
-      <span class="navbar__logo-text">AGLN<span class="navbar__logo-dot">.</span>SEC</span>
+    <a href="/" class="navbar__logo" aria-label={`${site.brand} — home`}>
+      <span class="navbar__logo-text">{site.brand}</span>
     </a>
 
     <nav class="navbar__links" aria-label="Main navigation">
@@ -75,21 +76,12 @@ const navLinks = [
     text-decoration: none;
     flex-shrink: 0;
   }
-  .navbar__logo-mark {
-    width: 20px;
-    height: 20px;
-    border-radius: 6px;
-    background: var(--color-accent);
-    /* inner notch reads as a shield / keyhole without clip-art */
-    box-shadow: inset 0 -6px 0 -2px rgba(255, 255, 255, 0.28);
-  }
   .navbar__logo-text {
-    font-size: 1.0625rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
+    font-size: 1.1875rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
     color: var(--color-text);
   }
-  .navbar__logo-dot { color: var(--color-accent); }
 
   .navbar__links {
     display: flex;
