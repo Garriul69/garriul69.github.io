@@ -1,552 +1,307 @@
 ---
-const techPills = [
-  'Intune',
-  'CrowdStrike',
-  'Entra ID',
-  'PowerShell',
-  'Autopilot',
+const stack = [
+  { name: 'Microsoft Entra ID',  role: 'Identity & MFA',        state: 'Enforced' },
+  { name: 'Microsoft Intune',    role: 'Device management',     state: 'Managed' },
+  { name: 'Windows Autopilot',   role: 'Device provisioning',   state: 'Zero-touch' },
+  { name: 'CrowdStrike Falcon',  role: 'Endpoint protection',   state: 'Active' },
+  { name: 'Microsoft Purview',   role: 'Data classification',   state: 'Labeled' },
+];
+
+const toolsStrip = [
+  'Microsoft 365', 'Intune', 'Entra ID', 'CrowdStrike', 'Purview', 'PowerShell', 'Python', 'n8n',
 ];
 ---
 
 <section id="hero" class="hero">
-  <!-- Particle canvas -->
-  <canvas id="particle-canvas" class="hero__canvas" aria-hidden="true"></canvas>
-
-  <!-- Drifting presence cursor (Figma-style) — lives only inside the hero -->
-  <div class="hero__cursors" aria-hidden="true">
-    <div class="hero__cursor hero__cursor--ghost" id="cursor-ghost">
-      <svg class="hero__cursor-arrow" width="19" height="26" viewBox="-1 -1 14 19" fill="none">
-        <path d="M5.65376 12.3673H5.46026L5.31717 12.4976L0.5 16.8829V1.19841L11.7841 12.3673H5.65376Z" fill="currentColor" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/>
-      </svg>
-      <span class="hero__cursor-label">Gibran López</span>
-    </div>
-  </div>
-
-  <!-- "me" cursor — follows the visitor across the whole page (label only in hero) -->
-  <div class="hero__cursor hero__cursor--me" id="cursor-me" aria-hidden="true">
-    <svg class="hero__cursor-arrow" width="19" height="26" viewBox="-1 -1 14 19" fill="none">
-      <path d="M5.65376 12.3673H5.46026L5.31717 12.4976L0.5 16.8829V1.19841L11.7841 12.3673H5.65376Z" fill="currentColor" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/>
-    </svg>
-    <span class="hero__cursor-label">me</span>
-  </div>
-
-  <!-- Content -->
   <div class="hero__content">
-    <!-- Live badge -->
-    <div class="hero__badge" data-anim="fade-up" style="--delay:0s">
-      <span class="hero__badge-dot" aria-hidden="true"></span>
-      <span class="hero__badge-text">MODERN WORKPLACE · CLOUD · SECURITY</span>
-    </div>
-
-    <!-- Name headline -->
-    <h1 class="hero__name" aria-label="Andy Gibran López Nambo">
-      <span class="hero__name-line" id="name-line-1">
-        <span class="word"><span class="name-word">Andy</span></span>&nbsp;<span class="word"><span class="name-word">Gibran</span></span>
-      </span>
-      <span class="hero__name-line" id="name-line-2">
-        <span class="word"><span class="name-word hero__name--accent">López</span></span>&nbsp;<span class="word"><span class="name-word">Nambo</span></span>
-      </span>
+    <h1 class="hero__title" aria-label="Secure, modern IT for growing companies.">
+      <span class="hero__line"><span class="hero__word">Secure, modern IT</span></span>
+      <span class="hero__line"><span class="hero__word">for growing companies.</span></span>
     </h1>
 
-    <!-- Subheadline -->
-    <p class="hero__sub" data-anim="fade-up" style="--delay:0.55s">
-      Securing and modernizing enterprise infrastructure from the endpoint up.
+    <p class="hero__sub" data-hero="fade">
+      I'm Andy Gibran López Nambo, a Modern Workplace, Cloud &amp; Security engineer.
+      I replace manual setups with managed, protected and automated systems,
+      from the endpoint to the cloud.
     </p>
 
-    <!-- Tech pills -->
-    <div class="hero__pills" data-anim="fade-up" style="--delay:0.7s" aria-label="Core technologies">
-      {techPills.map((pill, i) => (
-        <span class="hero__pill" style={`--pill-delay:${i * 0.06}s`}>{pill}</span>
-      ))}
-    </div>
-
-    <!-- CTAs -->
-    <div class="hero__ctas" data-anim="fade-up" style="--delay:0.9s">
-      <a href="#projects" class="btn-magnetic btn-primary hero__cta-btn">
-        View Projects <span aria-hidden="true">→</span>
-      </a>
-      <a href="#contact" class="btn-magnetic btn-outline hero__cta-btn">
-        Contact Me
-      </a>
+    <div class="hero__ctas" data-hero="fade">
+      <a href="#projects" class="btn-magnetic btn-primary">View projects</a>
+      <a href="#contact" class="btn-magnetic btn-outline">Contact</a>
     </div>
   </div>
 
-  <!-- Scroll indicator -->
-  <div class="hero__scroll" aria-hidden="true" data-anim="fade-up" style="--delay:1.2s">
-    <span class="hero__scroll-text">SCROLL</span>
-    <div class="hero__scroll-chevrons">
-      <svg width="14" height="8" viewBox="0 0 14 8" fill="none" aria-hidden="true">
-        <path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <svg width="14" height="8" viewBox="0 0 14 8" fill="none" aria-hidden="true">
-        <path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+  <!-- Product-style panel: the stack in production + the measured result -->
+  <figure class="panel" data-hero="rise">
+    <div class="panel__bar">
+      <span class="panel__title">Managed environment</span>
+      <span class="panel__status"><i aria-hidden="true"></i>Protected</span>
     </div>
+
+    <div class="panel__body">
+      <ul class="panel__list">
+        {stack.map((row) => (
+          <li class="panel__row">
+            <div>
+              <span class="panel__name">{row.name}</span>
+              <span class="panel__role">{row.role}</span>
+            </div>
+            <span class="panel__state">{row.state}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div class="panel__result">
+        <p class="panel__result-title">Time to deploy new PCs</p>
+
+        <div class="bar">
+          <div class="bar__label"><span>Before</span><b>~2 days per PC</b></div>
+          <div class="bar__track"><span class="bar__fill bar__fill--before"></span></div>
+        </div>
+        <div class="bar">
+          <div class="bar__label"><span>After</span><b>10 PCs in 1 hour</b></div>
+          <div class="bar__track"><span class="bar__fill bar__fill--after"></span></div>
+        </div>
+
+        <p class="panel__note">Real result from a manufacturing company fleet, 2025.</p>
+      </div>
+    </div>
+  </figure>
+
+  <div class="strip" data-hero="fade">
+    <p class="strip__label">Tools I work with every day</p>
+    <ul class="strip__list">
+      {toolsStrip.map((t) => <li>{t}</li>)}
+    </ul>
   </div>
 </section>
 
 <style>
   .hero {
-    position: relative;
-    min-height: 100svh;
-    display: flex;
-    align-items: center;
+    background:
+      radial-gradient(ellipse 70% 45% at 50% 0%, rgba(11, 95, 107, 0.07), transparent 70%),
+      var(--color-bg);
+    padding: calc(var(--navbar-h) + clamp(3.5rem, 9vw, 7rem)) 1.5rem clamp(3rem, 7vw, 5rem);
     overflow: hidden;
-    padding: var(--navbar-h) 1.5rem 0;
-  }
-
-  .hero__canvas {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
   }
 
   .hero__content {
-    position: relative;
-    z-index: 1;
-    max-width: 1200px;
+    max-width: 860px;
     margin: 0 auto;
-    width: 100%;
-    padding: 4rem 0 6rem;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2rem;
+    text-align: center;
   }
 
-  .hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    border: 1px solid var(--color-border);
-    border-radius: 999px;
-    padding: 0.35rem 0.9rem;
-  }
-  .hero__badge-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--color-accent);
-    box-shadow: 0 0 8px var(--color-accent);
-    animation: pulse-dot 2.5s ease-in-out infinite;
-  }
-  @keyframes pulse-dot {
-    0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--color-accent); }
-    50%       { opacity: 0.55; box-shadow: 0 0 4px var(--color-accent); }
-  }
-  .hero__badge-text {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.14em;
-    color: var(--color-muted);
-  }
-
-  .hero__name {
-    font-family: var(--font-body);
-    font-size: clamp(2.75rem, 8vw, 6.5rem);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.025em;
+  .hero__title {
+    font-size: clamp(2.75rem, 7.6vw, 5.5rem);
+    font-weight: 600;
+    line-height: 1.04;
+    letter-spacing: -0.04em;
     color: var(--color-text);
-    margin: 0;
   }
-  .hero__name-line { display: block; }
-  .hero__name .word {
+  .hero__line {
+    display: block;
     overflow: hidden;
-    padding-block: 0.1em;
-    margin-block: -0.1em;
-    vertical-align: top;
+    padding-bottom: 0.08em;
   }
-  .name-word {
-    display: inline-block;
-  }
-  .hero__name--accent { color: var(--color-accent); }
+  .hero__word { display: inline-block; }
 
   .hero__sub {
-    font-size: clamp(1rem, 2vw, 1.25rem);
+    margin: 1.75rem auto 0;
+    max-width: 620px;
+    font-size: clamp(1.0625rem, 2vw, 1.3125rem);
+    line-height: 1.5;
     color: var(--color-muted);
-    max-width: 520px;
-    line-height: 1.6;
-  }
-
-  .hero__pills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  .hero__pill {
-    font-family: var(--font-mono);
-    font-size: 0.8125rem;
-    color: var(--color-secondary);
-    border: 1px solid var(--color-border);
-    border-radius: 6px;
-    padding: 0.3rem 0.75rem;
-    background: rgba(14, 165, 233, 0.05);
-    transition: border-color 0.2s, background 0.2s;
-  }
-  .hero__pill:hover {
-    border-color: var(--color-secondary);
-    background: rgba(14, 165, 233, 0.1);
   }
 
   .hero__ctas {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.9rem;
+    margin-top: 2.25rem;
+  }
+
+  /* ── Panel ── */
+  .panel {
+    max-width: 960px;
+    margin: clamp(3rem, 7vw, 5rem) auto 0;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 20px;
+    box-shadow: 0 1px 2px rgba(18, 32, 43, 0.04), 0 30px 60px -30px rgba(18, 32, 43, 0.22);
+    overflow: hidden;
+  }
+  .panel__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 1rem;
+    padding: 0.85rem 1.4rem;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
   }
-  .hero__cta-btn {
-    font-size: 1rem;
-    padding: 0.8rem 2rem;
+  .panel__title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  .panel__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-success);
+  }
+  .panel__status i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-success);
   }
 
-  .hero__scroll {
-    position: absolute;
-    bottom: 2.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.4rem;
-  }
-  .hero__scroll-text {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.18em;
-    color: var(--color-muted);
-  }
-  .hero__scroll-chevrons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    color: var(--color-muted);
-    animation: bounce-chevrons 1.8s ease-in-out infinite;
-  }
-  @keyframes bounce-chevrons {
-    0%, 100% { transform: translateY(0); opacity: 0.5; }
-    50%       { transform: translateY(5px); opacity: 1; }
+  .panel__body {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
   }
 
-  /* Presence cursors */
-  .hero__cursors {
-    position: absolute;
-    inset: 0;
-    z-index: 5;
-    pointer-events: none;
+  .panel__list { list-style: none; }
+  .panel__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.4rem;
+    border-bottom: 1px solid var(--color-border);
+    text-align: left;
   }
-  .hero__cursor {
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    pointer-events: none;
-    will-change: transform;
-    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.45));
-  }
-  .hero__cursor-arrow {
+  .panel__row:last-child { border-bottom: none; }
+  .panel__name {
     display: block;
-    transform: rotate(-22deg); /* tip points up-left at a clean 45° diagonal (↖) */
-    transform-origin: 2px 3px; /* pivot on the cursor tip */
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-text);
+    line-height: 1.3;
   }
-  .hero__cursor-label {
-    position: absolute;
-    top: 17px;
-    left: 14px;
-    padding: 3px 9px;
-    border-radius: 999px;
-    font-family: var(--font-body);
+  .panel__role {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+  .panel__state {
     font-size: 0.75rem;
     font-weight: 600;
-    line-height: 1.3;
+    color: var(--color-success);
+    background: rgba(19, 128, 93, 0.09);
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
     white-space: nowrap;
-    color: #fff;
-    transition: opacity 0.2s ease;
-  }
-  /* Drifting cursor → gray */
-  .hero__cursor--ghost { color: #9ca3af; }
-  .hero__cursor--ghost .hero__cursor-label { background: #9ca3af; }
-  /* "me" cursor → accent blue (same as View Projects button) */
-  .hero__cursor--me {
-    position: fixed; /* follows the visitor across the whole page */
-    z-index: 10000;  /* above the navbar (z-index: 100) */
-    color: var(--color-accent);
-  }
-  .hero__cursor--me .hero__cursor-label { background: var(--color-accent); }
-  /* Outside the hero the "me" cursor keeps the arrow but drops the label */
-  .hero__cursor--me.hero__cursor--bare .hero__cursor-label { opacity: 0; }
-
-  /* When the custom cursor is active, hide the native one across the page */
-  :global(html.custom-cursor-active),
-  :global(html.custom-cursor-active *) { cursor: none !important; }
-
-  @media (max-width: 900px) {
-    .hero__cursors,
-    .hero__cursor--me { display: none; }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .hero__cursor--me { display: none; }
+  .panel__result {
+    padding: 1.5rem 1.6rem;
+    border-left: 1px solid var(--color-border);
+    background: var(--color-surface);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.25rem;
+  }
+  .panel__result-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  .bar__label {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+    margin-bottom: 0.4rem;
+  }
+  .bar__label b { color: var(--color-text); font-weight: 600; }
+  .bar__track {
+    height: 10px;
+    border-radius: 999px;
+    background: #E4E8EC;
+    overflow: hidden;
+  }
+  .bar__fill {
+    display: block;
+    height: 100%;
+    border-radius: 999px;
+    transform-origin: left;
+  }
+  .bar__fill--before { width: 100%; background: #B7C0C9; }
+  .bar__fill--after  { width: 6%;   background: var(--color-accent); }
+  .panel__note {
+    font-size: 0.75rem;
+    color: var(--color-soft);
   }
 
-  @media (max-width: 640px) {
-    .hero__content { padding: 2rem 0 5rem; gap: 1.5rem; }
-    .hero__cta-btn { padding: 0.7rem 1.5rem; font-size: 0.9375rem; }
+  /* ── Tools strip ── */
+  .strip {
+    max-width: 960px;
+    margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+    text-align: center;
+  }
+  .strip__label {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    margin-bottom: 1.1rem;
+  }
+  .strip__list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem 2.25rem;
+  }
+  .strip__list li {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-soft);
+  }
+
+  @media (max-width: 760px) {
+    .panel__body { grid-template-columns: 1fr; }
+    .panel__result {
+      border-left: none;
+      border-top: 1px solid var(--color-border);
+    }
   }
 </style>
 
 <script>
   import gsap from 'gsap';
 
-  const COLORS = ['#3B82F6', '#0EA5E9', '#1d4ed8'];
-  const FADE_TARGETS = '.hero__badge, .hero__sub, .hero__pills, .hero__ctas, .hero__scroll';
-
-  function revealHeroStatic(hero: HTMLElement) {
-    hero.querySelectorAll(`${FADE_TARGETS}, .name-word`).forEach((el) => {
-      const node = el as HTMLElement;
-      node.style.opacity = '1';
-      node.style.transform = 'none';
-    });
-  }
-
-  function initParticles(hero: HTMLElement) {
-    const canvas = hero.querySelector('#particle-canvas') as HTMLCanvasElement | null;
-    const ctx = canvas?.getContext('2d');
-    if (!canvas || !ctx) return;
-
-    let W = 0;
-    let H = 0;
-    let particles: Array<{
-      x: number; y: number; vx: number; vy: number;
-      r: number; alpha: number; color: string;
-    }> = [];
-    let mouse = { x: -9999, y: -9999 };
-    let rafId = 0;
-
-    const resize = () => {
-      const w = hero.clientWidth || window.innerWidth;
-      const h = hero.clientHeight || window.innerHeight;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      W = Math.max(Math.floor(w), 1);
-      H = Math.max(Math.floor(h), 1);
-      canvas.width = Math.floor(W * dpr);
-      canvas.height = Math.floor(H * dpr);
-      canvas.style.width = `${W}px`;
-      canvas.style.height = `${H}px`;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    };
-
-    const spawn = () => ({
-      x: Math.random() * W,
-      y: Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.35,
-      vy: (Math.random() - 0.5) * 0.35,
-      r: Math.random() * 1.6 + 0.4,
-      alpha: Math.random() * 0.6 + 0.1,
-      color: COLORS[Math.floor(Math.random() * COLORS.length)],
-    });
-
-    const init = () => {
-      const count = Math.min(Math.floor((W * H) / 14000), 120);
-      particles = Array.from({ length: count }, spawn);
-    };
-
-    const draw = () => {
-      ctx.clearRect(0, 0, W, H);
-
-      particles.forEach((p) => {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0) p.x = W;
-        if (p.x > W) p.x = 0;
-        if (p.y < 0) p.y = H;
-        if (p.y > H) p.y = 0;
-
-        const dx = p.x - mouse.x;
-        const dy = p.y - mouse.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 90) {
-          p.x += (dx / dist) * 1.2;
-          p.y += (dy / dist) * 1.2;
-        }
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = p.color + Math.floor(p.alpha * 255).toString(16).padStart(2, '0');
-        ctx.fill();
-      });
-
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const d = Math.sqrt(dx * dx + dy * dy);
-          if (d < 140) {
-            const alpha = (1 - d / 140) * 0.18;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(59,130,246,${alpha})`;
-            ctx.lineWidth = 0.7;
-            ctx.stroke();
-          }
-        }
-      }
-
-      rafId = requestAnimationFrame(draw);
-    };
-
-    const start = () => {
-      resize();
-      if (W <= 1 || H <= 1) return false;
-      init();
-      cancelAnimationFrame(rafId);
-      draw();
-      return true;
-    };
-
-    if (!start()) {
-      const ro = new ResizeObserver(() => {
-        if (start()) ro.disconnect();
-      });
-      ro.observe(hero);
-    }
-
-    window.addEventListener('resize', () => { resize(); init(); }, { passive: true });
-    window.addEventListener('mousemove', (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    }, { passive: true });
-  }
-
-  function initAnimations(hero: HTMLElement) {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      revealHeroStatic(hero);
-      return;
-    }
-
-    gsap.set(hero.querySelectorAll(FADE_TARGETS), { opacity: 0, y: 12 });
-    gsap.set(hero.querySelectorAll('.name-word'), { yPercent: 120, opacity: 0 });
-
-    gsap.timeline({ defaults: { ease: 'power3.out' } })
-      .to(hero.querySelectorAll('.hero__badge'), { opacity: 1, y: 0, duration: 0.6 }, 0.15)
-      .to(hero.querySelectorAll('.name-word'), {
-        yPercent: 0,
-        opacity: 1,
-        duration: 0.75,
-        stagger: 0.12,
-      }, 0.35)
-      .to(hero.querySelectorAll('.hero__sub'), { opacity: 1, y: 0, duration: 0.6 }, 0.65)
-      .to(hero.querySelectorAll('.hero__pills'), { opacity: 1, y: 0, duration: 0.5 }, 0.78)
-      .to(hero.querySelectorAll('.hero__ctas'), { opacity: 1, y: 0, duration: 0.5 }, 0.9)
-      .to(hero.querySelectorAll('.hero__scroll'), { opacity: 1, duration: 0.6 }, 1.1);
-
-    hero.querySelectorAll<HTMLElement>('.btn-magnetic').forEach((btn) => {
-      btn.addEventListener('mousemove', (e) => {
-        const rect = btn.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        gsap.to(btn, { x: x * 0.28, y: y * 0.28, duration: 0.3, ease: 'power2.out' });
-      });
-      btn.addEventListener('mouseleave', () => {
-        gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.5)' });
-      });
-    });
-  }
-
-  function initCursors(hero: HTMLElement) {
-    const ghost = hero.querySelector('#cursor-ghost') as HTMLElement | null;
-    const me = hero.querySelector('#cursor-me') as HTMLElement | null;
-    if (!ghost || !me) return;
-    if (window.matchMedia('(max-width: 900px)').matches) return;
-
-    const rand = (a: number, b: number) => a + Math.random() * (b - a);
-    const region = () => {
-      const w = hero.clientWidth;
-      const h = hero.clientHeight;
-      return { minX: w * 0.58, maxX: w * 0.9, minY: h * 0.24, maxY: h * 0.76 };
-    };
-
-    // "Gibran López" — autonomous drift in the right area
-    const r0 = region();
-    gsap.set(ghost, { x: rand(r0.minX, r0.maxX), y: rand(r0.minY, r0.maxY) });
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      gsap.to(ghost, { opacity: 1, duration: 0.6, delay: 0.8 });
-      return;
-    }
-
-    const moveGhost = () => {
-      const r = region();
-      gsap.to(ghost, {
-        x: rand(r.minX, r.maxX),
-        y: rand(r.minY, r.maxY),
-        duration: rand(2.6, 4.2),
-        ease: 'sine.inOut',
-        onComplete: moveGhost,
-      });
-    };
-    gsap.to(ghost, { opacity: 1, duration: 0.8, delay: 1.3 });
-    gsap.delayedCall(1.3, moveGhost);
-
-    // "me" — follows the visitor's real cursor across the whole page.
-    // It's position:fixed, so we feed it raw viewport coordinates.
-    document.documentElement.classList.add('custom-cursor-active');
-    const setX = gsap.quickTo(me, 'x', { duration: 0.35, ease: 'power3' });
-    const setY = gsap.quickTo(me, 'y', { duration: 0.45, ease: 'power3' });
-    let started = false;
-    let visible = false;
-
-    document.addEventListener('mousemove', (e) => {
-      const x = e.clientX;
-      const y = e.clientY;
-      if (!started) {
-        started = true;
-        gsap.set(me, { x, y });
-      }
-      setX(x);
-      setY(y);
-      if (!visible) {
-        visible = true;
-        gsap.to(me, { opacity: 1, duration: 0.25 });
-      }
-      // Show the "me" label only while the pointer is over the hero
-      const r = hero.getBoundingClientRect();
-      const overHero = y >= r.top && y <= r.bottom;
-      me.classList.toggle('hero__cursor--bare', !overHero);
-    }, { passive: true });
-
-    // Hide the custom cursor when the pointer leaves the browser window
-    document.addEventListener('mouseout', (e) => {
-      if (e.relatedTarget === null && visible) {
-        visible = false;
-        gsap.to(me, { opacity: 0, duration: 0.25 });
-      }
-    }, { passive: true });
-
-    window.addEventListener('resize', () => {
-      if (window.matchMedia('(max-width: 900px)').matches) {
-        document.documentElement.classList.remove('custom-cursor-active');
-        gsap.set([ghost, me], { opacity: 0 });
-      }
-    }, { passive: true });
-  }
-
   function initHero() {
     const hero = document.getElementById('hero');
     if (!hero || hero.dataset.initialized === 'true') return;
     hero.dataset.initialized = 'true';
 
-    try {
-      initParticles(hero);
-      initAnimations(hero);
-      initCursors(hero);
-    } catch {
-      revealHeroStatic(hero);
-    }
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return; // everything is visible by default
+
+    const words = hero.querySelectorAll('.hero__word');
+    const fades = hero.querySelectorAll('[data-hero="fade"]');
+    const panel = hero.querySelector('[data-hero="rise"]');
+    const afterFill = hero.querySelector('.bar__fill--after');
+
+    gsap.set(words, { yPercent: 110 });
+    gsap.set(fades, { opacity: 0, y: 10 });
+    gsap.set(panel, { opacity: 0, y: 40 });
+    gsap.set(afterFill, { scaleX: 0 });
+
+    // One orchestrated entrance: headline → copy → panel → the result bar fills.
+    gsap.timeline({ defaults: { ease: 'power3.out' } })
+      .to(words, { yPercent: 0, duration: 0.9, stagger: 0.12 }, 0.1)
+      .to(fades, { opacity: 1, y: 0, duration: 0.7, stagger: 0.1 }, 0.55)
+      .to(panel, { opacity: 1, y: 0, duration: 0.9 }, 0.8)
+      .to(afterFill, { scaleX: 1, duration: 0.8, ease: 'power2.out' }, 1.5);
   }
 
   const boot = () => requestAnimationFrame(() => requestAnimationFrame(initHero));
@@ -556,6 +311,5 @@ const techPills = [
   } else {
     boot();
   }
-
   document.addEventListener('astro:page-load', boot);
 </script>
