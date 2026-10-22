@@ -1,5 +1,6 @@
 ---
 import { site } from '@/lib/site';
+import Logo from '@/components/Logo.astro';
 
 const navLinks = [
   { label: 'Services',   href: '#services' },
@@ -12,7 +13,7 @@ const navLinks = [
 <header id="navbar" class="navbar">
   <div class="navbar__inner">
     <a href="/" class="navbar__logo" aria-label={`${site.brand} — home`}>
-      <span class="navbar__logo-text">{site.brand}</span>
+      <Logo />
     </a>
 
     <nav class="navbar__links" aria-label="Main navigation">
@@ -75,12 +76,6 @@ const navLinks = [
     gap: 0.6rem;
     text-decoration: none;
     flex-shrink: 0;
-  }
-  .navbar__logo-text {
-    font-size: 1.1875rem;
-    font-weight: 600;
-    letter-spacing: -0.025em;
-    color: var(--color-text);
   }
 
   .navbar__links {
