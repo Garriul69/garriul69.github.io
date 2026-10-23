@@ -7,11 +7,25 @@ const stack = [
   { name: 'Microsoft Purview',   role: 'Data classification',   state: 'Labeled' },
 ];
 
+import pythonLogo from '@/assets/logos/python.svg?raw';
+import n8nLogo from '@/assets/logos/n8n.svg?raw';
+import cloudflareLogo from '@/assets/logos/cloudflare.svg?raw';
+import googleLogo from '@/assets/logos/google.svg?raw';
+import powershellLogo from '@/assets/logos/powershell.svg?raw';
+
 const toolGroups = [
-  { label: 'Microsoft',           items: ['Microsoft 365', 'Intune', 'Entra ID', 'Purview'] },
-  { label: 'Endpoint security',   items: ['CrowdStrike Falcon', 'Action1'] },
-  { label: 'Automation',          items: ['PowerShell', 'Python', 'n8n'] },
-  { label: 'Cloud and web',       items: ['Google Workspace', 'Cloudflare'] },
+  { label: 'Microsoft', items: [
+    { name: 'Microsoft 365' }, { name: 'Intune' }, { name: 'Entra ID' }, { name: 'Purview' },
+  ] },
+  { label: 'Endpoint security', items: [
+    { name: 'CrowdStrike Falcon' }, { name: 'Action1' },
+  ] },
+  { label: 'Automation', items: [
+    { name: 'PowerShell', logo: powershellLogo }, { name: 'Python', logo: pythonLogo }, { name: 'n8n', logo: n8nLogo },
+  ] },
+  { label: 'Cloud and web', items: [
+    { name: 'Google Workspace', logo: googleLogo }, { name: 'Cloudflare', logo: cloudflareLogo },
+  ] },
 ];
 ---
 
@@ -78,7 +92,12 @@ const toolGroups = [
         <div class="strip__group">
           <p class="strip__label">{g.label}</p>
           <ul class="strip__list">
-            {g.items.map((t) => <li>{t}</li>)}
+            {g.items.map((t) => (
+              <li>
+                <span class="strip__icon" aria-hidden="true" set:html={t.logo ?? ''} />
+                {t.name}
+              </li>
+            ))}
           </ul>
         </div>
       ))}
@@ -289,11 +308,26 @@ const toolGroups = [
     gap: 0.35rem;
   }
   .strip__list li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
     font-size: 1.125rem;
     font-weight: 600;
     letter-spacing: -0.015em;
     line-height: 1.3;
     color: var(--color-text);
+  }
+  .strip__icon {
+    flex: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--color-soft);
+  }
+  .strip__icon :global(svg) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
   }
   @media (max-width: 760px) {
     .strip__groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
