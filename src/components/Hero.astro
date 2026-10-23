@@ -12,13 +12,14 @@ import n8nLogo from '@/assets/logos/n8n.svg?raw';
 import cloudflareLogo from '@/assets/logos/cloudflare.svg?raw';
 import googleLogo from '@/assets/logos/google.svg?raw';
 import powershellLogo from '@/assets/logos/powershell.svg?raw';
+import falconLogo from '@/assets/logos/crowdstrike-falcon.svg?raw';
 
 const toolGroups = [
   { label: 'Microsoft', items: [
     { name: 'Microsoft 365' }, { name: 'Intune' }, { name: 'Entra ID' }, { name: 'Purview' },
   ] },
   { label: 'Endpoint security', items: [
-    { name: 'CrowdStrike Falcon' }, { name: 'Action1' },
+    { name: 'CrowdStrike Falcon', logo: falconLogo }, { name: 'Action1' },
   ] },
   { label: 'Automation', items: [
     { name: 'PowerShell', logo: powershellLogo }, { name: 'Python', logo: pythonLogo }, { name: 'n8n', logo: n8nLogo },
