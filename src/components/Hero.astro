@@ -7,11 +7,43 @@ const stack = [
   { name: 'Microsoft Purview',   role: 'Data classification',   state: 'Labeled' },
 ];
 
+// Logos live in src/assets/logos/<key>.svg; an item without a `logo` key shows its name only.
+const logoFiles = import.meta.glob('/src/assets/logos/*.svg', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>;
+const logoSvg = (key?: string) => (key ? logoFiles[`/src/assets/logos/${key}.svg`] ?? '' : '');
+
+// `color`: multi-color source icon, flattened to grey. `scale`: optical size correction.
 const toolGroups = [
-  { label: 'Microsoft',           items: ['Microsoft 365', 'Intune', 'Entra ID', 'Purview'] },
-  { label: 'Endpoint security',   items: ['CrowdStrike Falcon', 'Action1'] },
-  { label: 'Automation',          items: ['PowerShell', 'Python', 'n8n'] },
-  { label: 'Cloud and web',       items: ['Google Workspace', 'Cloudflare'] },
+  { label: 'Microsoft 365', items: [
+    { name: 'Microsoft 365', logo: 'microsoft-365', color: true },
+    { name: 'SharePoint', logo: 'sharepoint' },
+    { name: 'OneDrive', logo: 'onedrive' },
+    { name: 'Outlook', logo: 'outlook' },
+  ] },
+  { label: 'Identity and security', items: [
+    { name: 'Entra ID', logo: 'entra-id', scale: 0.95 },
+    { name: 'Intune', logo: 'intune', color: true },
+    { name: 'Purview', logo: 'purview', color: true },
+    { name: 'CrowdStrike Falcon', logo: 'crowdstrike-falcon', scale: 1.1 },
+    { name: 'Action1', logo: 'action1', wordmark: true },
+  ] },
+  { label: 'Automation', items: [
+    { name: 'Power Automate', logo: 'power-automate', scale: 0.95 },
+    { name: 'Power Apps', logo: 'power-apps' },
+    { name: 'n8n', logo: 'n8n', scale: 1.1 },
+    { name: 'Make', logo: 'make' },
+    { name: 'PowerShell', logo: 'powershell' },
+    { name: 'Python', logo: 'python' },
+  ] },
+  { label: 'Cloud and business apps', items: [
+    { name: 'Google Workspace', logo: 'google' },
+    { name: 'Cloudflare', logo: 'cloudflare' },
+    { name: 'Vercel', logo: 'vercel', scale: 0.85 },
+    { name: 'QuickBooks', logo: 'quickbooks', scale: 0.95 },
+  ] },
 ];
 ---
 
@@ -78,7 +110,18 @@ const toolGroups = [
         <div class="strip__group">
           <p class="strip__label">{g.label}</p>
           <ul class="strip__list">
-            {g.items.map((t) => <li>{t}</li>)}
+            {g.items.map((t) => (
+              <li>
+                {t.wordmark ? (
+                  <span class="strip__wordmark" role="img" aria-label={t.name} set:html={logoSvg(t.logo)} />
+                ) : (
+                  <>
+                    <span class:list={['strip__icon', { 'strip__icon--color': t.color }]} aria-hidden="true" style={`--icon-scale:${t.scale ?? 1}`} set:html={logoSvg(t.logo)} />
+                    {t.name}
+                  </>
+                )}
+              </li>
+            ))}
           </ul>
         </div>
       ))}
@@ -259,7 +302,7 @@ const toolGroups = [
 
   /* ── Tools strip ── */
   .strip {
-    max-width: 960px;
+    max-width: var(--container);
     margin: clamp(3rem, 7vw, 5rem) auto 0;
     padding-top: 2.25rem;
     border-top: 1px solid var(--color-border);
@@ -274,7 +317,7 @@ const toolGroups = [
   .strip__groups {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1.5rem 2rem;
+    gap: 1.75rem 2rem;
     text-align: left;
   }
   .strip__label {
@@ -286,14 +329,49 @@ const toolGroups = [
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.6rem;
   }
   .strip__list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     font-size: 1.125rem;
     font-weight: 600;
     letter-spacing: -0.015em;
     line-height: 1.3;
     color: var(--color-text);
+  }
+  .strip__icon {
+    flex: none;
+    width: 1.875rem;
+    height: 1.875rem;
+    color: var(--color-soft);
+  }
+  .strip__icon :global(svg) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+    transform: scale(var(--icon-scale, 1));
+  }
+  /* Wordmark-only logos (no symbol): the logo takes the place of the name */
+  .strip__wordmark {
+    display: block;
+    height: 1.2rem;
+    color: var(--color-muted);
+  }
+  .strip__wordmark :global(svg) {
+    display: block;
+    height: 100%;
+    width: auto;
+  }
+  .strip__wordmark :global(path) {
+    fill: currentColor;
+  }
+  /* Multi-color source icons: flatten to the same grey as the single-color ones */
+  .strip__icon--color :global(svg) {
+    filter: grayscale(1);
+    opacity: 0.6;
   }
   @media (max-width: 760px) {
     .strip__groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
