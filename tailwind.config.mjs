@@ -14,9 +14,9 @@ export default {
         muted:     '#5B6773',
       },
       fontFamily: {
-        display: ['Hanken Grotesk', 'system-ui', 'sans-serif'],
-        body:    ['Hanken Grotesk', 'system-ui', 'sans-serif'],
-        mono:    ['JetBrains Mono', 'monospace'],
+        display: ['Hanken Grotesk Variable', 'system-ui', 'sans-serif'],
+        body:    ['Hanken Grotesk Variable', 'system-ui', 'sans-serif'],
+        mono:    ['JetBrains Mono Variable', 'monospace'],
       },
       borderRadius: {
         btn:  '980px',

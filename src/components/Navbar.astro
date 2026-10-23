@@ -3,9 +3,9 @@ import { site } from '@/lib/site';
 import Logo from '@/components/Logo.astro';
 
 const navLinks = [
-  { label: 'Services',   href: '#services' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Projects',   href: '#projects' },
+  { label: 'Services',   href: '/#services' },
+  { label: 'Experience', href: '/#experience' },
+  { label: 'Projects',   href: '/#projects' },
   { label: 'Vault',      href: '/vault', external: true },
 ];
 ---
@@ -26,7 +26,7 @@ const navLinks = [
       ))}
     </nav>
 
-    <a href="#contact" class="btn-magnetic btn-primary navbar__cta">Contact</a>
+    <a href="/#contact" class="btn-magnetic btn-primary navbar__cta">Contact</a>
 
     <button class="navbar__hamburger" aria-label="Open menu" aria-expanded="false" id="menu-btn">
       <span></span><span></span>
@@ -37,7 +37,7 @@ const navLinks = [
     {navLinks.map(link => (
       <a href={link.href} class="navbar__mobile-link">{link.label}</a>
     ))}
-    <a href="#contact" class="btn-magnetic btn-primary navbar__mobile-cta">Contact</a>
+    <a href="/#contact" class="btn-magnetic btn-primary navbar__mobile-cta">Contact</a>
   </nav>
 </header>
 
@@ -181,7 +181,7 @@ const navLinks = [
           navLinks.forEach(link => {
             link.classList.toggle(
               'active',
-              link.getAttribute('href') === `#${entry.target.id}`
+              link.getAttribute('href') === `/#${entry.target.id}`
             );
           });
         }

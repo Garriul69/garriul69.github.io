@@ -1,6 +1,8 @@
 ---
 import Navbar from '@/components/Navbar.astro';
 import Logo from '@/components/Logo.astro';
+import '@fontsource-variable/hanken-grotesk';
+import '@fontsource-variable/jetbrains-mono';
 import '@/styles/global.css';
 import { site } from '@/lib/site';
 
@@ -43,10 +45,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://gibranlo
     <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Preconnect for Google Fonts -->
     <meta name="theme-color" content="#ffffff" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <title>{title}</title>
   </head>
@@ -58,15 +57,26 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://gibranlo
 
     <footer class="footer">
       <div class="footer__inner">
-        <Logo variant="dark" />
-        <span class="footer__copy">
-          © 2026 {site.name}. All rights reserved.
-        </span>
-        <div class="footer__links">
-          <a href="/vault" class="footer__link">Vault</a>
-          {site.linkedin && <a href={site.linkedin} target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>}
-          {site.github && <a href={site.github} target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>}
+        <div class="footer__row">
+          <Logo variant="dark" />
+          <span class="footer__copy">
+            © 2026 {site.name}. All rights reserved.
+          </span>
+          <div class="footer__links">
+            <a href="/privacy" class="footer__link">Privacy</a>
+            <a href="/vault" class="footer__link">Vault</a>
+            {site.linkedin && <a href={site.linkedin} target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>}
+            {site.github && <a href={site.github} target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>}
+          </div>
         </div>
+        <p class="footer__legal">
+          Product names, logos and brands shown on this site belong to their respective owners.
+          They appear only to identify technologies I work with and do not imply affiliation,
+          sponsorship or endorsement. Some icons come from
+          <a href="https://github.com/homarr-labs/dashboard-icons" target="_blank" rel="noopener noreferrer">Dashboard Icons</a>
+          (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>)
+          and <a href="https://simpleicons.org" target="_blank" rel="noopener noreferrer">Simple Icons</a> (CC0).
+        </p>
       </div>
     </footer>
   </body>
@@ -104,11 +114,26 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://gibranlo
   .footer__inner {
     max-width: var(--container);
     margin: 0 auto;
+  }
+  .footer__row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 1rem;
+  }
+  .footer__legal {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-ink-line);
+    max-width: 78ch;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: var(--color-ink-muted);
+  }
+  .footer__legal a {
+    color: var(--color-ink-text);
+    text-underline-offset: 3px;
   }
   .footer__copy {
     font-size: 0.8125rem;
