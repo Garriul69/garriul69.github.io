@@ -15,29 +15,34 @@ const logoFiles = import.meta.glob('/src/assets/logos/*.svg', {
 }) as Record<string, string>;
 const logoSvg = (key?: string) => (key ? logoFiles[`/src/assets/logos/${key}.svg`] ?? '' : '');
 
+// `color`: multi-color source icon, flattened to grey. `scale`: optical size correction.
 const toolGroups = [
   { label: 'Microsoft 365', items: [
     { name: 'Microsoft 365', logo: 'microsoft-365', color: true },
     { name: 'SharePoint', logo: 'sharepoint' },
     { name: 'OneDrive', logo: 'onedrive' },
     { name: 'Outlook', logo: 'outlook' },
-    { name: 'Power Automate', logo: 'power-automate' },
-    { name: 'Power Apps', logo: 'power-apps' },
   ] },
-  { label: 'Identity and devices', items: [
-    { name: 'Entra ID', logo: 'entra-id' }, { name: 'Intune', logo: 'intune', color: true }, { name: 'Purview', logo: 'purview', color: true },
-  ] },
-  { label: 'Endpoint security', items: [
-    { name: 'CrowdStrike Falcon', logo: 'crowdstrike-falcon' },
+  { label: 'Identity and security', items: [
+    { name: 'Entra ID', logo: 'entra-id', scale: 0.95 },
+    { name: 'Intune', logo: 'intune', color: true },
+    { name: 'Purview', logo: 'purview', color: true },
+    { name: 'CrowdStrike Falcon', logo: 'crowdstrike-falcon', scale: 1.1 },
     { name: 'Action1', logo: 'action1', wordmark: true },
   ] },
   { label: 'Automation', items: [
-    { name: 'PowerShell', logo: 'powershell' }, { name: 'Python', logo: 'python' },
-    { name: 'n8n', logo: 'n8n' }, { name: 'Make', logo: 'make' },
+    { name: 'Power Automate', logo: 'power-automate', scale: 0.95 },
+    { name: 'Power Apps', logo: 'power-apps' },
+    { name: 'n8n', logo: 'n8n', scale: 1.1 },
+    { name: 'Make', logo: 'make' },
+    { name: 'PowerShell', logo: 'powershell' },
+    { name: 'Python', logo: 'python' },
   ] },
   { label: 'Cloud and business apps', items: [
-    { name: 'Google Workspace', logo: 'google' }, { name: 'Cloudflare', logo: 'cloudflare' },
-    { name: 'Vercel', logo: 'vercel' }, { name: 'QuickBooks', logo: 'quickbooks' },
+    { name: 'Google Workspace', logo: 'google' },
+    { name: 'Cloudflare', logo: 'cloudflare' },
+    { name: 'Vercel', logo: 'vercel', scale: 0.85 },
+    { name: 'QuickBooks', logo: 'quickbooks', scale: 0.95 },
   ] },
 ];
 ---
@@ -111,7 +116,7 @@ const toolGroups = [
                   <span class="strip__wordmark" role="img" aria-label={t.name} set:html={logoSvg(t.logo)} />
                 ) : (
                   <>
-                    <span class:list={['strip__icon', { 'strip__icon--color': t.color }]} aria-hidden="true" set:html={logoSvg(t.logo)} />
+                    <span class:list={['strip__icon', { 'strip__icon--color': t.color }]} aria-hidden="true" style={`--icon-scale:${t.scale ?? 1}`} set:html={logoSvg(t.logo)} />
                     {t.name}
                   </>
                 )}
@@ -311,8 +316,8 @@ const toolGroups = [
   }
   .strip__groups {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 1.5rem 1.5rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.75rem 2rem;
     text-align: left;
   }
   .strip__label {
@@ -347,6 +352,7 @@ const toolGroups = [
     width: 100%;
     height: 100%;
     fill: currentColor;
+    transform: scale(var(--icon-scale, 1));
   }
   /* Wordmark-only logos (no symbol): the logo takes the place of the name */
   .strip__wordmark {
