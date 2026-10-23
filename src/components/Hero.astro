@@ -13,19 +13,28 @@ import cloudflareLogo from '@/assets/logos/cloudflare.svg?raw';
 import googleLogo from '@/assets/logos/google.svg?raw';
 import powershellLogo from '@/assets/logos/powershell.svg?raw';
 import falconLogo from '@/assets/logos/crowdstrike-falcon.svg?raw';
+import entraLogo from '@/assets/logos/entra-id.svg?raw';
+import quickbooksLogo from '@/assets/logos/quickbooks.svg?raw';
+import vercelLogo from '@/assets/logos/vercel.svg?raw';
 
 const toolGroups = [
-  { label: 'Microsoft', items: [
-    { name: 'Microsoft 365' }, { name: 'Intune' }, { name: 'Entra ID' }, { name: 'Purview' },
+  { label: 'Microsoft 365', items: [
+    { name: 'Microsoft 365' }, { name: 'SharePoint' }, { name: 'OneDrive' }, { name: 'Outlook' },
+    { name: 'Power Automate' }, { name: 'Power Apps' },
+  ] },
+  { label: 'Identity and devices', items: [
+    { name: 'Entra ID', logo: entraLogo }, { name: 'Intune' }, { name: 'Purview' },
   ] },
   { label: 'Endpoint security', items: [
     { name: 'CrowdStrike Falcon', logo: falconLogo }, { name: 'Action1' },
   ] },
   { label: 'Automation', items: [
-    { name: 'PowerShell', logo: powershellLogo }, { name: 'Python', logo: pythonLogo }, { name: 'n8n', logo: n8nLogo },
+    { name: 'PowerShell', logo: powershellLogo }, { name: 'Python', logo: pythonLogo },
+    { name: 'n8n', logo: n8nLogo }, { name: 'Make' },
   ] },
-  { label: 'Cloud and web', items: [
+  { label: 'Cloud and business apps', items: [
     { name: 'Google Workspace', logo: googleLogo }, { name: 'Cloudflare', logo: cloudflareLogo },
+    { name: 'Vercel', logo: vercelLogo }, { name: 'QuickBooks', logo: quickbooksLogo },
   ] },
 ];
 ---
@@ -293,8 +302,8 @@ const toolGroups = [
   }
   .strip__groups {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1.5rem 2rem;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1.5rem 1.5rem;
     text-align: left;
   }
   .strip__label {
