@@ -7,34 +7,36 @@ const stack = [
   { name: 'Microsoft Purview',   role: 'Data classification',   state: 'Labeled' },
 ];
 
-import pythonLogo from '@/assets/logos/python.svg?raw';
-import n8nLogo from '@/assets/logos/n8n.svg?raw';
-import cloudflareLogo from '@/assets/logos/cloudflare.svg?raw';
-import googleLogo from '@/assets/logos/google.svg?raw';
-import powershellLogo from '@/assets/logos/powershell.svg?raw';
-import falconLogo from '@/assets/logos/crowdstrike-falcon.svg?raw';
-import entraLogo from '@/assets/logos/entra-id.svg?raw';
-import quickbooksLogo from '@/assets/logos/quickbooks.svg?raw';
-import vercelLogo from '@/assets/logos/vercel.svg?raw';
+// Logos live in src/assets/logos/<key>.svg; an item without a `logo` key shows its name only.
+const logoFiles = import.meta.glob('/src/assets/logos/*.svg', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>;
+const logoSvg = (key?: string) => (key ? logoFiles[`/src/assets/logos/${key}.svg`] ?? '' : '');
 
 const toolGroups = [
   { label: 'Microsoft 365', items: [
-    { name: 'Microsoft 365' }, { name: 'SharePoint' }, { name: 'OneDrive' }, { name: 'Outlook' },
-    { name: 'Power Automate' }, { name: 'Power Apps' },
+    { name: 'Microsoft 365' },
+    { name: 'SharePoint', logo: 'sharepoint' },
+    { name: 'OneDrive', logo: 'onedrive' },
+    { name: 'Outlook', logo: 'outlook' },
+    { name: 'Power Automate', logo: 'power-automate' },
+    { name: 'Power Apps', logo: 'power-apps' },
   ] },
   { label: 'Identity and devices', items: [
-    { name: 'Entra ID', logo: entraLogo }, { name: 'Intune' }, { name: 'Purview' },
+    { name: 'Entra ID', logo: 'entra-id' }, { name: 'Intune' }, { name: 'Purview' },
   ] },
   { label: 'Endpoint security', items: [
-    { name: 'CrowdStrike Falcon', logo: falconLogo }, { name: 'Action1' },
+    { name: 'CrowdStrike Falcon', logo: 'crowdstrike-falcon' }, { name: 'Action1' },
   ] },
   { label: 'Automation', items: [
-    { name: 'PowerShell', logo: powershellLogo }, { name: 'Python', logo: pythonLogo },
-    { name: 'n8n', logo: n8nLogo }, { name: 'Make' },
+    { name: 'PowerShell', logo: 'powershell' }, { name: 'Python', logo: 'python' },
+    { name: 'n8n', logo: 'n8n' }, { name: 'Make', logo: 'make' },
   ] },
   { label: 'Cloud and business apps', items: [
-    { name: 'Google Workspace', logo: googleLogo }, { name: 'Cloudflare', logo: cloudflareLogo },
-    { name: 'Vercel', logo: vercelLogo }, { name: 'QuickBooks', logo: quickbooksLogo },
+    { name: 'Google Workspace', logo: 'google' }, { name: 'Cloudflare', logo: 'cloudflare' },
+    { name: 'Vercel', logo: 'vercel' }, { name: 'QuickBooks', logo: 'quickbooks' },
   ] },
 ];
 ---
@@ -104,7 +106,7 @@ const toolGroups = [
           <ul class="strip__list">
             {g.items.map((t) => (
               <li>
-                <span class="strip__icon" aria-hidden="true" set:html={t.logo ?? ''} />
+                <span class="strip__icon" aria-hidden="true" set:html={logoSvg(t.logo)} />
                 {t.name}
               </li>
             ))}
@@ -288,7 +290,7 @@ const toolGroups = [
 
   /* ── Tools strip ── */
   .strip {
-    max-width: 960px;
+    max-width: var(--container);
     margin: clamp(3rem, 7vw, 5rem) auto 0;
     padding-top: 2.25rem;
     border-top: 1px solid var(--color-border);
@@ -315,12 +317,12 @@ const toolGroups = [
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.6rem;
   }
   .strip__list li {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.75rem;
     font-size: 1.125rem;
     font-weight: 600;
     letter-spacing: -0.015em;
@@ -329,8 +331,8 @@ const toolGroups = [
   }
   .strip__icon {
     flex: none;
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1.875rem;
+    height: 1.875rem;
     color: var(--color-soft);
   }
   .strip__icon :global(svg) {
