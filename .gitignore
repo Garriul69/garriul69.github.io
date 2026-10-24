@@ -31,3 +31,10 @@ Thumbs.db
 # preview / local
 .claude/launch.json
 .claude/settings.local.json
+
+# CV: private contact data and local outputs never go to the public repo
+cv/private.json
+cv/private/
+cv/.tmp-*
+cv/*.pdf
+cv/plantilla-cv-adaptable.md

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Andy Gibran López Nambo — CV</title>
+<style>
+  @font-face {
+    font-family: 'Hanken CV';
+    src: url('../node_modules/@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2') format('woff2');
+    font-weight: 100 900;
+  }
+  @page { size: Letter; margin: 0.4in 0.55in; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-family: 'Hanken CV', Arial, sans-serif; font-size: 9.2pt; line-height: 1.31; color: #12202B; }
+  a { color: inherit; text-decoration: none; }
+
+  header { padding-bottom: 8pt; border-bottom: 1.5pt solid #0B5F6B; }
+  h1 { font-size: 23pt; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; }
+  .headline { margin-top: 3pt; font-size: 10.5pt; font-weight: 500; color: #0B5F6B; }
+  .contact { margin-top: 4pt; font-size: 8.8pt; color: #3a4a57; }
+  .contact span + span::before { content: "|"; margin: 0 6pt; color: #9aa7b2; }
+
+  section { margin-top: 8.5pt; }
+  h2 { font-size: 10.2pt; font-weight: 700; color: #0B5F6B; padding-bottom: 2pt; border-bottom: 0.6pt solid #cfd8df; margin-bottom: 4.5pt; }
+
+  .job { margin-top: 5.5pt; break-inside: avoid; }
+  .job:first-of-type { margin-top: 0; }
+  .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12pt; }
+  .job-title { font-weight: 700; }
+  .job-org { font-weight: 500; }
+  .job-date { font-size: 8.8pt; color: #3a4a57; white-space: nowrap; }
+  ul { margin: 1.5pt 0 0 0; padding-left: 11pt; }
+  li { margin-top: 1.3pt; padding-left: 1pt; }
+  li::marker { color: #0B5F6B; }
+
+  .skills { display: grid; grid-template-columns: 100pt 1fr; row-gap: 1.6pt; column-gap: 8pt; }
+  .skills dt { font-weight: 700; }
+  .skills dd { margin: 0; }
+
+  .line + .line { margin-top: 2.5pt; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Andy Gibran López Nambo</h1>
+  <div class="headline">Ingeniero de Modern Workplace, Nube y Seguridad · Microsoft 365, Intune y Entra ID</div>
+  <div class="contact">
+    <span>andy_gibran_2000@hotmail.com</span>{{PHONE}}<span>{{LOCATION}}</span><span>linkedin.com/in/agibranlopez</span><span>gibranlopez.com</span>
+  </div>
+</header>
+
+<section>
+  <h2>Resumen</h2>
+  <p>
+    Ingeniero en Sistemas Computacionales con especialidad en Ciberseguridad. Más de un año administrando Microsoft 365, Intune, Entra ID y la seguridad de 110 equipos, del despliegue al soporte diario, y consultor remoto de TI para una segunda empresa. Automatizo con PowerShell, documento lo que entrego y busco sumar a un equipo de consultoría en Microsoft 365 y Azure.
+  </p>
+</section>
+
+<section>
+  <h2>Experiencia</h2>
+
+  <div class="job">
+    <div class="job-head">
+      <div><span class="job-title">Consultor de TI y soluciones en la nube</span> · <span class="job-org">JC Millwork</span></div>
+      <div class="job-date">Ene 2026 – Actualidad · remoto</div>
+    </div>
+    <ul>
+      <li>Migré el correo de Google Workspace a Microsoft 365.</li>
+      <li>Automaticé la nómina del personal al integrar QuickBooks con una aplicación web alojada en Vercel.</li>
+      <li>Rediseñé el sitio web de la empresa y brindo soporte y soluciones de TI de forma remota.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-head">
+      <div><span class="job-title">Modern Workplace, Cloud &amp; Security Engineer</span> · <span class="job-org">Harinas Guadalupe</span></div>
+      <div class="job-date">Ago 2025 – Oct 2026</div>
+    </div>
+    <ul>
+      <li>Reduje el alta de equipos de unos 2 días por PC a 10 PCs en 1 hora, al estandarizar 110 equipos con Entra ID, Intune y Windows Autopilot.</li>
+      <li>Estandaricé la configuración de los 110 equipos con políticas de Intune: despliegue de aplicaciones, ocultar la unidad C:, guardado forzado en la nube, bloqueo de USB, sincronización de SharePoint y Windows Hello con biométricos solo donde se requería.</li>
+      <li>Automaticé el pacheo diario, el inventario de software y las remediaciones de 110 equipos con Action1 y scripts de PowerShell, incluida la recuperación de llaves de BitLocker.</li>
+      <li>Mantuve el soporte técnico de 110 a 120 usuarios y reemplacé el antivirus tradicional por CrowdStrike Falcon (EDR) en 105 equipos.</li>
+      <li>Eliminé una vulnerabilidad de ejecución remota de código (RCE) y exposición de contraseña en texto plano en cámaras Hikvision, actualizando su firmware.</li>
+      <li>Cerré vulnerabilidades web (entre ellas inyección SQL) y migré el sitio corporativo a Astro con despliegue continuo desde GitHub y Cloudflare, con menor costo y mayor disponibilidad.</li>
+      <li>Clasifiqué información con Microsoft Purview y documenté procedimientos y guías de incorporación en GitHub.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-head">
+      <div><span class="job-title">Especialista en redes y ciberseguridad (prácticas profesionales)</span> · <span class="job-org">Alebat</span></div>
+      <div class="job-date">2023 – 2024</div>
+    </div>
+    <ul>
+      <li>Participé en la implementación de seguridad en AWS con CloudWatch, GuardDuty y WAF, y trabajé con S3, EC2, CloudFront y balanceadores de carga; apliqué ACL y endurecimiento de sistemas.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-head">
+      <div><span class="job-title">Analista de proyecto</span> · <span class="job-org">TotalPlay</span></div>
+      <div class="job-date">2022</div>
+    </div>
+    <ul>
+      <li>Reduje de semanas a un día la elaboración de reportes y entregables de pruebas de potencia de fibra óptica, al diseñar con VBA el trazado de las pruebas y la automatización de los reportes.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Habilidades técnicas</h2>
+  <dl class="skills">
+    <dt>Microsoft 365</dt><dd>Microsoft 365, Entra ID, Intune (políticas y despliegue de aplicaciones), Windows Autopilot, Windows Hello, BitLocker, SharePoint, OneDrive, Outlook, Purview, Power Automate, Power Apps</dd>
+    <dt>Seguridad</dt><dd>CrowdStrike Falcon (EDR), endurecimiento de sistemas, Active Directory, ACL, pentesting (nmap, wfuzz)</dd>
+    <dt>Nube</dt><dd>AWS (CloudWatch, GuardDuty, WAF, S3, EC2, CloudFront, balanceadores de carga), Google Cloud, Google Workspace, Cloudflare, Vercel</dd>
+    <dt>Automatización</dt><dd>PowerShell, Python, VBA, n8n, Make, Action1</dd>
+    <dt>Virtualización</dt><dd>VMware ESXi, VMware Workstation, VirtualBox; sistemas Windows y Linux (Ubuntu)</dd>
+    <dt>Desarrollo</dt><dd>Astro, NestJS, Angular, Git y GitHub, integración con QuickBooks</dd>
+  </dl>
+</section>
+
+<section>
+  <h2>Logros, educación y certificaciones</h2>
+  <div class="line">Primer lugar en un reto interno de CTF y OWASP con KPMG (2023); usé VMware ESXi para acceder a las máquinas virtuales por IP pública.</div>
+  <div class="line"><span class="job-title">Ingeniería en Sistemas Computacionales</span>, especialidad en Ciberseguridad · <span class="job-org">Instituto Tecnológico de Morelia</span> · 2018 – 2024 · Titulado</div>
+  <div class="line">Cisco: Introduction to Cybersecurity (mar 2025) · Cisco: Ethical Hacker (jun 2025) · Idiomas: español nativo, inglés B2 (intermedio alto)</div>
+</section>
+
+</body>
+</html>

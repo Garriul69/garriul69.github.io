@@ -21,6 +21,13 @@ import { site } from '@/lib/site';
       )}
       <a href={site.github} target="_blank" rel="noopener noreferrer" class="contact__btn contact__btn--ghost">GitHub</a>
     </div>
+
+    <p class="contact__cv">
+      Download my CV:
+      <a href={site.cv.en} download lang="en" hreflang="en">English</a>
+      <span aria-hidden="true">·</span>
+      <a href={site.cv.es} download lang="es" hreflang="es">Español</a>
+    </p>
   </div>
 </section>
 
@@ -78,5 +85,17 @@ import { site } from '@/lib/site';
     border: 1px solid #3A4E5C;
   }
   .contact__btn--ghost:hover { border-color: #fff; color: #fff; }
+  .contact__cv {
+    margin-top: 1.75rem;
+    font-size: 0.9375rem;
+    color: var(--color-ink-muted);
+  }
+  .contact__cv a {
+    color: var(--color-ink-text);
+    font-weight: 500;
+    text-underline-offset: 3px;
+  }
+  .contact__cv a:hover { color: #fff; }
+  .contact__cv span[aria-hidden] { margin: 0 0.35rem; }
   .contact :focus-visible { outline-color: #fff; }
 </style>

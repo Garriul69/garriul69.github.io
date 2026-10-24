@@ -6,4 +6,8 @@ export const site = {
   email: 'andy_gibran_2000@hotmail.com',
   linkedin: 'https://www.linkedin.com/in/agibranlopez/',
   github: 'https://github.com/garriul69',
+  cv: {
+    en: '/cv/Andy-Gibran-Lopez-CV-EN.pdf',
+    es: '/cv/Andy-Gibran-Lopez-CV-ES.pdf',
+  },
 };

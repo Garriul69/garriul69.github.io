@@ -1,4 +1,6 @@
 ---
+import { site } from '@/lib/site';
+
 const stack = [
   { name: 'Microsoft Entra ID',  role: 'Identity & MFA',        state: 'Enforced' },
   { name: 'Microsoft Intune',    role: 'Device management',     state: 'Managed' },
@@ -64,6 +66,14 @@ const toolGroups = [
       <a href="#projects" class="btn-magnetic btn-primary">View projects</a>
       <a href="#contact" class="btn-magnetic btn-outline">Contact</a>
     </div>
+
+    <p class="hero__cv" data-hero="fade">
+      Download my CV:
+      <a href={site.cv.en} download lang="en" hreflang="en">English</a>
+      <span aria-hidden="true">·</span>
+      <a href={site.cv.es} download lang="es" hreflang="es">Español</a>
+      <span class="hero__cv-note">PDF</span>
+    </p>
   </div>
 
   <!-- Product-style panel: the stack in production + the measured result -->
@@ -94,7 +104,7 @@ const toolGroups = [
           <div class="bar__track"><span class="bar__fill bar__fill--before"></span></div>
         </div>
         <div class="bar">
-          <div class="bar__label"><span>After</span><b>10 PCs in 1 hour</b></div>
+          <div class="bar__label"><span>After</span><b>3 PCs in 1 hour</b></div>
           <div class="bar__track"><span class="bar__fill bar__fill--after"></span></div>
         </div>
 
@@ -179,6 +189,20 @@ const toolGroups = [
     gap: 0.9rem;
     margin-top: 2.25rem;
   }
+
+  .hero__cv {
+    margin-top: 1.25rem;
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+  }
+  .hero__cv a {
+    color: var(--color-accent);
+    font-weight: 500;
+    text-underline-offset: 3px;
+  }
+  .hero__cv a:hover { text-decoration: underline; }
+  .hero__cv span[aria-hidden] { margin: 0 0.35rem; color: var(--color-soft); }
+  .hero__cv-note { margin-left: 0.4rem; font-size: 0.75rem; color: var(--color-soft); }
 
   /* ── Panel ── */
   .panel {
