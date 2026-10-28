@@ -1,4 +1,4 @@
-"""Builds the CV PDFs from cv-es.html and cv-en.html with headless Edge.
+"""Builds the CV PDFs from cv-es.html and cv-en.html with headless Chrome (or Edge).
 
 Public PDFs (no phone number, no postal code) go to public/cv/ and are served
 by the site. Private PDFs (with phone and postal code, for sending to
@@ -11,11 +11,19 @@ import json
 import re
 import subprocess
 import sys
+import tempfile
+import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 CV = ROOT / "cv"
-EDGE = Path(r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
+BROWSERS = [
+    Path(r"C:\Program Files\Google\Chrome\Application\chrome.exe"),
+    Path(r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"),
+]
+BROWSER = next((b for b in BROWSERS if b.exists()), None)
+if BROWSER is None:
+    sys.exit("Install Chrome or Edge to build the PDFs.")
 
 LANGS = {
     "ES": {"src": "cv-es.html", "public_location": "Michoacán, México", "private_key": "location_es"},
@@ -43,11 +51,24 @@ def render(lang: str, variant: str) -> Path:
 
 def to_pdf(html: Path, out: Path) -> int:
     out.parent.mkdir(parents=True, exist_ok=True)
-    subprocess.run(
-        [str(EDGE), "--headless=new", "--disable-gpu", "--no-pdf-header-footer",
-         f"--print-to-pdf={out}", html.as_uri()],
-        check=True, capture_output=True,
-    )
+    # Headless browsers sometimes exit 0 without writing the file, so remove the old PDF
+    # first and retry until a fresh one exists.
+    for attempt in range(1, 4):
+        out.unlink(missing_ok=True)
+        # A throwaway profile per run keeps parallel or leftover browser
+        # processes from swallowing the print request.
+        with tempfile.TemporaryDirectory(prefix="cv-edge-") as profile:
+            subprocess.run(
+                [str(BROWSER), "--headless=new", "--disable-gpu", "--no-pdf-header-footer",
+                 f"--user-data-dir={profile}", f"--print-to-pdf={out}", html.as_uri()],
+                check=True, capture_output=True,
+            )
+        if out.exists() and out.stat().st_size > 0:
+            break
+        time.sleep(2)
+    else:
+        html.unlink(missing_ok=True)
+        raise RuntimeError(f"Browser did not produce {out}")
     pages = len(re.findall(rb"/Type\s*/Page[^s]", out.read_bytes()))
     html.unlink()
     return pages
