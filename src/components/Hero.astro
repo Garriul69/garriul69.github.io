@@ -1,15 +1,14 @@
 ---
 import { site } from '@/lib/site';
 
-const stack = [
-  { name: 'Microsoft Entra ID',  role: 'Identity & MFA',        state: 'Enforced' },
-  { name: 'Microsoft Intune',    role: 'Device management',     state: 'Managed' },
-  { name: 'Windows Autopilot',   role: 'Device provisioning',   state: 'Zero-touch' },
-  { name: 'CrowdStrike Falcon',  role: 'Endpoint protection',   state: 'Active' },
-  { name: 'Microsoft Purview',   role: 'Data classification',   state: 'Labeled' },
+// Proof first: three results the visitor can check against the case studies below.
+const proof = [
+  { value: '303',    label: 'jobs managed in one live system',          client: 'JC Millwork · Phoenix, AZ' },
+  { value: '110',    label: 'devices patched every day, automatically', client: 'Harinas Guadalupe' },
+  { value: '3 PCs',  label: 'ready per hour, down from about 2 days each', client: 'Harinas Guadalupe' },
 ];
 
-// Logos live in src/assets/logos/<key>.svg; an item without a `logo` key shows its name only.
+// Logos live in src/assets/logos/<key>.svg.
 const logoFiles = import.meta.glob('/src/assets/logos/*.svg', {
   query: '?raw',
   import: 'default',
@@ -18,53 +17,32 @@ const logoFiles = import.meta.glob('/src/assets/logos/*.svg', {
 const logoSvg = (key?: string) => (key ? logoFiles[`/src/assets/logos/${key}.svg`] ?? '' : '');
 
 // `color`: multi-color source icon, flattened to grey. `scale`: optical size correction.
-const toolGroups = [
-  { label: 'Microsoft 365', items: [
-    { name: 'Microsoft 365', logo: 'microsoft-365', color: true },
-    { name: 'SharePoint', logo: 'sharepoint' },
-    { name: 'OneDrive', logo: 'onedrive' },
-    { name: 'Outlook', logo: 'outlook' },
-  ] },
-  { label: 'Identity and security', items: [
-    { name: 'Entra ID', logo: 'entra-id', scale: 0.95 },
-    { name: 'Intune', logo: 'intune', color: true },
-    { name: 'Purview', logo: 'purview', color: true },
-    { name: 'CrowdStrike Falcon', logo: 'crowdstrike-falcon', scale: 1.1 },
-    { name: 'Action1', logo: 'action1', wordmark: true },
-  ] },
-  { label: 'Automation', items: [
-    { name: 'Power Automate', logo: 'power-automate', scale: 0.95 },
-    { name: 'Power Apps', logo: 'power-apps' },
-    { name: 'n8n', logo: 'n8n', scale: 1.1 },
-    { name: 'Make', logo: 'make' },
-    { name: 'PowerShell', logo: 'powershell' },
-    { name: 'Python', logo: 'python' },
-  ] },
-  { label: 'Cloud and business apps', items: [
-    { name: 'Google Workspace', logo: 'google' },
-    { name: 'Cloudflare', logo: 'cloudflare' },
-    { name: 'Vercel', logo: 'vercel', scale: 0.85 },
-    { name: 'QuickBooks', logo: 'quickbooks', scale: 0.95 },
-  ] },
+const tools = [
+  { name: 'Microsoft 365',      logo: 'microsoft-365', color: true },
+  { name: 'Intune',             logo: 'intune', color: true },
+  { name: 'QuickBooks',         logo: 'quickbooks', scale: 0.95 },
+  { name: 'CrowdStrike Falcon', logo: 'crowdstrike-falcon', scale: 1.1 },
+  { name: 'Python',             logo: 'python' },
+  { name: 'Vercel',             logo: 'vercel', scale: 0.85 },
 ];
 ---
 
 <section id="hero" class="hero">
   <div class="hero__content">
-    <h1 class="hero__title" aria-label="Secure, modern IT for growing companies.">
-      <span class="hero__line"><span class="hero__word">Secure, modern IT</span></span>
-      <span class="hero__line"><span class="hero__word">for growing companies.</span></span>
+    <h1 class="hero__title" aria-label="I replace manual work with systems that run themselves.">
+      <span class="hero__line"><span class="hero__word">I replace manual work</span></span>
+      <span class="hero__line"><span class="hero__word">with systems that run themselves.</span></span>
     </h1>
 
     <p class="hero__sub" data-hero="fade">
-      I'm Andy Gibran López Nambo, a Modern Workplace, Cloud &amp; Security engineer.
-      I replace manual setups with managed, protected and automated systems,
-      from the endpoint to the cloud.
+      I'm Andy Gibran López Nambo, an IT engineer. I moved a millwork company in
+      Arizona from a spreadsheet to a live job system, and cut device setup from
+      two days per PC to three PCs an hour.
     </p>
 
     <div class="hero__ctas" data-hero="fade">
-      <a href="#projects" class="btn-magnetic btn-primary">View projects</a>
-      <a href="#contact" class="btn-magnetic btn-outline">Contact</a>
+      <a href="#projects" class="btn-magnetic btn-primary">See the results</a>
+      <a href="#contact" class="btn-magnetic btn-outline">Work with me</a>
     </div>
 
     <p class="hero__cv" data-hero="fade">
@@ -76,66 +54,26 @@ const toolGroups = [
     </p>
   </div>
 
-  <!-- Product-style panel: the stack in production + the measured result -->
-  <figure class="panel" data-hero="rise">
-    <div class="panel__bar">
-      <span class="panel__title">Managed environment</span>
-      <span class="panel__status"><i aria-hidden="true"></i>Protected</span>
-    </div>
-
-    <div class="panel__body">
-      <ul class="panel__list">
-        {stack.map((row) => (
-          <li class="panel__row">
-            <div>
-              <span class="panel__name">{row.name}</span>
-              <span class="panel__role">{row.role}</span>
-            </div>
-            <span class="panel__state">{row.state}</span>
-          </li>
-        ))}
-      </ul>
-
-      <div class="panel__result">
-        <p class="panel__result-title">Time to deploy new PCs</p>
-
-        <div class="bar">
-          <div class="bar__label"><span>Before</span><b>~2 days per PC</b></div>
-          <div class="bar__track"><span class="bar__fill bar__fill--before"></span></div>
-        </div>
-        <div class="bar">
-          <div class="bar__label"><span>After</span><b>3 PCs in 1 hour</b></div>
-          <div class="bar__track"><span class="bar__fill bar__fill--after"></span></div>
-        </div>
-
-        <p class="panel__note">Real result from a manufacturing company fleet, 2025.</p>
-      </div>
-    </div>
-  </figure>
+  <ul class="proof" data-hero="rise" aria-label="Results">
+    {proof.map((p) => (
+      <li class="proof__item">
+        <span class="proof__value">{p.value}</span>
+        <span class="proof__label">{p.label}</span>
+        <span class="proof__client">{p.client}</span>
+      </li>
+    ))}
+  </ul>
 
   <div class="strip" data-hero="fade">
-    <p class="strip__title">Technologies I work with</p>
-    <div class="strip__groups">
-      {toolGroups.map((g) => (
-        <div class="strip__group">
-          <p class="strip__label">{g.label}</p>
-          <ul class="strip__list">
-            {g.items.map((t) => (
-              <li>
-                {t.wordmark ? (
-                  <span class="strip__wordmark" role="img" aria-label={t.name} set:html={logoSvg(t.logo)} />
-                ) : (
-                  <>
-                    <span class:list={['strip__icon', { 'strip__icon--color': t.color }]} aria-hidden="true" style={`--icon-scale:${t.scale ?? 1}`} set:html={logoSvg(t.logo)} />
-                    {t.name}
-                  </>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
+    <p class="strip__title">Built with</p>
+    <ul class="strip__row">
+      {tools.map((t) => (
+        <li>
+          <span class:list={['strip__icon', { 'strip__icon--color': t.color }]} aria-hidden="true" style={`--icon-scale:${t.scale ?? 1}`} set:html={logoSvg(t.logo)} />
+          {t.name}
+        </li>
       ))}
-    </div>
+    </ul>
   </div>
 </section>
 
@@ -149,15 +87,15 @@ const toolGroups = [
   }
 
   .hero__content {
-    max-width: 860px;
+    max-width: 980px;
     margin: 0 auto;
     text-align: center;
   }
 
   .hero__title {
-    font-size: clamp(2.75rem, 7.6vw, 5.5rem);
+    font-size: clamp(2.3rem, 5.6vw, 4rem);
     font-weight: 600;
-    line-height: 1.04;
+    line-height: 1.06;
     letter-spacing: -0.04em;
     color: var(--color-text);
   }
@@ -170,13 +108,10 @@ const toolGroups = [
     display: inline-block;
     text-wrap: balance;
   }
-  @media (max-width: 520px) {
-    .hero__title { font-size: 2.4rem; }
-  }
 
   .hero__sub {
     margin: 1.75rem auto 0;
-    max-width: 620px;
+    max-width: 640px;
     font-size: clamp(1.0625rem, 2vw, 1.3125rem);
     line-height: 1.5;
     color: var(--color-muted);
@@ -204,171 +139,77 @@ const toolGroups = [
   .hero__cv span[aria-hidden] { margin: 0 0.35rem; color: var(--color-soft); }
   .hero__cv-note { margin-left: 0.4rem; font-size: 0.75rem; color: var(--color-soft); }
 
-  /* ── Panel ── */
-  .panel {
-    max-width: 960px;
-    margin: clamp(3rem, 7vw, 5rem) auto 0;
-    background: var(--color-bg);
-    border: 1px solid var(--color-border);
-    border-radius: 20px;
-    box-shadow: 0 1px 2px rgba(18, 32, 43, 0.04), 0 30px 60px -30px rgba(18, 32, 43, 0.22);
-    overflow: hidden;
-  }
-  .panel__bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.85rem 1.4rem;
-    background: var(--color-surface);
-    border-bottom: 1px solid var(--color-border);
-  }
-  .panel__title {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--color-text);
-  }
-  .panel__status {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    font-size: 0.8125rem;
-    font-weight: 500;
-    color: var(--color-success);
-  }
-  .panel__status i {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--color-success);
-  }
-
-  .panel__body {
-    display: grid;
-    grid-template-columns: 1.15fr 1fr;
-  }
-
-  .panel__list { list-style: none; }
-  .panel__row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 1rem 1.4rem;
-    border-bottom: 1px solid var(--color-border);
-    text-align: left;
-  }
-  .panel__row:last-child { border-bottom: none; }
-  .panel__name {
-    display: block;
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: var(--color-text);
-    line-height: 1.3;
-  }
-  .panel__role {
-    display: block;
-    font-size: 0.8125rem;
-    color: var(--color-muted);
-  }
-  .panel__state {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--color-success);
-    background: rgba(19, 128, 93, 0.09);
-    padding: 0.25rem 0.65rem;
-    border-radius: 999px;
-    white-space: nowrap;
-  }
-
-  .panel__result {
-    padding: 1.5rem 1.6rem;
-    border-left: 1px solid var(--color-border);
-    background: var(--color-surface);
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1.25rem;
-  }
-  .panel__result-title {
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: var(--color-text);
-  }
-  .bar__label {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    font-size: 0.8125rem;
-    color: var(--color-muted);
-    margin-bottom: 0.4rem;
-  }
-  .bar__label b { color: var(--color-text); font-weight: 600; }
-  .bar__track {
-    height: 10px;
-    border-radius: 999px;
-    background: #E4E8EC;
-    overflow: hidden;
-  }
-  .bar__fill {
-    display: block;
-    height: 100%;
-    border-radius: 999px;
-    transform-origin: left;
-  }
-  .bar__fill--before { width: 100%; background: #B7C0C9; }
-  .bar__fill--after  { width: 6%;   background: var(--color-accent); }
-  .panel__note {
-    font-size: 0.75rem;
-    color: var(--color-soft);
-  }
-
-  /* ── Tools strip ── */
-  .strip {
+  /* ── Proof: three results, divided by hairlines instead of cards ── */
+  .proof {
+    list-style: none;
     max-width: var(--container);
     margin: clamp(3rem, 7vw, 5rem) auto 0;
-    padding-top: 2.25rem;
-    border-top: 1px solid var(--color-border);
-  }
-  .strip__title {
-    text-align: center;
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--color-muted);
-    margin-bottom: 1.75rem;
-  }
-  .strip__groups {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1.75rem 2rem;
-    text-align: left;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
   }
-  .strip__label {
-    font-size: 0.8125rem;
-    color: var(--color-soft);
-    margin-bottom: 0.6rem;
-  }
-  .strip__list {
-    list-style: none;
+  .proof__item {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    padding: 2rem 2rem 2rem 0;
   }
-  .strip__list li {
+  .proof__item + .proof__item {
+    padding-left: 2rem;
+    border-left: 1px solid var(--color-border);
+  }
+  .proof__value {
+    font-size: clamp(2.75rem, 5.5vw, 4rem);
+    font-weight: 600;
+    letter-spacing: -0.045em;
+    line-height: 1;
+    color: var(--color-accent);
+  }
+  .proof__label {
+    margin-top: 0.75rem;
+    font-size: 1.0625rem;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--color-text);
+    max-width: 22ch;
+  }
+  .proof__client {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--color-muted);
+  }
+
+  /* ── Tools: a short row, not a catalogue ── */
+  .strip {
+    max-width: var(--container);
+    margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+    text-align: center;
+  }
+  .strip__title {
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+    margin-bottom: 1.25rem;
+  }
+  .strip__row {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem 2.25rem;
+  }
+  .strip__row li {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    font-size: 1.125rem;
+    gap: 0.6rem;
+    font-size: 1.0625rem;
     font-weight: 600;
     letter-spacing: -0.015em;
-    line-height: 1.3;
     color: var(--color-text);
   }
   .strip__icon {
     flex: none;
-    width: 1.875rem;
-    height: 1.875rem;
+    width: 1.6rem;
+    height: 1.6rem;
     color: var(--color-soft);
   }
   .strip__icon :global(svg) {
@@ -378,35 +219,21 @@ const toolGroups = [
     fill: currentColor;
     transform: scale(var(--icon-scale, 1));
   }
-  /* Wordmark-only logos (no symbol): the logo takes the place of the name */
-  .strip__wordmark {
-    display: block;
-    height: 1.2rem;
-    color: var(--color-muted);
-  }
-  .strip__wordmark :global(svg) {
-    display: block;
-    height: 100%;
-    width: auto;
-  }
-  .strip__wordmark :global(path) {
-    fill: currentColor;
-  }
   /* Multi-color source icons: flatten to the same grey as the single-color ones */
   .strip__icon--color :global(svg) {
     filter: grayscale(1);
     opacity: 0.6;
   }
-  @media (max-width: 760px) {
-    .strip__groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
 
   @media (max-width: 760px) {
-    .panel__body { grid-template-columns: 1fr; }
-    .panel__result {
+    .proof { grid-template-columns: 1fr; }
+    .proof__item,
+    .proof__item + .proof__item {
+      padding: 1.5rem 0;
       border-left: none;
-      border-top: 1px solid var(--color-border);
     }
+    .proof__item + .proof__item { border-top: 1px solid var(--color-border); }
+    .proof__label { max-width: none; }
   }
 </style>
 
@@ -423,20 +250,17 @@ const toolGroups = [
 
     const words = hero.querySelectorAll('.hero__word');
     const fades = hero.querySelectorAll('[data-hero="fade"]');
-    const panel = hero.querySelector('[data-hero="rise"]');
-    const afterFill = hero.querySelector('.bar__fill--after');
+    const proof = hero.querySelector('[data-hero="rise"]');
 
     gsap.set(words, { yPercent: 110 });
     gsap.set(fades, { opacity: 0, y: 10 });
-    gsap.set(panel, { opacity: 0, y: 40 });
-    gsap.set(afterFill, { scaleX: 0 });
+    gsap.set(proof, { opacity: 0, y: 30 });
 
-    // One orchestrated entrance: headline → copy → panel → the result bar fills.
+    // One orchestrated entrance: headline → copy → results.
     gsap.timeline({ defaults: { ease: 'power3.out' } })
       .to(words, { yPercent: 0, duration: 0.9, stagger: 0.12 }, 0.1)
       .to(fades, { opacity: 1, y: 0, duration: 0.7, stagger: 0.1 }, 0.55)
-      .to(panel, { opacity: 1, y: 0, duration: 0.9 }, 0.8)
-      .to(afterFill, { scaleX: 1, duration: 0.8, ease: 'power2.out' }, 1.5);
+      .to(proof, { opacity: 1, y: 0, duration: 0.9 }, 0.8);
   }
 
   const boot = () => requestAnimationFrame(() => requestAnimationFrame(initHero));

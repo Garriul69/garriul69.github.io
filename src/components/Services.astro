@@ -1,34 +1,22 @@
 ---
 const services = [
   {
-    title: 'Endpoint management',
-    lead: 'Every device enrolled, configured and compliant from day one.',
-    body: 'Zero-touch provisioning with Windows Autopilot and Intune, central control through Entra ID, and automated patching.',
-    tools: ['Intune', 'Autopilot', 'Entra ID', 'Action1'],
+    title: 'Replace spreadsheets with a system',
+    lead: 'Custom apps and automations connected to the tools you already use.',
+    body: 'Web apps, email alerts and integrations with QuickBooks, Microsoft 365 and SharePoint, so work moves without someone copying data by hand.',
+    proof: 'At JC Millwork, 303 jobs run in one live system. Estimates go to QuickBooks, and a job updates itself when the client accepts.',
   },
   {
-    title: 'Identity & access',
-    lead: 'Sign-in you can trust.',
-    body: 'Identity hardening and MFA across the organization, so access follows the person and not the machine.',
-    tools: ['Entra ID', 'MFA'],
+    title: 'Set up and manage your devices',
+    lead: 'Every computer enrolled, configured and kept up to date.',
+    body: 'Zero-touch setup with Intune and Autopilot, policies that keep company data safe, and patching that runs every day on its own.',
+    proof: 'At Harinas Guadalupe, setup went from about 2 days per PC to 3 PCs in an hour, and 110 devices are patched daily.',
   },
   {
-    title: 'Security & compliance',
-    lead: 'Next-gen protection instead of legacy antivirus.',
-    body: 'EDR migration to CrowdStrike Falcon, data labeling with Microsoft Purview, and hardening of IoT devices, web apps and servers.',
-    tools: ['CrowdStrike Falcon', 'Purview', 'Hardening'],
-  },
-  {
-    title: 'Cloud collaboration',
-    lead: 'One secure ecosystem for mail and files.',
-    body: 'Company email moved from Google Workspace to Microsoft 365, working alongside OneDrive and SharePoint.',
-    tools: ['Microsoft 365', 'Outlook', 'OneDrive', 'SharePoint'],
-  },
-  {
-    title: 'Automation & documentation',
-    lead: 'Repeatable by design, and written down.',
-    body: 'Deployments, patching and business processes automated, with runbooks and onboarding kept as Markdown in GitHub.',
-    tools: ['PowerShell', 'Python', 'n8n', 'GitHub'],
+    title: 'Close security gaps early',
+    lead: 'Protection that finds problems before they cost you.',
+    body: 'Next-generation endpoint protection, fixes for known vulnerabilities, and hardening for devices, servers and websites.',
+    proof: '105 devices moved to CrowdStrike Falcon, and a remote-code-execution flaw on IP cameras was closed.',
   },
 ];
 ---
@@ -36,9 +24,9 @@ const services = [
 <section id="services" class="section section--soft" aria-labelledby="services-title">
   <div class="section__inner">
     <header class="section__head">
-      <h2 id="services-title" class="section__title">What I take care of.</h2>
+      <h2 id="services-title" class="section__title">How I can help.</h2>
       <p class="section__lead">
-        Five areas that keep a growing company's technology secure, manageable and documented.
+        Three things I do, each with a result behind it.
       </p>
     </header>
 
@@ -50,12 +38,14 @@ const services = [
             <p class="svc__lead">{s.lead}</p>
             <p class="svc__body">{s.body}</p>
           </div>
-          <ul class="svc__tools" aria-label={`${s.title} tools`}>
-            {s.tools.map((t) => <li>{t}</li>)}
-          </ul>
+          <p class="svc__proof">{s.proof}</p>
         </li>
       ))}
     </ul>
+
+    <p class="svc__cta">
+      <a href="#contact" class="btn-magnetic btn-primary">Talk about your project</a>
+    </p>
   </div>
 </section>
 
@@ -66,7 +56,7 @@ const services = [
   }
   .svc__row {
     display: grid;
-    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr) minmax(0, 0.8fr);
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.3fr) minmax(0, 1fr);
     gap: 1.5rem 3rem;
     padding: 2.25rem 0;
     border-bottom: 1px solid var(--color-border);
@@ -93,26 +83,20 @@ const services = [
     font-size: 1rem;
     color: var(--color-muted);
   }
-
-  .svc__tools {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    justify-content: flex-end;
-  }
-  .svc__tools li {
-    font-size: 0.8125rem;
-    font-weight: 500;
+  .svc__proof {
+    font-size: 0.9375rem;
+    line-height: 1.5;
     color: var(--color-text);
-    background: var(--color-bg);
-    border: 1px solid var(--color-border);
-    border-radius: 999px;
-    padding: 0.3rem 0.75rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--color-accent);
+  }
+
+  .svc__cta {
+    margin-top: 2.5rem;
+    text-align: center;
   }
 
   @media (max-width: 900px) {
     .svc__row { grid-template-columns: 1fr; gap: 0.9rem; padding: 1.75rem 0; }
-    .svc__tools { justify-content: flex-start; }
   }
 </style>
