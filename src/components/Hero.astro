@@ -17,13 +17,34 @@ const logoFiles = import.meta.glob('/src/assets/logos/*.svg', {
 const logoSvg = (key?: string) => (key ? logoFiles[`/src/assets/logos/${key}.svg`] ?? '' : '');
 
 // `color`: multi-color source icon, flattened to grey. `scale`: optical size correction.
-const tools = [
-  { name: 'Microsoft 365',      logo: 'microsoft-365', color: true },
-  { name: 'Intune',             logo: 'intune', color: true },
-  { name: 'QuickBooks',         logo: 'quickbooks', scale: 0.95 },
-  { name: 'CrowdStrike Falcon', logo: 'crowdstrike-falcon', scale: 1.1 },
-  { name: 'Python',             logo: 'python' },
-  { name: 'Vercel',             logo: 'vercel', scale: 0.85 },
+const toolGroups = [
+  { label: 'Microsoft 365', items: [
+    { name: 'Microsoft 365', logo: 'microsoft-365', color: true },
+    { name: 'SharePoint', logo: 'sharepoint' },
+    { name: 'OneDrive', logo: 'onedrive' },
+    { name: 'Outlook', logo: 'outlook' },
+  ] },
+  { label: 'Identity and security', items: [
+    { name: 'Entra ID', logo: 'entra-id', scale: 0.95 },
+    { name: 'Intune', logo: 'intune', color: true },
+    { name: 'Purview', logo: 'purview', color: true },
+    { name: 'CrowdStrike Falcon', logo: 'crowdstrike-falcon', scale: 1.1 },
+    { name: 'Action1', logo: 'action1', wordmark: true },
+  ] },
+  { label: 'Automation', items: [
+    { name: 'Power Automate', logo: 'power-automate', scale: 0.95 },
+    { name: 'Power Apps', logo: 'power-apps' },
+    { name: 'n8n', logo: 'n8n', scale: 1.1 },
+    { name: 'Make', logo: 'make' },
+    { name: 'PowerShell', logo: 'powershell' },
+    { name: 'Python', logo: 'python' },
+  ] },
+  { label: 'Cloud and business apps', items: [
+    { name: 'Google Workspace', logo: 'google' },
+    { name: 'Cloudflare', logo: 'cloudflare' },
+    { name: 'Vercel', logo: 'vercel', scale: 0.85 },
+    { name: 'QuickBooks', logo: 'quickbooks', scale: 0.95 },
+  ] },
 ];
 ---
 
@@ -65,15 +86,28 @@ const tools = [
   </ul>
 
   <div class="strip" data-hero="fade">
-    <p class="strip__title">Built with</p>
-    <ul class="strip__row">
-      {tools.map((t) => (
-        <li>
-          <span class:list={['strip__icon', { 'strip__icon--color': t.color }]} aria-hidden="true" style={`--icon-scale:${t.scale ?? 1}`} set:html={logoSvg(t.logo)} />
-          {t.name}
-        </li>
+    <p class="strip__title">Technologies I work with</p>
+    <div class="strip__groups">
+      {toolGroups.map((g) => (
+        <div class="strip__group">
+          <p class="strip__label">{g.label}</p>
+          <ul class="strip__list">
+            {g.items.map((t) => (
+              <li>
+                {t.wordmark ? (
+                  <span class="strip__wordmark" role="img" aria-label={t.name} set:html={logoSvg(t.logo)} />
+                ) : (
+                  <>
+                    <span class:list={['strip__icon', { 'strip__icon--color': t.color }]} aria-hidden="true" style={`--icon-scale:${t.scale ?? 1}`} set:html={logoSvg(t.logo)} />
+                    {t.name}
+                  </>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
       ))}
-    </ul>
+    </div>
   </div>
 </section>
 
@@ -179,38 +213,66 @@ const tools = [
     color: var(--color-muted);
   }
 
-  /* ── Tools: a short row, not a catalogue ── */
+  /* ── Technologies, grouped ── */
   .strip {
     max-width: var(--container);
-    margin: clamp(2.5rem, 6vw, 4rem) auto 0;
-    text-align: center;
+    margin: clamp(3rem, 7vw, 5rem) auto 0;
+    padding-top: 2.25rem;
+    border-top: 1px solid var(--color-border);
   }
   .strip__title {
-    font-size: 0.9375rem;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
     color: var(--color-muted);
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.75rem;
   }
-  .strip__row {
+  .strip__groups {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.75rem 2rem;
+    text-align: left;
+  }
+  .strip__label {
+    font-size: 0.8125rem;
+    color: var(--color-soft);
+    margin-bottom: 0.6rem;
+  }
+  .strip__list {
     list-style: none;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem 2.25rem;
+    flex-direction: column;
+    gap: 0.6rem;
   }
-  .strip__row li {
+  .strip__list li {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-    font-size: 1.0625rem;
+    gap: 0.75rem;
+    font-size: 1.125rem;
     font-weight: 600;
     letter-spacing: -0.015em;
+    line-height: 1.3;
     color: var(--color-text);
   }
   .strip__icon {
     flex: none;
-    width: 1.6rem;
-    height: 1.6rem;
+    width: 1.875rem;
+    height: 1.875rem;
     color: var(--color-soft);
+  }
+  /* Wordmark-only logos (no symbol): the logo takes the place of the name */
+  .strip__wordmark {
+    display: block;
+    height: 1.2rem;
+    color: var(--color-muted);
+  }
+  .strip__wordmark :global(svg) {
+    display: block;
+    height: 100%;
+    width: auto;
+  }
+  .strip__wordmark :global(path) {
+    fill: currentColor;
   }
   .strip__icon :global(svg) {
     display: block;
@@ -226,6 +288,7 @@ const tools = [
   }
 
   @media (max-width: 760px) {
+    .strip__groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .proof { grid-template-columns: 1fr; }
     .proof__item,
     .proof__item + .proof__item {
