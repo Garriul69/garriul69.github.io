@@ -1,32 +1,51 @@
 ---
+const featured = {
+  client: 'JC Millwork · Phoenix, AZ',
+  title: 'From a spreadsheet to a live job system',
+  problem: 'Jobs were tracked in a spreadsheet, and the company website on Wix couldn’t support anything more.',
+  solution: 'Rebuilt the website with Astro and built a web app with a live view, email alerts and a QuickBooks connection. Estimates go to QuickBooks from the app, and a job’s status updates by itself when the client accepts.',
+  results: [
+    { value: '303', label: 'jobs managed in one place' },
+    { value: '248', label: 'jobs linked to a QuickBooks estimate' },
+  ],
+  tools: ['QuickBooks', 'SharePoint', 'Supabase', 'Astro'],
+  image: '/projects/jc-millwork-site.webp',
+  imageAlt: 'Home page of the JC Millwork website: a dark hero with the headline “Precision. Crafted by hand.” and an animated kitchen floor plan.',
+  link: { href: 'https://jcmillworkaz.com', label: 'Visit jcmillworkaz.com' },
+};
+
 const projects = [
   {
+    client: 'JC Millwork',
+    title: 'Labor cost per job',
+    problem: 'Nobody could see what each job cost in labor, or check what was paid against hours worked.',
+    solution: 'Calculated labor cost per job from QuickBooks and audited hours against payments, with rates tracked by date.',
+    result: 'Hours checked against payments, job by job',
+    tools: ['QuickBooks', 'Python'],
+  },
+  {
+    client: 'Harinas Guadalupe',
     title: 'Zero-touch device fleet',
-    problem: 'Machines were configured by hand, taking about two days per PC with no central device management.',
-    solution: 'Standardized the whole fleet and layered Entra ID, Intune and Windows Autopilot on top.',
+    problem: 'Machines were configured by hand, about two days per PC, with no central device management.',
+    solution: 'Standardized 110 devices with Entra ID, Intune and Windows Autopilot.',
     result: '3 PCs ready in 1 hour',
-    tools: ['Entra ID', 'Intune', 'Autopilot', 'PowerShell'],
+    tools: ['Intune', 'Autopilot', 'Entra ID'],
   },
   {
-    title: 'Endpoint protection upgrade',
-    problem: 'Legacy antivirus, vulnerable IoT cameras, a web app with SQL injection and no data classification.',
-    solution: 'Migrated to CrowdStrike Falcon, labeled data with Purview, patched firmware and hardened the web servers.',
-    result: 'Next-gen EDR in place and vulnerabilities closed',
-    tools: ['CrowdStrike Falcon', 'Purview', 'Hardening'],
+    client: 'Harinas Guadalupe',
+    title: 'Endpoint protection and cameras',
+    problem: 'Legacy antivirus, and Hikvision cameras with a remote-code-execution flaw that exposed passwords in plain text.',
+    solution: 'Moved to CrowdStrike Falcon and updated the cameras’ firmware.',
+    result: '105 devices on next-gen EDR, camera flaw closed',
+    tools: ['CrowdStrike Falcon', 'Hardening'],
   },
   {
-    title: 'Email migration to Microsoft 365',
-    problem: 'Company email lived in Google Workspace.',
-    solution: 'Migrated the mail from Google Workspace to Microsoft 365 for JC Millwork.',
-    result: 'Company email running on Microsoft 365',
-    tools: ['Google Workspace', 'Microsoft 365'],
-  },
-  {
-    title: 'Corporate website',
-    problem: 'A legacy HTML/CSS/JS site on Telmex hosting.',
-    solution: 'Rebuilt it with Astro, Tailwind and GSAP, with CI/CD from GitHub and Cloudflare in front.',
-    result: 'Lower cost, higher availability, better SEO',
-    tools: ['Astro', 'Tailwind', 'GitHub', 'Cloudflare'],
+    client: 'Harinas Guadalupe',
+    title: 'Patching and attendance on autopilot',
+    problem: 'Patches, software inventory and employee attendance were handled by hand.',
+    solution: 'Automated daily patching and inventory for 110 devices, and sent attendance hours to payroll every pay period.',
+    result: 'Patching and attendance run on their own',
+    tools: ['Action1', 'PowerShell', 'n8n'],
   },
 ];
 ---
@@ -36,13 +55,50 @@ const projects = [
     <header class="section__head">
       <h2 id="projects-title" class="section__title">Work that shipped.</h2>
       <p class="section__lead">
-        Four projects from two companies, each from problem to result.
+        What was broken, what I did, and what changed.
       </p>
     </header>
+
+    <article class="pf">
+      <div class="pf__media">
+        <img src={featured.image} alt={featured.imageAlt} width="1440" height="900" loading="lazy" decoding="async" />
+      </div>
+      <div class="pf__body">
+        <p class="pf__client">{featured.client}</p>
+        <h3 class="pf__title">{featured.title}</h3>
+
+        <dl class="pj__defs">
+          <div>
+            <dt>Problem</dt>
+            <dd>{featured.problem}</dd>
+          </div>
+          <div>
+            <dt>Solution</dt>
+            <dd>{featured.solution}</dd>
+          </div>
+        </dl>
+
+        <ul class="pf__results">
+          {featured.results.map((r) => (
+            <li>
+              <b>{r.value}</b>
+              <span>{r.label}</span>
+            </li>
+          ))}
+        </ul>
+
+        <ul class="pj__tools" aria-label="Tools used">
+          {featured.tools.map((t) => <li>{t}</li>)}
+        </ul>
+
+        <a class="link-more pf__link" href={featured.link.href} target="_blank" rel="noopener noreferrer">{featured.link.label}</a>
+      </div>
+    </article>
 
     <div class="pj">
       {projects.map((p) => (
         <article class="pj__card">
+          <p class="pf__client">{p.client}</p>
           <h3 class="pj__title">{p.title}</h3>
 
           <dl class="pj__defs">
@@ -71,6 +127,73 @@ const projects = [
 </section>
 
 <style>
+  /* Featured case */
+  .pf {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+  }
+  .pf__media {
+    background: #0c0b09;
+    display: flex;
+    align-items: center;
+  }
+  .pf__media img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .pf__body {
+    padding: 2rem 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .pf__client {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 0.35rem;
+  }
+  .pf__title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: var(--color-text);
+    margin-bottom: 1.25rem;
+  }
+  .pf__results {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem 2rem;
+    margin-top: 1.5rem;
+    padding: 1rem 1.15rem;
+    border-radius: 12px;
+    background: rgba(11, 95, 107, 0.07);
+  }
+  .pf__results li { display: flex; flex-direction: column; }
+  .pf__results b {
+    font-size: 2.25rem;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--color-text);
+  }
+  .pf__results span {
+    margin-top: 0.3rem;
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+    max-width: 14ch;
+  }
+  .pf__link { margin-top: 1.25rem; align-self: flex-start; }
+
+  /* Case cards */
   .pj {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -149,8 +272,11 @@ const projects = [
     border-radius: 999px;
     padding: 0.3rem 0.75rem;
   }
+  .pf__body .pj__tools { margin-top: 1.25rem; padding-top: 0; }
 
   @media (max-width: 860px) {
+    .pf { grid-template-columns: 1fr; }
+    .pf__body { padding: 1.5rem 1.35rem; }
     .pj { grid-template-columns: 1fr; }
     .pj__card { padding: 1.5rem 1.35rem; }
   }
